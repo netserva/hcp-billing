@@ -1,11 +1,15 @@
-<?php
-	$msg = isset($_GET['msg']) ? $_GET['msg'] : '';
-	if (!$msg) $msg = "Le site du spipu\r\nhttp://spipu.net/";
+<?php declare(strict_types=1);
+$msg = $_GET['msg'] ?? '';
+    if (!$msg) {
+        $msg = "Le site du spipu\r\nhttp://spipu.net/";
+    }
 
-	$err = isset($_GET['err']) ? $_GET['err'] : '';
-	if (!in_array($err, array('L', 'M', 'Q', 'H'))) $err = 'L';
+    $err = $_GET['err'] ?? '';
+    if (!in_array($err, ['L', 'M', 'Q', 'H'])) {
+        $err = 'L';
+    }
 
-	require_once('qrcode.class.php');
+    require_once 'qrcode.class.php';
 ?>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -47,18 +51,18 @@ table.qr td.on
 				<textarea name="msg" cols="40" rows="7"><?php echo htmlentities($msg); ?></textarea><br>
 				Correction d'erreur : 
 				<select name="err">
-					<option value="L" <?php echo $err=='L' ? 'selected' : ''; ?>>L</option>
-					<option value="M" <?php echo $err=='M' ? 'selected' : ''; ?>>M</option>
-					<option value="Q" <?php echo $err=='Q' ? 'selected' : ''; ?>>Q</option>
-					<option value="H" <?php echo $err=='H' ? 'selected' : ''; ?>>H</option>
+					<option value="L" <?php echo 'L' == $err ? 'selected' : ''; ?>>L</option>
+					<option value="M" <?php echo 'M' == $err ? 'selected' : ''; ?>>M</option>
+					<option value="Q" <?php echo 'Q' == $err ? 'selected' : ''; ?>>Q</option>
+					<option value="H" <?php echo 'H' == $err ? 'selected' : ''; ?>>H</option>
 				</select> | 
 				<input type="submit" value="Afficher">
 			</form>
 			<hr>
 			Génération d'un tableau HTML :<br> 
 <?php
-	$qrcode = new QRcode(utf8_encode($msg), $err);
-	$qrcode->displayHTML();
+    $qrcode = new QRcode(utf8_encode($msg), $err);
+    $qrcode->displayHTML();
 ?>
 			<br>
 			Génération d'une image PNG : <br>

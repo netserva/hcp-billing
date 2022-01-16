@@ -1,6 +1,6 @@
 <?php
 
-
+declare(strict_types=1);
 
 $family = 'khmeros';
 //////////////////////////////////
@@ -10,51 +10,59 @@ $style = '';	// '','B','I','BI'; // At present only works for Regular style
 
 $script = '';
 $lang = '';
-if (isset($_REQUEST['script'])) { $script = $_REQUEST['script']; }
-if (isset($_REQUEST['lang'])) { $lang = $_REQUEST['lang']; }
+if (isset($_REQUEST['script'])) {
+    $script = $_REQUEST['script'];
+}
+if (isset($_REQUEST['lang'])) {
+    $lang = $_REQUEST['lang'];
+}
 
-if ($script && strlen($script )<4) { $script = str_pad($script , 4, ' '); }
-if ($lang && strlen($lang)<4) { $lang = str_pad($lang, 4, ' '); }
+if ($script && strlen($script) < 4) {
+    $script = str_pad($script, 4, ' ');
+}
+if ($lang && strlen($lang) < 4) {
+    $lang = str_pad($lang, 4, ' ');
+}
 
 //////////////////////////////////
 //////////////////////////////////
 //////////////////////////////////
 
 set_time_limit(1200);
-ini_set("memory_limit","512M");
+ini_set('memory_limit', '512M');
 
 //==============================================================
 $overrideTTFFontRestriction = true;
 //==============================================================
-include("../mpdf.php");
+include '../mpdf.php';
 
-$mpdf=new mPDF('');
+$mpdf = new mPDF('');
 
 $mpdf->simpleTables = true;
 
 //==============================================================
 // This generates a .mtx.php file if not already generated
-$mpdf->SetFont($family,$style);
+$mpdf->SetFont($family, $style);
 //==============================================================
 //==============================================================
 //==============================================================
 //==============================================================
-$ff = array();
+$ff = [];
 $ffs = '';
 if ($lang && $script) {
-	$GSUBFeatures = $mpdf->CurrentFont['GSUBFeatures'][$script][$lang];
-	if (is_array($GSUBFeatures)) {
-		foreach($GSUBFeatures AS $tag=>$v) {
-			$ff[] = '"'.$tag.'" 0';
-		}
-	}
-	$GPOSFeatures = $mpdf->CurrentFont['GPOSFeatures'][$script][$lang];
-	if (is_array($GPOSFeatures )) {
-		foreach($GPOSFeatures AS $tag=>$v) {
-			$ff[] = '"'.$tag.'" 0';
-		}
-	}
-	$ffs = implode(', ',$ff);
+    $GSUBFeatures = $mpdf->CurrentFont['GSUBFeatures'][$script][$lang];
+    if (is_array($GSUBFeatures)) {
+        foreach ($GSUBFeatures as $tag => $v) {
+            $ff[] = '"'.$tag.'" 0';
+        }
+    }
+    $GPOSFeatures = $mpdf->CurrentFont['GPOSFeatures'][$script][$lang];
+    if (is_array($GPOSFeatures)) {
+        foreach ($GPOSFeatures as $tag => $v) {
+            $ff[] = '"'.$tag.'" 0';
+        }
+    }
+    $ffs = implode(', ', $ff);
 }
 //==============================================================
 
@@ -149,53 +157,65 @@ div.level2 {
 ';
 
 if ($lang && $script) {
-	$html .= '<h2 style="text-align:center;">'.$script.' '.$lang.'</h2>';
+    $html .= '<h2 style="text-align:center;">'.$script.' '.$lang.'</h2>';
 }
 $mpdf->WriteHTML($html);
 //==============================================================
 //==============================================================
 //==============================================================
 //==============================================================
-	$mpdf->debugfonts = false;
+    $mpdf->debugfonts = false;
 
-	$family = strtolower($family);
-	$style=strtoupper($style);
-	if($style=='IB') $style='BI';
-	$fontkey = $family.$style;
-	$stylekey = $style;
-	if (!$style) { $stylekey = 'R'; }
+    $family = strtolower($family);
+    $style = strtoupper($style);
+    if ('IB' == $style) {
+        $style = 'BI';
+    }
+    $fontkey = $family.$style;
+    $stylekey = $style;
+    if (!$style) {
+        $stylekey = 'R';
+    }
 
 //==============================================================
 $mpdf->overrideOTLsettings[$fontkey]['script'] = $script;
 $mpdf->overrideOTLsettings[$fontkey]['lang'] = $lang;
 //==============================================================
 
+    //include(_MPDF_TTFONTDATAPATH.$fontkey.'.mtx.php');
 
-	//include(_MPDF_TTFONTDATAPATH.$fontkey.'.mtx.php');
+    $ttffile = '';
+    if (defined('_MPDF_SYSTEM_TTFONTS')) {
+        $ttffile = _MPDF_SYSTEM_TTFONTS.$mpdf->fontdata[$family][$stylekey];
+        if (!file_exists($ttffile)) {
+            $ttffile = '';
+        }
+    }
+    if (!$ttffile) {
+        $ttffile = _MPDF_TTFONTPATH.$mpdf->fontdata[$family][$stylekey];
+        if (!file_exists($ttffile)) {
+            exit('mPDF Error - cannot find TTF TrueType font file - '.$ttffile);
+        }
+    }
+    $ttfstat = stat($ttffile);
 
-	$ttffile = '';
-	if (defined('_MPDF_SYSTEM_TTFONTS')) {
-		$ttffile = _MPDF_SYSTEM_TTFONTS.$mpdf->fontdata[$family][$stylekey];
-		if (!file_exists($ttffile)) { $ttffile = ''; }
-	}
-	if (!$ttffile) {
-		$ttffile = _MPDF_TTFONTPATH.$mpdf->fontdata[$family][$stylekey];
-		if (!file_exists($ttffile)) { die("mPDF Error - cannot find TTF TrueType font file - ".$ttffile); }
-	}
-	$ttfstat = stat($ttffile);
+    if (isset($mpdf->fontdata[$family]['TTCfontID'][$stylekey])) {
+        $TTCfontID = $mpdf->fontdata[$family]['TTCfontID'][$stylekey];
+    } else {
+        $TTCfontID = 0;
+    }
 
-	if (isset($mpdf->fontdata[$family]['TTCfontID'][$stylekey])) { $TTCfontID = $mpdf->fontdata[$family]['TTCfontID'][$stylekey]; }
-	else { $TTCfontID = 0; }
+    $BMPonly = false;
+    if (in_array($family, $mpdf->BMPonly)) {
+        $BMPonly = true;
+    }
+    $useOTL = $mpdf->fontdata[$family]['useOTL'];
 
+    include _MPDF_PATH.'classes/otl_dump.php';
+    $ttf = new OTLdump($mpdf);
 
-	$BMPonly = false;
-	if (in_array($family,$mpdf->BMPonly)) { $BMPonly = true; }
-	$useOTL = $mpdf->fontdata[$family]['useOTL'];
-	include(_MPDF_PATH .'classes/otl_dump.php');
-	$ttf = new OTLdump($mpdf);
-
-	$mpdf->OTLscript = $script;
-	$mpdf->OTLlang = $lang;
+    $mpdf->OTLscript = $script;
+    $mpdf->OTLlang = $lang;
 
 //==============================================================
 //==============================================================
@@ -203,20 +223,16 @@ $mpdf->overrideOTLsettings[$fontkey]['lang'] = $lang;
 //==============================================================
 //==============================================================
 //==============================================================
-if($lang && $script) {
-
-	$ttf->getMetrics($ttffile, $fontkey, $TTCfontID, $mpdf->debugfonts, $BMPonly, true, $useOTL, 'detail');
+if ($lang && $script) {
+    $ttf->getMetrics($ttffile, $fontkey, $TTCfontID, $mpdf->debugfonts, $BMPonly, true, $useOTL, 'detail');
 }
 //==============================================================
 //==============================================================
 //==============================================================
 //==============================================================
 else {	// IF lang and script not defined
-
-	$ttf->getMetrics($ttffile, $fontkey, $TTCfontID, $mpdf->debugfonts, $BMPonly, true, $useOTL, 'summary');
-
+    $ttf->getMetrics($ttffile, $fontkey, $TTCfontID, $mpdf->debugfonts, $BMPonly, true, $useOTL, 'summary');
 }
-
 
 //==============================================================
 //==============================================================
@@ -226,6 +242,7 @@ else {	// IF lang and script not defined
 //==============================================================
 
 $mpdf->Output();
+
 exit;
 
 //==============================================================
