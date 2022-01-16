@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 function ausValidateIntegerValue($number, $min_value = 1, $max_value = 999999999)
 {
     $result = false;
