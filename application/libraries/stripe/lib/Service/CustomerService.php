@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 // File generated from our OpenAPI spec
 
 namespace Stripe\Service;
@@ -10,7 +12,7 @@ class CustomerService extends \Stripe\Service\AbstractService
      * Returns a list of your customers. The customers are returned sorted by creation
      * date, with the most recent customers appearing first.
      *
-     * @param null|array $params
+     * @param null|array                             $params
      * @param null|array|\Stripe\Util\RequestOptions $opts
      *
      * @throws \Stripe\Exception\ApiErrorException if the request fails
@@ -26,8 +28,8 @@ class CustomerService extends \Stripe\Service\AbstractService
      * Returns a list of transactions that updated the customer’s <a
      * href="/docs/api/customers/object#customer_object-balance"><code>balance</code></a>.
      *
-     * @param string $parentId
-     * @param null|array $params
+     * @param string                                 $parentId
+     * @param null|array                             $params
      * @param null|array|\Stripe\Util\RequestOptions $opts
      *
      * @throws \Stripe\Exception\ApiErrorException if the request fails
@@ -42,8 +44,8 @@ class CustomerService extends \Stripe\Service\AbstractService
     /**
      * List sources for a specified customer.
      *
-     * @param string $parentId
-     * @param null|array $params
+     * @param string                                 $parentId
+     * @param null|array                             $params
      * @param null|array|\Stripe\Util\RequestOptions $opts
      *
      * @throws \Stripe\Exception\ApiErrorException if the request fails
@@ -58,8 +60,8 @@ class CustomerService extends \Stripe\Service\AbstractService
     /**
      * Returns a list of tax IDs for a customer.
      *
-     * @param string $parentId
-     * @param null|array $params
+     * @param string                                 $parentId
+     * @param null|array                             $params
      * @param null|array|\Stripe\Util\RequestOptions $opts
      *
      * @throws \Stripe\Exception\ApiErrorException if the request fails
@@ -74,7 +76,7 @@ class CustomerService extends \Stripe\Service\AbstractService
     /**
      * Creates a new customer object.
      *
-     * @param null|array $params
+     * @param null|array                             $params
      * @param null|array|\Stripe\Util\RequestOptions $opts
      *
      * @throws \Stripe\Exception\ApiErrorException if the request fails
@@ -90,8 +92,8 @@ class CustomerService extends \Stripe\Service\AbstractService
      * Creates an immutable transaction that updates the customer’s <a
      * href="/docs/api/customers/object#customer_object-balance"><code>balance</code></a>.
      *
-     * @param string $parentId
-     * @param null|array $params
+     * @param string                                 $parentId
+     * @param null|array                             $params
      * @param null|array|\Stripe\Util\RequestOptions $opts
      *
      * @throws \Stripe\Exception\ApiErrorException if the request fails
@@ -112,8 +114,8 @@ class CustomerService extends \Stripe\Service\AbstractService
      * To change the default, you should <a href="/docs/api#update_customer">update the
      * customer</a> to have a new <code>default_source</code>.
      *
-     * @param string $parentId
-     * @param null|array $params
+     * @param string                                 $parentId
+     * @param null|array                             $params
      * @param null|array|\Stripe\Util\RequestOptions $opts
      *
      * @throws \Stripe\Exception\ApiErrorException if the request fails
@@ -128,8 +130,8 @@ class CustomerService extends \Stripe\Service\AbstractService
     /**
      * Creates a new <code>TaxID</code> object for a customer.
      *
-     * @param string $parentId
-     * @param null|array $params
+     * @param string                                 $parentId
+     * @param null|array                             $params
      * @param null|array|\Stripe\Util\RequestOptions $opts
      *
      * @throws \Stripe\Exception\ApiErrorException if the request fails
@@ -145,8 +147,8 @@ class CustomerService extends \Stripe\Service\AbstractService
      * Permanently deletes a customer. It cannot be undone. Also immediately cancels
      * any active subscriptions on the customer.
      *
-     * @param string $id
-     * @param null|array $params
+     * @param string                                 $id
+     * @param null|array                             $params
      * @param null|array|\Stripe\Util\RequestOptions $opts
      *
      * @throws \Stripe\Exception\ApiErrorException if the request fails
@@ -161,8 +163,8 @@ class CustomerService extends \Stripe\Service\AbstractService
     /**
      * Removes the currently applied discount on a customer.
      *
-     * @param string $id
-     * @param null|array $params
+     * @param string                                 $id
+     * @param null|array                             $params
      * @param null|array|\Stripe\Util\RequestOptions $opts
      *
      * @throws \Stripe\Exception\ApiErrorException if the request fails
@@ -175,9 +177,9 @@ class CustomerService extends \Stripe\Service\AbstractService
     }
 
     /**
-     * @param string $parentId
-     * @param string $id
-     * @param null|array $params
+     * @param string                                 $parentId
+     * @param string                                 $id
+     * @param null|array                             $params
      * @param null|array|\Stripe\Util\RequestOptions $opts
      *
      * @throws \Stripe\Exception\ApiErrorException if the request fails
@@ -192,9 +194,9 @@ class CustomerService extends \Stripe\Service\AbstractService
     /**
      * Deletes an existing <code>TaxID</code> object.
      *
-     * @param string $parentId
-     * @param string $id
-     * @param null|array $params
+     * @param string                                 $parentId
+     * @param string                                 $id
+     * @param null|array                             $params
      * @param null|array|\Stripe\Util\RequestOptions $opts
      *
      * @throws \Stripe\Exception\ApiErrorException if the request fails
@@ -210,8 +212,8 @@ class CustomerService extends \Stripe\Service\AbstractService
      * Retrieves the details of an existing customer. You need only supply the unique
      * customer identifier that was returned upon customer creation.
      *
-     * @param string $id
-     * @param null|array $params
+     * @param string                                 $id
+     * @param null|array                             $params
      * @param null|array|\Stripe\Util\RequestOptions $opts
      *
      * @throws \Stripe\Exception\ApiErrorException if the request fails
@@ -227,9 +229,9 @@ class CustomerService extends \Stripe\Service\AbstractService
      * Retrieves a specific transaction that updated the customer’s <a
      * href="/docs/api/customers/object#customer_object-balance"><code>balance</code></a>.
      *
-     * @param string $parentId
-     * @param string $id
-     * @param null|array $params
+     * @param string                                 $parentId
+     * @param string                                 $id
+     * @param null|array                             $params
      * @param null|array|\Stripe\Util\RequestOptions $opts
      *
      * @throws \Stripe\Exception\ApiErrorException if the request fails
@@ -244,9 +246,9 @@ class CustomerService extends \Stripe\Service\AbstractService
     /**
      * Retrieve a specified source for a given customer.
      *
-     * @param string $parentId
-     * @param string $id
-     * @param null|array $params
+     * @param string                                 $parentId
+     * @param string                                 $id
+     * @param null|array                             $params
      * @param null|array|\Stripe\Util\RequestOptions $opts
      *
      * @throws \Stripe\Exception\ApiErrorException if the request fails
@@ -261,9 +263,9 @@ class CustomerService extends \Stripe\Service\AbstractService
     /**
      * Retrieves the <code>TaxID</code> object with the given identifier.
      *
-     * @param string $parentId
-     * @param string $id
-     * @param null|array $params
+     * @param string                                 $parentId
+     * @param string                                 $id
+     * @param null|array                             $params
      * @param null|array|\Stripe\Util\RequestOptions $opts
      *
      * @throws \Stripe\Exception\ApiErrorException if the request fails
@@ -290,8 +292,8 @@ class CustomerService extends \Stripe\Service\AbstractService
      *
      * This request accepts mostly the same arguments as the customer creation call.
      *
-     * @param string $id
-     * @param null|array $params
+     * @param string                                 $id
+     * @param null|array                             $params
      * @param null|array|\Stripe\Util\RequestOptions $opts
      *
      * @throws \Stripe\Exception\ApiErrorException if the request fails
@@ -307,9 +309,9 @@ class CustomerService extends \Stripe\Service\AbstractService
      * Most customer balance transaction fields are immutable, but you may update its
      * <code>description</code> and <code>metadata</code>.
      *
-     * @param string $parentId
-     * @param string $id
-     * @param null|array $params
+     * @param string                                 $parentId
+     * @param string                                 $id
+     * @param null|array                             $params
      * @param null|array|\Stripe\Util\RequestOptions $opts
      *
      * @throws \Stripe\Exception\ApiErrorException if the request fails
@@ -322,9 +324,9 @@ class CustomerService extends \Stripe\Service\AbstractService
     }
 
     /**
-     * @param string $parentId
-     * @param string $id
-     * @param null|array $params
+     * @param string                                 $parentId
+     * @param string                                 $id
+     * @param null|array                             $params
      * @param null|array|\Stripe\Util\RequestOptions $opts
      *
      * @throws \Stripe\Exception\ApiErrorException if the request fails
@@ -337,9 +339,9 @@ class CustomerService extends \Stripe\Service\AbstractService
     }
 
     /**
-     * @param string $parentId
-     * @param string $id
-     * @param null|array $params
+     * @param string                                 $parentId
+     * @param string                                 $id
+     * @param null|array                             $params
      * @param null|array|\Stripe\Util\RequestOptions $opts
      *
      * @throws \Stripe\Exception\ApiErrorException if the request fails

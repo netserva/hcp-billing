@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 // File generated from our OpenAPI spec
 
 namespace Stripe\Service;
@@ -11,7 +13,7 @@ class FileService extends \Stripe\Service\AbstractService
      * returned sorted by creation date, with the most recently created files appearing
      * first.
      *
-     * @param null|array $params
+     * @param null|array                             $params
      * @param null|array|\Stripe\Util\RequestOptions $opts
      *
      * @throws \Stripe\Exception\ApiErrorException if the request fails
@@ -29,8 +31,8 @@ class FileService extends \Stripe\Service\AbstractService
      * contents, see the <a href="/docs/file-upload#download-file-contents">File Upload
      * Guide</a>.
      *
-     * @param string $id
-     * @param null|array $params
+     * @param string                                 $id
+     * @param null|array                             $params
      * @param null|array|\Stripe\Util\RequestOptions $opts
      *
      * @throws \Stripe\Exception\ApiErrorException if the request fails
@@ -45,7 +47,7 @@ class FileService extends \Stripe\Service\AbstractService
     /**
      * Create a file.
      *
-     * @param null|array $params
+     * @param null|array                             $params
      * @param null|array|\Stripe\Util\RequestOptions $opts
      *
      * @return \Stripe\File

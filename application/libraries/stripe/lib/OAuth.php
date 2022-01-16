@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Stripe;
 
 abstract class OAuth
@@ -24,7 +26,7 @@ abstract class OAuth
         }
         $query = Util\Util::encodeParameters($params);
 
-        return $base . '/oauth/authorize?' . $query;
+        return $base.'/oauth/authorize?'.$query;
     }
 
     /**
@@ -42,7 +44,7 @@ abstract class OAuth
     {
         $base = ($opts && \array_key_exists('connect_base', $opts)) ? $opts['connect_base'] : Stripe::$connectBase;
         $requestor = new ApiRequestor(null, $base);
-        list($response, $apiKey) = $requestor->request(
+        [$response, $apiKey] = $requestor->request(
             'post',
             '/oauth/token',
             $params,
@@ -68,7 +70,7 @@ abstract class OAuth
         $base = ($opts && \array_key_exists('connect_base', $opts)) ? $opts['connect_base'] : Stripe::$connectBase;
         $requestor = new ApiRequestor(null, $base);
         $params['client_id'] = self::_getClientId($params);
-        list($response, $apiKey) = $requestor->request(
+        [$response, $apiKey] = $requestor->request(
             'post',
             '/oauth/deauthorize',
             $params,
@@ -86,12 +88,12 @@ abstract class OAuth
         }
         if (null === $clientId) {
             $msg = 'No client_id provided.  (HINT: set your client_id using '
-              . '"Stripe::setClientId(<CLIENT-ID>)".  You can find your client_ids '
-              . 'in your Stripe dashboard at '
-              . 'https://dashboard.stripe.com/account/applications/settings, '
-              . 'after registering your account as a platform. See '
-              . 'https://stripe.com/docs/connect/standard-accounts for details, '
-              . 'or email support@stripe.com if you have any questions.';
+              .'"Stripe::setClientId(<CLIENT-ID>)".  You can find your client_ids '
+              .'in your Stripe dashboard at '
+              .'https://dashboard.stripe.com/account/applications/settings, '
+              .'after registering your account as a platform. See '
+              .'https://stripe.com/docs/connect/standard-accounts for details, '
+              .'or email support@stripe.com if you have any questions.';
 
             throw new Exception\AuthenticationException($msg);
         }

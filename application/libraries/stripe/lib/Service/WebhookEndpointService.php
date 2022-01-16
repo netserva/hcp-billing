@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 // File generated from our OpenAPI spec
 
 namespace Stripe\Service;
@@ -9,7 +11,7 @@ class WebhookEndpointService extends \Stripe\Service\AbstractService
     /**
      * Returns a list of your webhook endpoints.
      *
-     * @param null|array $params
+     * @param null|array                             $params
      * @param null|array|\Stripe\Util\RequestOptions $opts
      *
      * @throws \Stripe\Exception\ApiErrorException if the request fails
@@ -32,7 +34,7 @@ class WebhookEndpointService extends \Stripe\Service\AbstractService
      * href="https://dashboard.stripe.com/account/webhooks">webhooks settings</a>
      * section of the Dashboard.
      *
-     * @param null|array $params
+     * @param null|array                             $params
      * @param null|array|\Stripe\Util\RequestOptions $opts
      *
      * @throws \Stripe\Exception\ApiErrorException if the request fails
@@ -49,8 +51,8 @@ class WebhookEndpointService extends \Stripe\Service\AbstractService
      * href="https://dashboard.stripe.com/account/webhooks">webhook endpoint
      * management</a> page of the Stripe dashboard.
      *
-     * @param string $id
-     * @param null|array $params
+     * @param string                                 $id
+     * @param null|array                             $params
      * @param null|array|\Stripe\Util\RequestOptions $opts
      *
      * @throws \Stripe\Exception\ApiErrorException if the request fails
@@ -65,8 +67,8 @@ class WebhookEndpointService extends \Stripe\Service\AbstractService
     /**
      * Retrieves the webhook endpoint with the given ID.
      *
-     * @param string $id
-     * @param null|array $params
+     * @param string                                 $id
+     * @param null|array                             $params
      * @param null|array|\Stripe\Util\RequestOptions $opts
      *
      * @throws \Stripe\Exception\ApiErrorException if the request fails
@@ -82,8 +84,8 @@ class WebhookEndpointService extends \Stripe\Service\AbstractService
      * Updates the webhook endpoint. You may edit the <code>url</code>, the list of
      * <code>enabled_events</code>, and the status of your endpoint.
      *
-     * @param string $id
-     * @param null|array $params
+     * @param string                                 $id
+     * @param null|array                             $params
      * @param null|array|\Stripe\Util\RequestOptions $opts
      *
      * @throws \Stripe\Exception\ApiErrorException if the request fails

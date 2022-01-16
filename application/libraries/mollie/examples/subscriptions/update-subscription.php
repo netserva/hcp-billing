@@ -1,21 +1,17 @@
 <?php
 
+declare(strict_types=1);
+
 namespace _PhpScoper5ed105407e8f2;
 
-/*
- * Updating an existing subscription via the Mollie API.
- */
+// Updating an existing subscription via the Mollie API.
 try {
+    // Initialize the Mollie API library with your API key or OAuth access token.
+    require '../initialize.php';
+    // Retrieve an existing subscription
+    $customer = $mollie->customers->get('cst_cUe8HjeBuz');
+    $subscription = $customer->getSubscription('sub_DRjwaT5qHx');
     /*
-     * Initialize the Mollie API library with your API key or OAuth access token.
-     */
-    require "../initialize.php";
-    /*
-     * Retrieve an existing subscription
-     */
-    $customer = $mollie->customers->get("cst_cUe8HjeBuz");
-    $subscription = $customer->getSubscription("sub_DRjwaT5qHx");
-    /**
      * Subscription fields that can be updated are described by the link:
      * See https://docs.mollie.com/reference/v2/subscriptions-api/update-subscription
      */
@@ -26,7 +22,7 @@ try {
     $subscription->webhookUrl = 'https://some-webhook-url.com/with/path';
     $subscription->description = 'Monthly subscription';
     $subscription->update();
-    echo "<p>Subscription updated: " . $subscription->id . "</p>";
+    echo '<p>Subscription updated: '.$subscription->id.'</p>';
 } catch (\Mollie\Api\Exceptions\ApiException $e) {
-    echo "API call failed: " . \htmlspecialchars($e->getMessage());
+    echo 'API call failed: '.\htmlspecialchars($e->getMessage());
 }

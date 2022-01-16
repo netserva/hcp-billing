@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Stripe;
 
 /**
@@ -7,6 +9,7 @@ namespace Stripe;
  */
 class Stripe
 {
+    public const VERSION = '7.53.1';
     /** @var string The Stripe API key to be used for requests. */
     public static $apiKey;
 
@@ -23,25 +26,25 @@ class Stripe
     public static $apiUploadBase = 'https://files.stripe.com';
 
     /** @var null|string The version of the Stripe API to use for requests. */
-    public static $apiVersion = null;
+    public static $apiVersion;
 
     /** @var null|string The account ID for connected accounts requests. */
-    public static $accountId = null;
+    public static $accountId;
 
     /** @var string Path to the CA bundle used to verify SSL certificates */
-    public static $caBundlePath = null;
+    public static $caBundlePath;
 
     /** @var bool Defaults to true. */
     public static $verifySslCerts = true;
 
     /** @var array The application's information (name, version, URL) */
-    public static $appInfo = null;
+    public static $appInfo;
 
     /**
      * @var null|Util\LoggerInterface the logger to which the library will
-     *   produce messages
+     *                                produce messages
      */
-    public static $logger = null;
+    public static $logger;
 
     /** @var int Maximum number of request retries */
     public static $maxNetworkRetries = 0;
@@ -57,8 +60,6 @@ class Stripe
 
     /** @var float Initial delay between retries, in seconds */
     private static $initialNetworkRetryDelay = 0.5;
-
-    const VERSION = '7.53.1';
 
     /**
      * @return string the API key used for requests
@@ -78,7 +79,7 @@ class Stripe
 
     /**
      * @return Util\LoggerInterface the logger to which the library will
-     *   produce messages
+     *                              produce messages
      */
     public static function getLogger()
     {
@@ -91,9 +92,9 @@ class Stripe
 
     /**
      * @param Util\LoggerInterface $logger the logger to which the library
-     *   will produce messages
+     *                                     will produce messages
      */
-    public static function setLogger($logger)
+    public static function setLogger($logger): void
     {
         self::$logger = $logger;
     }
@@ -103,7 +104,7 @@ class Stripe
      *
      * @param string $apiKey
      */
-    public static function setApiKey($apiKey)
+    public static function setApiKey($apiKey): void
     {
         self::$apiKey = $apiKey;
     }
@@ -113,14 +114,14 @@ class Stripe
      *
      * @param string $clientId
      */
-    public static function setClientId($clientId)
+    public static function setClientId($clientId): void
     {
         self::$clientId = $clientId;
     }
 
     /**
      * @return string The API version used for requests. null if we're using the
-     *    latest version.
+     *                latest version.
      */
     public static function getApiVersion()
     {
@@ -130,17 +131,9 @@ class Stripe
     /**
      * @param string $apiVersion the API version to use for requests
      */
-    public static function setApiVersion($apiVersion)
+    public static function setApiVersion($apiVersion): void
     {
         self::$apiVersion = $apiVersion;
-    }
-
-    /**
-     * @return string
-     */
-    private static function getDefaultCABundlePath()
-    {
-        return \realpath(__DIR__ . '/../data/ca-certificates.crt');
     }
 
     /**
@@ -154,7 +147,7 @@ class Stripe
     /**
      * @param string $caBundlePath
      */
-    public static function setCABundlePath($caBundlePath)
+    public static function setCABundlePath($caBundlePath): void
     {
         self::$caBundlePath = $caBundlePath;
     }
@@ -170,14 +163,14 @@ class Stripe
     /**
      * @param bool $verify
      */
-    public static function setVerifySslCerts($verify)
+    public static function setVerifySslCerts($verify): void
     {
         self::$verifySslCerts = $verify;
     }
 
     /**
-     * @return string | null The Stripe account ID for connected account
-     *   requests
+     * @return null|string The Stripe account ID for connected account
+     *                     requests
      */
     public static function getAccountId()
     {
@@ -186,15 +179,15 @@ class Stripe
 
     /**
      * @param string $accountId the Stripe account ID to set for connected
-     *   account requests
+     *                          account requests
      */
-    public static function setAccountId($accountId)
+    public static function setAccountId($accountId): void
     {
         self::$accountId = $accountId;
     }
 
     /**
-     * @return array | null The application's information
+     * @return null|array The application's information
      */
     public static function getAppInfo()
     {
@@ -202,12 +195,12 @@ class Stripe
     }
 
     /**
-     * @param string $appName The application's name
-     * @param null|string $appVersion The application's version
-     * @param null|string $appUrl The application's URL
+     * @param string      $appName      The application's name
+     * @param null|string $appVersion   The application's version
+     * @param null|string $appUrl       The application's URL
      * @param null|string $appPartnerId The application's partner ID
      */
-    public static function setAppInfo($appName, $appVersion = null, $appUrl = null, $appPartnerId = null)
+    public static function setAppInfo($appName, $appVersion = null, $appUrl = null, $appPartnerId = null): void
     {
         self::$appInfo = self::$appInfo ?: [];
         self::$appInfo['name'] = $appName;
@@ -227,7 +220,7 @@ class Stripe
     /**
      * @param int $maxNetworkRetries Maximum number of request retries
      */
-    public static function setMaxNetworkRetries($maxNetworkRetries)
+    public static function setMaxNetworkRetries($maxNetworkRetries): void
     {
         self::$maxNetworkRetries = $maxNetworkRetries;
     }
@@ -271,8 +264,16 @@ class Stripe
      * with the current request. This enables Stripe to do latency and metrics analysis without adding extra
      * overhead (such as extra network calls) on the client.
      */
-    public static function setEnableTelemetry($enableTelemetry)
+    public static function setEnableTelemetry($enableTelemetry): void
     {
         self::$enableTelemetry = $enableTelemetry;
+    }
+
+    /**
+     * @return string
+     */
+    private static function getDefaultCABundlePath()
+    {
+        return \realpath(__DIR__.'/../data/ca-certificates.crt');
     }
 }

@@ -2,21 +2,21 @@
      <div class="box-header">
           <h3><?lang('import')?></h3>   
           <p>
-          <small><?=lang('whmcs_export_domains')?><br/> <?=lang('select_all_whmcs')?></small>
+          <small><?php echo lang('whmcs_export_domains'); ?><br/> <?php echo lang('select_all_whmcs'); ?></small>
           </p>       
      </div>
                 <div class="box-body">
                 <div class="container">
 
-                <?php if($this->session->flashdata('message')): ?>
+                <?php if ($this->session->flashdata('message')) { ?>
                     <div class="alert alert-info alert-dismissible">
                         <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-                            <?php echo $this->session->flashdata('message') ?>
+                            <?php echo $this->session->flashdata('message'); ?>
                     </div>
-                <?php endif ?>
+                <?php } ?>
               
                 <?php
-			 $attributes = array('class' => 'bs-example form-horizontal', 'enctype' => 'multipart/form-data');
+             $attributes = ['class' => 'bs-example form-horizontal', 'enctype' => 'multipart/form-data'];
           echo form_open(base_url().'domains/upload', $attributes); ?> 
                     
                     <input type="hidden" name="nothing" value="">
@@ -27,7 +27,7 @@
 
                    
                    <div class="form-group">
-                        <input type="submit" class="btn btn-warning" value="<?=lang('upload')?>">
+                        <input type="submit" class="btn btn-warning" value="<?php echo lang('upload'); ?>">
                    </div>
                 </form>
               </div>                          

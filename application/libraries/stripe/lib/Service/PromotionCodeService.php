@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 // File generated from our OpenAPI spec
 
 namespace Stripe\Service;
@@ -9,7 +11,7 @@ class PromotionCodeService extends \Stripe\Service\AbstractService
     /**
      * Returns a list of your promotion codes.
      *
-     * @param null|array $params
+     * @param null|array                             $params
      * @param null|array|\Stripe\Util\RequestOptions $opts
      *
      * @throws \Stripe\Exception\ApiErrorException if the request fails
@@ -25,7 +27,7 @@ class PromotionCodeService extends \Stripe\Service\AbstractService
      * A promotion code points to a coupon. You can optionally restrict the code to a
      * specific customer, redemption limit, and expiration date.
      *
-     * @param null|array $params
+     * @param null|array                             $params
      * @param null|array|\Stripe\Util\RequestOptions $opts
      *
      * @throws \Stripe\Exception\ApiErrorException if the request fails
@@ -40,8 +42,8 @@ class PromotionCodeService extends \Stripe\Service\AbstractService
     /**
      * Retrieves the promotion code with the given ID.
      *
-     * @param string $id
-     * @param null|array $params
+     * @param string                                 $id
+     * @param null|array                             $params
      * @param null|array|\Stripe\Util\RequestOptions $opts
      *
      * @throws \Stripe\Exception\ApiErrorException if the request fails
@@ -57,8 +59,8 @@ class PromotionCodeService extends \Stripe\Service\AbstractService
      * Updates the specified promotion code by setting the values of the parameters
      * passed. Most fields are, by design, not editable.
      *
-     * @param string $id
-     * @param null|array $params
+     * @param string                                 $id
+     * @param null|array                             $params
      * @param null|array|\Stripe\Util\RequestOptions $opts
      *
      * @throws \Stripe\Exception\ApiErrorException if the request fails

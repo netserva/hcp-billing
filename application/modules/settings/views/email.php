@@ -1,9 +1,9 @@
 <!-- START TEMPLATES -->
 <?php
-$template_group = isset($_GET['view']) ? $_GET['view']:'';
-if($template_group == 'alerts'){
+$template_group = $_GET['view'] ?? '';
+if ('alerts' == $template_group) {
     $this->load->view($template_group);
-}else{
+} else {
     $this->load->view('email_settings');
 }
 ?>

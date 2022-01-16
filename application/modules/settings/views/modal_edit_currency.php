@@ -2,46 +2,46 @@
     <div class="modal-content">
         <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal">&times;</button>
-            <h4 class="modal-title"><?=lang('edit_currency')?></h4>
+            <h4 class="modal-title"><?php echo lang('edit_currency'); ?></h4>
         </div>
 
                 <?php
-                $i = $this->db->where('code',$code)->get('currencies')->row();
-                $attributes = array('class' => 'bs-example form-horizontal');
-                echo form_open(base_url().'settings/edit_currency',$attributes); ?>
-                <input type="hidden" name="oldcode" value="<?=$i->code?>">
+                $i = $this->db->where('code', $code)->get('currencies')->row();
+                $attributes = ['class' => 'bs-example form-horizontal'];
+                echo form_open(base_url().'settings/edit_currency', $attributes); ?>
+                <input type="hidden" name="oldcode" value="<?php echo $i->code; ?>">
                     <div class="modal-body">
                         <div class="form-group">
-                            <label class="col-lg-4 control-label"><?=lang('currency_code')?> <span class="text-danger">*</span></label>
+                            <label class="col-lg-4 control-label"><?php echo lang('currency_code'); ?> <span class="text-danger">*</span></label>
                             <div class="col-lg-8">
-                                <input type="text" class="form-control" value="<?=$i->code?>" name="code">
+                                <input type="text" class="form-control" value="<?php echo $i->code; ?>" name="code">
                             </div>
                         </div>
 
                          <div class="form-group">
-                            <label class="col-lg-4 control-label"><?=lang('currency_name')?> <span class="text-danger">*</span></label>
+                            <label class="col-lg-4 control-label"><?php echo lang('currency_name'); ?> <span class="text-danger">*</span></label>
                             <div class="col-lg-8">
-                                <input type="text" class="form-control" value="<?=$i->name?>" name="name">
+                                <input type="text" class="form-control" value="<?php echo $i->name; ?>" name="name">
                             </div>
                         </div>
 
                          <div class="form-group">
-                            <label class="col-lg-4 control-label"><?=lang('currency_symbol')?> <span class="text-danger">*</span></label>
+                            <label class="col-lg-4 control-label"><?php echo lang('currency_symbol'); ?> <span class="text-danger">*</span></label>
                             <div class="col-lg-8">
-                                <input type="text" class="form-control" value="<?=$i->symbol?>" name="symbol">
+                                <input type="text" class="form-control" value="<?php echo $i->symbol; ?>" name="symbol">
                             </div>
                         </div>
 
                         <div class="form-group">
-                            <label class="col-lg-4 control-label"><?=lang('xrate')?> <span class="text-danger">*</span></label>
+                            <label class="col-lg-4 control-label"><?php echo lang('xrate'); ?> <span class="text-danger">*</span></label>
                             <div class="col-lg-8">
-                                <input type="text" class="form-control" value="<?=$i->xrate?>" name="xrate">
+                                <input type="text" class="form-control" value="<?php echo $i->xrate; ?>" name="xrate">
                             </div>
                         </div>
 
                     </div>
-                    <div class="modal-footer"> <a href="#" class="btn btn-default" data-dismiss="modal"><?=lang('close')?></a>
-                        <button type="submit" class="btn btn-<?=config_item('theme_color')?>"><?=lang('save_changes')?></button>
+                    <div class="modal-footer"> <a href="#" class="btn btn-default" data-dismiss="modal"><?php echo lang('close'); ?></a>
+                        <button type="submit" class="btn btn-<?php echo config_item('theme_color'); ?>"><?php echo lang('save_changes'); ?></button>
                     </div>
                 </form>
     </div>

@@ -1,4 +1,5 @@
-<?php defined('BASEPATH') OR exit('No direct script access allowed'); ?>
+<?php declare(strict_types=1);
+defined('BASEPATH') or exit('No direct script access allowed'); ?>
 
 ERROR - 2021-09-19 05:28:44 --> Severity: Notice --> Trying to get property 'company' of non-object C:\Users\T\Desktop\laragon\www\application\third_party\MX\Loader.php(360) : eval()'d code 3
 ERROR - 2021-09-19 05:41:49 --> 404 Page Not Found: /index

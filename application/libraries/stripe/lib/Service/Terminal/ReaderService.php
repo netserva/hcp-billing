@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 // File generated from our OpenAPI spec
 
 namespace Stripe\Service\Terminal;
@@ -9,7 +11,7 @@ class ReaderService extends \Stripe\Service\AbstractService
     /**
      * Returns a list of <code>Reader</code> objects.
      *
-     * @param null|array $params
+     * @param null|array                             $params
      * @param null|array|\Stripe\Util\RequestOptions $opts
      *
      * @throws \Stripe\Exception\ApiErrorException if the request fails
@@ -24,7 +26,7 @@ class ReaderService extends \Stripe\Service\AbstractService
     /**
      * Creates a new <code>Reader</code> object.
      *
-     * @param null|array $params
+     * @param null|array                             $params
      * @param null|array|\Stripe\Util\RequestOptions $opts
      *
      * @throws \Stripe\Exception\ApiErrorException if the request fails
@@ -39,8 +41,8 @@ class ReaderService extends \Stripe\Service\AbstractService
     /**
      * Deletes a <code>Reader</code> object.
      *
-     * @param string $id
-     * @param null|array $params
+     * @param string                                 $id
+     * @param null|array                             $params
      * @param null|array|\Stripe\Util\RequestOptions $opts
      *
      * @throws \Stripe\Exception\ApiErrorException if the request fails
@@ -55,8 +57,8 @@ class ReaderService extends \Stripe\Service\AbstractService
     /**
      * Retrieves a <code>Reader</code> object.
      *
-     * @param string $id
-     * @param null|array $params
+     * @param string                                 $id
+     * @param null|array                             $params
      * @param null|array|\Stripe\Util\RequestOptions $opts
      *
      * @throws \Stripe\Exception\ApiErrorException if the request fails
@@ -72,8 +74,8 @@ class ReaderService extends \Stripe\Service\AbstractService
      * Updates a <code>Reader</code> object by setting the values of the parameters
      * passed. Any parameters not provided will be left unchanged.
      *
-     * @param string $id
-     * @param null|array $params
+     * @param string                                 $id
+     * @param null|array                             $params
      * @param null|array|\Stripe\Util\RequestOptions $opts
      *
      * @throws \Stripe\Exception\ApiErrorException if the request fails

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 // File generated from our OpenAPI spec
 
 namespace Stripe\Service\Sigma;
@@ -9,7 +11,7 @@ class ScheduledQueryRunService extends \Stripe\Service\AbstractService
     /**
      * Returns a list of scheduled query runs.
      *
-     * @param null|array $params
+     * @param null|array                             $params
      * @param null|array|\Stripe\Util\RequestOptions $opts
      *
      * @throws \Stripe\Exception\ApiErrorException if the request fails
@@ -24,8 +26,8 @@ class ScheduledQueryRunService extends \Stripe\Service\AbstractService
     /**
      * Retrieves the details of an scheduled query run.
      *
-     * @param string $id
-     * @param null|array $params
+     * @param string                                 $id
+     * @param null|array                             $params
      * @param null|array|\Stripe\Util\RequestOptions $opts
      *
      * @throws \Stripe\Exception\ApiErrorException if the request fails

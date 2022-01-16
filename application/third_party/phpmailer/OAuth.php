@@ -1,4 +1,6 @@
 <?php
+
+declare(strict_types=1);
 /**
  * PHPMailer - PHP email creation and transport class.
  * PHP Version 5.5.
@@ -93,6 +95,27 @@ class OAuth
     }
 
     /**
+     * Generate a base64-encoded OAuth token.
+     *
+     * @return string
+     */
+    public function getOauth64()
+    {
+        // Get a new token if it's not available or has expired
+        if (null === $this->oauthToken || $this->oauthToken->hasExpired()) {
+            $this->oauthToken = $this->getToken();
+        }
+
+        return base64_encode(
+            'user='.
+            $this->oauthUserEmail.
+            "\001auth=Bearer ".
+            $this->oauthToken.
+            "\001\001"
+        );
+    }
+
+    /**
      * Get a new RefreshToken.
      *
      * @return RefreshToken
@@ -112,27 +135,6 @@ class OAuth
         return $this->provider->getAccessToken(
             $this->getGrant(),
             ['refresh_token' => $this->oauthRefreshToken]
-        );
-    }
-
-    /**
-     * Generate a base64-encoded OAuth token.
-     *
-     * @return string
-     */
-    public function getOauth64()
-    {
-        // Get a new token if it's not available or has expired
-        if (null === $this->oauthToken || $this->oauthToken->hasExpired()) {
-            $this->oauthToken = $this->getToken();
-        }
-
-        return base64_encode(
-            'user=' .
-            $this->oauthUserEmail .
-            "\001auth=Bearer " .
-            $this->oauthToken .
-            "\001\001"
         );
     }
 }

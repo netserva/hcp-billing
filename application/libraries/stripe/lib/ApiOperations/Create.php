@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Stripe\ApiOperations;
 
 /**
@@ -10,7 +12,7 @@ namespace Stripe\ApiOperations;
 trait Create
 {
     /**
-     * @param null|array $params
+     * @param null|array        $params
      * @param null|array|string $options
      *
      * @throws \Stripe\Exception\ApiErrorException if the request fails
@@ -22,7 +24,7 @@ trait Create
         self::_validateParams($params);
         $url = static::classUrl();
 
-        list($response, $opts) = static::_staticRequest('post', $url, $params, $options);
+        [$response, $opts] = static::_staticRequest('post', $url, $params, $options);
         $obj = \Stripe\Util\Util::convertToStripeObject($response->json, $opts);
         $obj->setLastResponse($response);
 

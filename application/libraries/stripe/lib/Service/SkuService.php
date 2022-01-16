@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 // File generated from our OpenAPI spec
 
 namespace Stripe\Service;
@@ -10,7 +12,7 @@ class SkuService extends \Stripe\Service\AbstractService
      * Returns a list of your SKUs. The SKUs are returned sorted by creation date, with
      * the most recently created SKUs appearing first.
      *
-     * @param null|array $params
+     * @param null|array                             $params
      * @param null|array|\Stripe\Util\RequestOptions $opts
      *
      * @throws \Stripe\Exception\ApiErrorException if the request fails
@@ -25,7 +27,7 @@ class SkuService extends \Stripe\Service\AbstractService
     /**
      * Creates a new SKU associated with a product.
      *
-     * @param null|array $params
+     * @param null|array                             $params
      * @param null|array|\Stripe\Util\RequestOptions $opts
      *
      * @throws \Stripe\Exception\ApiErrorException if the request fails
@@ -41,8 +43,8 @@ class SkuService extends \Stripe\Service\AbstractService
      * Delete a SKU. Deleting a SKU is only possible until it has been used in an
      * order.
      *
-     * @param string $id
-     * @param null|array $params
+     * @param string                                 $id
+     * @param null|array                             $params
      * @param null|array|\Stripe\Util\RequestOptions $opts
      *
      * @throws \Stripe\Exception\ApiErrorException if the request fails
@@ -59,8 +61,8 @@ class SkuService extends \Stripe\Service\AbstractService
      * either a SKU creation request or from the product, and Stripe will return the
      * corresponding SKU information.
      *
-     * @param string $id
-     * @param null|array $params
+     * @param string                                 $id
+     * @param null|array                             $params
      * @param null|array|\Stripe\Util\RequestOptions $opts
      *
      * @throws \Stripe\Exception\ApiErrorException if the request fails
@@ -80,8 +82,8 @@ class SkuService extends \Stripe\Service\AbstractService
      * need to deactivate the existing SKU and create a new one with the new attribute
      * values.
      *
-     * @param string $id
-     * @param null|array $params
+     * @param string                                 $id
+     * @param null|array                             $params
      * @param null|array|\Stripe\Util\RequestOptions $opts
      *
      * @throws \Stripe\Exception\ApiErrorException if the request fails

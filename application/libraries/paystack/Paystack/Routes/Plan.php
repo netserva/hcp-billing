@@ -1,12 +1,13 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Yabacon\Paystack\Routes;
 
 use Yabacon\Paystack\Contracts\RouteInterface;
 
 class Plan implements RouteInterface
 {
-
     public static function root()
     {
         return '/plan';
@@ -36,7 +37,7 @@ class Plan implements RouteInterface
     {
         return [
             RouteInterface::METHOD_KEY => RouteInterface::GET_METHOD,
-            RouteInterface::ENDPOINT_KEY => Plan::root() . '/{id}',
+            RouteInterface::ENDPOINT_KEY => Plan::root().'/{id}',
             RouteInterface::ARGS_KEY => ['id'],
         ];
     }
@@ -53,7 +54,7 @@ class Plan implements RouteInterface
     {
         return [
             RouteInterface::METHOD_KEY => RouteInterface::PUT_METHOD,
-            RouteInterface::ENDPOINT_KEY => Plan::root() . '/{id}',
+            RouteInterface::ENDPOINT_KEY => Plan::root().'/{id}',
             RouteInterface::PARAMS_KEY => [
                 'name',
                 'description',

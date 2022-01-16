@@ -1,28 +1,29 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Stripe;
 
 /**
- * Class ExternalAccount
+ * Class ExternalAccount.
  *
  * @property string $id
  * @property string $object
- *
- * @package Stripe
  */
 abstract class ExternalAccount extends ApiResource
 {
     /**
      * @return string The instance URL for this resource. It needs to be special
-     *    cased because it doesn't fit into the standard resource pattern.
+     *                cased because it doesn't fit into the standard resource pattern.
      */
     public function instanceUrl()
     {
         $id = $this['id'];
         if (!$id) {
             $class = get_class($this);
-            $msg = "Could not determine which URL to request: $class instance "
-             . "has invalid ID: $id";
+            $msg = "Could not determine which URL to request: {$class} instance "
+             ."has invalid ID: {$id}";
+
             throw new Error\InvalidRequest($msg, null);
         }
 
@@ -47,14 +48,15 @@ abstract class ExternalAccount extends ApiResource
 
         $parentExtn = urlencode($parent);
         $extn = urlencode($id);
-        return "$base/$parentExtn/$path/$extn";
+
+        return "{$base}/{$parentExtn}/{$path}/{$extn}";
     }
 
     /**
-     * @param array|null $params
-     * @param array|string|null $opts
+     * @param null|array        $params
+     * @param null|array|string $opts
      *
-     * @return ExternalAccount The deleted external account.
+     * @return ExternalAccount the deleted external account
      */
     public function delete($params = null, $opts = null)
     {
@@ -62,9 +64,9 @@ abstract class ExternalAccount extends ApiResource
     }
 
     /**
-     * @param array|string|null $opts
+     * @param null|array|string $opts
      *
-     * @return ExternalAccount The saved external account.
+     * @return ExternalAccount the saved external account
      */
     public function save($opts = null)
     {
@@ -72,21 +74,22 @@ abstract class ExternalAccount extends ApiResource
     }
 
     /**
-     * @param array|null $params
-     * @param array|string|null $opts
+     * @param null|array        $params
+     * @param null|array|string $opts
      *
-     * @return ExternalAccount The verified (or not) external account.
+     * @return ExternalAccount the verified (or not) external account
      */
     public function verify($params = null, $opts = null)
     {
         if ($this['customer']) {
-            $url = $this->instanceUrl() . '/verify';
-            list($response, $options) = $this->_request('post', $url, $params, $opts);
+            $url = $this->instanceUrl().'/verify';
+            [$response, $options] = $this->_request('post', $url, $params, $opts);
             $this->refreshFrom($response, $options);
+
             return $this;
-        } else {
-            $message = 'Only customer external accounts can be verified in this manner.';
-            throw new Error\Api($message);
         }
+        $message = 'Only customer external accounts can be verified in this manner.';
+
+        throw new Error\Api($message);
     }
 }

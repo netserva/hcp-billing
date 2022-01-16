@@ -5,39 +5,41 @@
 		</div> 
 		<div class="modal-body">  
 		<?php
-        $attributes = array('class' => 'bs-example form-horizontal');
+        $attributes = ['class' => 'bs-example form-horizontal'];
         echo form_open('settings/update', $attributes); ?>
                  <input type="hidden" name="settings" value="registrars"> 
 
                     <div class="form-group">
-                        <label class="col-lg-4 control-label"><?=lang('namecheap_live')?></label>
+                        <label class="col-lg-4 control-label"><?php echo lang('namecheap_live'); ?></label>
                         <div class="col-lg-8">
                             <label class="switch">
                                 <input type="hidden" value="off" name="namecheap_live" />
-                                <input type="checkbox" <?php if(config_item('namecheap_live') == 'TRUE'){ echo "checked=\"checked\""; } ?> name="namecheap_live">
+                                <input type="checkbox" <?php if ('TRUE' == config_item('namecheap_live')) {
+            echo 'checked="checked"';
+        } ?> name="namecheap_live">
                                 <span></span>
                             </label>
                         </div>
                     </div>
 
                     <div class="form-group">
-                        <label class="col-lg-4 control-label">Namecheap <?=lang('username')?></label>
+                        <label class="col-lg-4 control-label">Namecheap <?php echo lang('username'); ?></label>
                         <div class="col-lg-8">
-                            <input type="text" class="form-control" value="<?=config_item('namecheap_username')?>" name="namecheap_username">
+                            <input type="text" class="form-control" value="<?php echo config_item('namecheap_username'); ?>" name="namecheap_username">
                         </div>
                     </div>
  
                     <div class="form-group">
-                        <label class="col-lg-4 control-label"><?=lang('namecheap_apikey')?></label>
+                        <label class="col-lg-4 control-label"><?php echo lang('namecheap_apikey'); ?></label>
                         <div class="col-lg-8">
-                            <input type="<?=config_item('demo_mode') == 'TRUE' ? 'password' : 'text';?>" class="form-control" value="<?=config_item('namecheap_apikey')?>" name="namecheap_apikey">
+                            <input type="<?php echo 'TRUE' == config_item('demo_mode') ? 'password' : 'text'; ?>" class="form-control" value="<?php echo config_item('namecheap_apikey'); ?>" name="namecheap_apikey">
                         </div>
                     </div>
 
                     <div class="form-group">
                         <label class="col-lg-4 control-label">IP</label>
                         <div class="col-lg-8">
-                            <input type="test" class="form-control" value="<?=config_item('namecheap_ip')?>" name="namecheap_ip">
+                            <input type="test" class="form-control" value="<?php echo config_item('namecheap_ip'); ?>" name="namecheap_ip">
                         </div>
                     </div>
 
@@ -45,7 +47,7 @@
                    
                               
                     <div class="text-center">
-                        <button type="submit" class="btn btn-sm btn-<?=config_item('theme_color');?>"><?=lang('save_changes')?></button>
+                        <button type="submit" class="btn btn-sm btn-<?php echo config_item('theme_color'); ?>"><?php echo lang('save_changes'); ?></button>
                     </div>
                 
         </form>

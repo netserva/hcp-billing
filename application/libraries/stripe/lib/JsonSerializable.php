@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Stripe;
 
 // JsonSerializable only exists in PHP 5.4+. Stub if out if it doesn't exist

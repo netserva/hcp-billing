@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Mollie\Api\Resources;
 
 class MandateCollection extends \Mollie\Api\Resources\CursorCollection
@@ -9,17 +11,12 @@ class MandateCollection extends \Mollie\Api\Resources\CursorCollection
      */
     public function getCollectionResourceName()
     {
-        return "mandates";
+        return 'mandates';
     }
-    /**
-     * @return BaseResource
-     */
-    protected function createResourceObject()
-    {
-        return new \Mollie\Api\Resources\Mandate($this->client);
-    }
+
     /**
      * @param string $status
+     *
      * @return array|\Mollie\Api\Resources\MandateCollection
      */
     public function whereStatus($status)
@@ -30,6 +27,15 @@ class MandateCollection extends \Mollie\Api\Resources\CursorCollection
                 $collection[] = $item;
             }
         }
+
         return $collection;
+    }
+
+    /**
+     * @return BaseResource
+     */
+    protected function createResourceObject()
+    {
+        return new \Mollie\Api\Resources\Mandate($this->client);
     }
 }

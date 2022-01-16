@@ -1,9 +1,13 @@
  <?php
-if($this->session->flashdata('message')){ ?>
-<?php if ($this->session->flashdata('response_status') == 'success') { $alert_type = 'success'; }else{ $alert_type = 'danger'; } ?>
-<div class="alert alert-<?=$alert_type?>"> 
+if ($this->session->flashdata('message')) { ?>
+<?php if ('success' == $this->session->flashdata('response_status')) {
+    $alert_type = 'success';
+} else {
+    $alert_type = 'danger';
+} ?>
+<div class="alert alert-<?php echo $alert_type; ?>"> 
 <button type="button" class="close" data-dismiss="alert">×</button> <i class="fa fa-info-sign"></i>
-<?=$this->session->flashdata('message');?>
+<?php echo $this->session->flashdata('message'); ?>
 </div>
 
     <?php } ?> 

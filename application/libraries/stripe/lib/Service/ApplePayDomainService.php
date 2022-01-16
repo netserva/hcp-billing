@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 // File generated from our OpenAPI spec
 
 namespace Stripe\Service;
@@ -9,7 +11,7 @@ class ApplePayDomainService extends \Stripe\Service\AbstractService
     /**
      * List apple pay domains.
      *
-     * @param null|array $params
+     * @param null|array                             $params
      * @param null|array|\Stripe\Util\RequestOptions $opts
      *
      * @throws \Stripe\Exception\ApiErrorException if the request fails
@@ -24,7 +26,7 @@ class ApplePayDomainService extends \Stripe\Service\AbstractService
     /**
      * Create an apple pay domain.
      *
-     * @param null|array $params
+     * @param null|array                             $params
      * @param null|array|\Stripe\Util\RequestOptions $opts
      *
      * @throws \Stripe\Exception\ApiErrorException if the request fails
@@ -39,8 +41,8 @@ class ApplePayDomainService extends \Stripe\Service\AbstractService
     /**
      * Delete an apple pay domain.
      *
-     * @param string $id
-     * @param null|array $params
+     * @param string                                 $id
+     * @param null|array                             $params
      * @param null|array|\Stripe\Util\RequestOptions $opts
      *
      * @throws \Stripe\Exception\ApiErrorException if the request fails
@@ -55,8 +57,8 @@ class ApplePayDomainService extends \Stripe\Service\AbstractService
     /**
      * Retrieve an apple pay domain.
      *
-     * @param string $id
-     * @param null|array $params
+     * @param string                                 $id
+     * @param null|array                             $params
      * @param null|array|\Stripe\Util\RequestOptions $opts
      *
      * @throws \Stripe\Exception\ApiErrorException if the request fails

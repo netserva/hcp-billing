@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 class Twocheckout_Error extends Exception
 {
     public function __construct($message, $code = 0)
@@ -9,6 +11,6 @@ class Twocheckout_Error extends Exception
 
     public function __toString()
     {
-        return __CLASS__ . ": [{$this->code}]: {$this->message}\n";
+        return __CLASS__.": [{$this->code}]: {$this->message}\n";
     }
 }

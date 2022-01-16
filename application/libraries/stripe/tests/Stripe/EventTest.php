@@ -1,12 +1,18 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Stripe;
 
+/**
+ * @internal
+ * @coversNothing
+ */
 class EventTest extends TestCase
 {
-    const TEST_RESOURCE_ID = 'evt_123';
+    public const TEST_RESOURCE_ID = 'evt_123';
 
-    public function testIsListable()
+    public function testIsListable(): void
     {
         $this->expectsRequest(
             'get',
@@ -14,16 +20,16 @@ class EventTest extends TestCase
         );
         $resources = Event::all();
         $this->assertTrue(is_array($resources->data));
-        $this->assertInstanceOf("Stripe\\Event", $resources->data[0]);
+        $this->assertInstanceOf('Stripe\\Event', $resources->data[0]);
     }
 
-    public function testIsRetrievable()
+    public function testIsRetrievable(): void
     {
         $this->expectsRequest(
             'get',
-            '/v1/events/' . self::TEST_RESOURCE_ID
+            '/v1/events/'.self::TEST_RESOURCE_ID
         );
         $resource = Event::retrieve(self::TEST_RESOURCE_ID);
-        $this->assertInstanceOf("Stripe\\Event", $resource);
+        $this->assertInstanceOf('Stripe\\Event', $resource);
     }
 }

@@ -1,32 +1,38 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Stripe;
 
+/**
+ * @internal
+ * @coversNothing
+ */
 class ExchangeRateTest extends TestCase
 {
-    public function testIsListable()
+    public function testIsListable(): void
     {
         $this->stubRequest(
             'get',
             '/v1/exchange_rates',
-            array(),
+            [],
             null,
             false,
-            array(
+            [
                 'object' => 'list',
-                'data' => array(
-                    array(
+                'data' => [
+                    [
                         'id' => 'eur',
                         'object' => 'exchange_rate',
-                        'rates' => array('usd' => 1.18221),
-                    ),
-                    array(
+                        'rates' => ['usd' => 1.18221],
+                    ],
+                    [
                         'id' => 'usd',
                         'object' => 'exchange_rate',
-                        'rates' => array('eur' => 0.845876),
-                    ),
-                ),
-            )
+                        'rates' => ['eur' => 0.845876],
+                    ],
+                ],
+            ]
         );
 
         $listRates = ExchangeRate::all();
@@ -34,21 +40,21 @@ class ExchangeRateTest extends TestCase
         $this->assertEquals('exchange_rate', $listRates->data[0]->object);
     }
 
-    public function testIsRetrievable()
+    public function testIsRetrievable(): void
     {
         $this->stubRequest(
             'get',
             '/v1/exchange_rates/usd',
-            array(),
+            [],
             null,
             false,
-            array(
+            [
                 'id' => 'usd',
                 'object' => 'exchange_rate',
-                'rates' => array('eur' => 0.845876),
-            )
+                'rates' => ['eur' => 0.845876],
+            ]
         );
-        $rates = ExchangeRate::retrieve("usd");
+        $rates = ExchangeRate::retrieve('usd');
         $this->assertEquals('exchange_rate', $rates->object);
     }
 }

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 // File generated from our OpenAPI spec
 
 namespace Stripe\Service;
@@ -10,7 +12,7 @@ class OrderReturnService extends \Stripe\Service\AbstractService
      * Returns a list of your order returns. The returns are returned sorted by
      * creation date, with the most recently created return appearing first.
      *
-     * @param null|array $params
+     * @param null|array                             $params
      * @param null|array|\Stripe\Util\RequestOptions $opts
      *
      * @throws \Stripe\Exception\ApiErrorException if the request fails
@@ -27,8 +29,8 @@ class OrderReturnService extends \Stripe\Service\AbstractService
      * from either an order return creation request or the order return list, and
      * Stripe will return the corresponding order information.
      *
-     * @param string $id
-     * @param null|array $params
+     * @param string                                 $id
+     * @param null|array                             $params
      * @param null|array|\Stripe\Util\RequestOptions $opts
      *
      * @throws \Stripe\Exception\ApiErrorException if the request fails

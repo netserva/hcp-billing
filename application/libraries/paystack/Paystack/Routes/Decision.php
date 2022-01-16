@@ -1,12 +1,13 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Yabacon\Paystack\Routes;
 
 use Yabacon\Paystack\Contracts\RouteInterface;
 
 class Decision implements RouteInterface
 {
-
     public static function root()
     {
         return '/decision';
@@ -16,7 +17,7 @@ class Decision implements RouteInterface
     {
         return [
             RouteInterface::METHOD_KEY => RouteInterface::GET_METHOD,
-            RouteInterface::ENDPOINT_KEY => Decision::root() . '/bin/{bin}',
+            RouteInterface::ENDPOINT_KEY => Decision::root().'/bin/{bin}',
             RouteInterface::ARGS_KEY => ['bin'],
         ];
     }

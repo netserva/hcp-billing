@@ -1,52 +1,58 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Stripe;
 
+/**
+ * @internal
+ * @coversNothing
+ */
 class FileUploadTest extends TestCase
 {
-    const TEST_RESOURCE_ID = 'file_123';
+    public const TEST_RESOURCE_ID = 'file_123';
 
     /**
      * @before
      */
-    public function setUpFixture()
+    public function setUpFixture(): void
     {
         // PHP <= 5.5 does not support arrays as class constants, so we set up
         // the fixture as an instance variable.
-        $this->fixture = array(
+        $this->fixture = [
             'id' => self::TEST_RESOURCE_ID,
             'object' => 'file_upload',
-        );
+        ];
     }
 
-    public function testIsListable()
+    public function testIsListable(): void
     {
         $this->stubRequest(
             'get',
             '/v1/files',
-            array(),
+            [],
             null,
             false,
-            array(
+            [
                 'object' => 'list',
-                'data' => array($this->fixture),
+                'data' => [$this->fixture],
                 'resource_url' => '/v1/files',
-            ),
+            ],
             200,
             Stripe::$apiUploadBase
         );
 
         $resources = FileUpload::all();
         $this->assertTrue(is_array($resources->data));
-        $this->assertInstanceOf("Stripe\\FileUpload", $resources->data[0]);
+        $this->assertInstanceOf('Stripe\\FileUpload', $resources->data[0]);
     }
 
-    public function testIsRetrievable()
+    public function testIsRetrievable(): void
     {
         $this->stubRequest(
             'get',
-            '/v1/files/' . self::TEST_RESOURCE_ID,
-            array(),
+            '/v1/files/'.self::TEST_RESOURCE_ID,
+            [],
             null,
             false,
             $this->fixture,
@@ -54,30 +60,30 @@ class FileUploadTest extends TestCase
             Stripe::$apiUploadBase
         );
         $resource = FileUpload::retrieve(self::TEST_RESOURCE_ID);
-        $this->assertInstanceOf("Stripe\\FileUpload", $resource);
+        $this->assertInstanceOf('Stripe\\FileUpload', $resource);
     }
 
-    public function testIsCreatableWithFileHandle()
+    public function testIsCreatableWithFileHandle(): void
     {
         $this->stubRequest(
             'post',
             '/v1/files',
             null,
-            array('Content-Type: multipart/form-data'),
+            ['Content-Type: multipart/form-data'],
             true,
             $this->fixture,
             200,
             Stripe::$apiUploadBase
         );
-        $fp = fopen(dirname(__FILE__) . '/../data/test.png', 'r');
-        $resource = FileUpload::create(array(
-            "purpose" => "dispute_evidence",
-            "file" => $fp,
-        ));
-        $this->assertInstanceOf("Stripe\\FileUpload", $resource);
+        $fp = fopen(dirname(__FILE__).'/../data/test.png', 'r');
+        $resource = FileUpload::create([
+            'purpose' => 'dispute_evidence',
+            'file' => $fp,
+        ]);
+        $this->assertInstanceOf('Stripe\\FileUpload', $resource);
     }
 
-    public function testIsCreatableWithCurlFile()
+    public function testIsCreatableWithCurlFile(): void
     {
         if (!class_exists('\CurlFile', false)) {
             // Older PHP versions don't support this
@@ -88,17 +94,17 @@ class FileUploadTest extends TestCase
             'post',
             '/v1/files',
             null,
-            array('Content-Type: multipart/form-data'),
+            ['Content-Type: multipart/form-data'],
             true,
             $this->fixture,
             200,
             Stripe::$apiUploadBase
         );
-        $curlFile = new \CurlFile(dirname(__FILE__) . '/../data/test.png');
-        $resource = FileUpload::create(array(
-            "purpose" => "dispute_evidence",
-            "file" => $curlFile,
-        ));
-        $this->assertInstanceOf("Stripe\\FileUpload", $resource);
+        $curlFile = new \CurlFile(dirname(__FILE__).'/../data/test.png');
+        $resource = FileUpload::create([
+            'purpose' => 'dispute_evidence',
+            'file' => $curlFile,
+        ]);
+        $this->assertInstanceOf('Stripe\\FileUpload', $resource);
     }
 }

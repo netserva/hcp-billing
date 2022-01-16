@@ -1,135 +1,135 @@
     <!-- Start Form --> 
         <?php
-        $attributes = array('class' => 'bs-example form-horizontal');
+        $attributes = ['class' => 'bs-example form-horizontal'];
         echo form_open_multipart('settings/update', $attributes); ?>
     
-    <input type="hidden" name="settings" value="<?=$load_setting?>">
-                    <input type="hidden" name="languages" value="<?=implode(",",$translations)?>">
+    <input type="hidden" name="settings" value="<?php echo $load_setting; ?>">
+                    <input type="hidden" name="languages" value="<?php echo implode(',', $translations); ?>">
               
                             <div class="form-group">
-                                <label class="col-lg-3 control-label"><?=lang('website_name')?> <span class="text-danger">*</span></label>
+                                <label class="col-lg-3 control-label"><?php echo lang('website_name'); ?> <span class="text-danger">*</span></label>
                                 <div class="col-lg-5">
-                                    <input type="text" name="website_name" class="form-control" value="<?=config_item('website_name')?>" required>
+                                    <input type="text" name="website_name" class="form-control" value="<?php echo config_item('website_name'); ?>" required>
                                 </div>
                             </div>
 
                             <div class="form-group">
-                                <label class="col-lg-3 control-label"><?=lang('site_desc')?> <span class="text-danger">*</span></label>
+                                <label class="col-lg-3 control-label"><?php echo lang('site_desc'); ?> <span class="text-danger">*</span></label>
                                 <div class="col-lg-5">
-                                    <textarea type="text" name="site_desc" class="form-control" value="<?=config_item('site_desc')?>" required><?=config_item('site_desc')?></textarea>
+                                    <textarea type="text" name="site_desc" class="form-control" value="<?php echo config_item('site_desc'); ?>" required><?php echo config_item('site_desc'); ?></textarea>
                                 </div>
                             </div>
                             
                             <div class="form-group">
-                                <label class="col-lg-3 control-label"><?=lang('company_name')?> <span class="text-danger">*</span></label>
+                                <label class="col-lg-3 control-label"><?php echo lang('company_name'); ?> <span class="text-danger">*</span></label>
                                 <div class="col-lg-5">
-                                    <input type="text" name="company_name" class="form-control" value="<?=config_item('company_name')?>" required>
+                                    <input type="text" name="company_name" class="form-control" value="<?php echo config_item('company_name'); ?>" required>
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label class="col-lg-3 control-label"><?=lang('company_legal_name')?> <span class="text-danger">*</span></label>
+                                <label class="col-lg-3 control-label"><?php echo lang('company_legal_name'); ?> <span class="text-danger">*</span></label>
                                 <div class="col-lg-5">
-                                    <input type="text" name="company_legal_name" class="form-control" value="<?=config_item('company_legal_name')?>" required>
+                                    <input type="text" name="company_legal_name" class="form-control" value="<?php echo config_item('company_legal_name'); ?>" required>
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label class="col-lg-3 control-label"><?=lang('contact_person')?> </label>
+                                <label class="col-lg-3 control-label"><?php echo lang('contact_person'); ?> </label>
                                 <div class="col-lg-5">
-                                    <input type="text" class="form-control"  value="<?=config_item('contact_person')?>" name="contact_person">
-                                    <span class="help-block m-b-none"><?=lang('company_representative')?></strong>.</span>
+                                    <input type="text" class="form-control"  value="<?php echo config_item('contact_person'); ?>" name="contact_person">
+                                    <span class="help-block m-b-none"><?php echo lang('company_representative'); ?></strong>.</span>
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label class="col-lg-3 control-label"><?=lang('company_address')?> <span class="text-danger">*</span></label>
+                                <label class="col-lg-3 control-label"><?php echo lang('company_address'); ?> <span class="text-danger">*</span></label>
                                 <div class="col-lg-5">
-                                    <textarea class="form-control ta" name="company_address" required><?=config_item('company_address')?></textarea>
+                                    <textarea class="form-control ta" name="company_address" required><?php echo config_item('company_address'); ?></textarea>
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label class="col-lg-3 control-label"><?=lang('zip_code')?> </label>
+                                <label class="col-lg-3 control-label"><?php echo lang('zip_code'); ?> </label>
                                 <div class="col-lg-5">
-                                    <input type="text" class="form-control"  value="<?=config_item('company_zip_code')?>" name="company_zip_code">
+                                    <input type="text" class="form-control"  value="<?php echo config_item('company_zip_code'); ?>" name="company_zip_code">
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label class="col-lg-3 control-label"><?=lang('city')?></label>
+                                <label class="col-lg-3 control-label"><?php echo lang('city'); ?></label>
                                 <div class="col-lg-5">
-                                    <input type="text" class="form-control" value="<?=config_item('company_city')?>" name="company_city">
+                                    <input type="text" class="form-control" value="<?php echo config_item('company_city'); ?>" name="company_city">
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label class="col-lg-3 control-label"><?=lang('state_province')?></label>
+                                <label class="col-lg-3 control-label"><?php echo lang('state_province'); ?></label>
                                 <div class="col-lg-5">
-                                    <input type="text" class="form-control" value="<?=config_item('company_state')?>" name="company_state">
+                                    <input type="text" class="form-control" value="<?php echo config_item('company_state'); ?>" name="company_state">
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label class="col-lg-3 control-label"><?=lang('country')?></label>
+                                <label class="col-lg-3 control-label"><?php echo lang('country'); ?></label>
                                 <div class="col-lg-5">
                                         <select class="select2-option w_210" name="company_country" >
-                                            <optgroup label="<?=lang('selected_country')?>">
-                                                <option value="<?=config_item('company_country')?>"><?=config_item('company_country')?></option>
+                                            <optgroup label="<?php echo lang('selected_country'); ?>">
+                                                <option value="<?php echo config_item('company_country'); ?>"><?php echo config_item('company_country'); ?></option>
                                             </optgroup>
-                                            <optgroup label="<?=lang('other_countries')?>">
-                                                <?php foreach ($countries as $country): ?>
-                                                    <option value="<?=$country->value?>"><?=$country->value?></option>
-                                                <?php endforeach; ?>
+                                            <optgroup label="<?php echo lang('other_countries'); ?>">
+                                                <?php foreach ($countries as $country) { ?>
+                                                    <option value="<?php echo $country->value; ?>"><?php echo $country->value; ?></option>
+                                                <?php } ?>
                                             </optgroup>
                                         </select>
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label class="col-lg-3 control-label"><?=lang('company_email')?></label>
+                                <label class="col-lg-3 control-label"><?php echo lang('company_email'); ?></label>
                                 <div class="col-lg-5">
-                                    <input type="email" class="form-control" value="<?=config_item('company_email')?>" name="company_email">
+                                    <input type="email" class="form-control" value="<?php echo config_item('company_email'); ?>" name="company_email">
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label class="col-lg-3 control-label"><?=lang('company_phone')?></label>
+                                <label class="col-lg-3 control-label"><?php echo lang('company_phone'); ?></label>
                                 <div class="col-lg-5">
-                                    <input type="text" class="form-control" value="<?=config_item('company_phone')?>" name="company_phone">
+                                    <input type="text" class="form-control" value="<?php echo config_item('company_phone'); ?>" name="company_phone">
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label class="col-lg-3 control-label"><?=lang('company_phone')?> 2</label>
+                                <label class="col-lg-3 control-label"><?php echo lang('company_phone'); ?> 2</label>
                                 <div class="col-lg-5">
-                                    <input type="text" class="form-control" value="<?=config_item('company_phone_2')?>" name="company_phone_2">
+                                    <input type="text" class="form-control" value="<?php echo config_item('company_phone_2'); ?>" name="company_phone_2">
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label class="col-lg-3 control-label"><?=lang('mobile_phone')?></label>
+                                <label class="col-lg-3 control-label"><?php echo lang('mobile_phone'); ?></label>
                                 <div class="col-lg-5">
-                                    <input type="text" class="form-control" value="<?=config_item('company_mobile')?>" name="company_mobile">
+                                    <input type="text" class="form-control" value="<?php echo config_item('company_mobile'); ?>" name="company_mobile">
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label class="col-lg-3 control-label"><?=lang('fax')?> </label>
+                                <label class="col-lg-3 control-label"><?php echo lang('fax'); ?> </label>
                                 <div class="col-lg-5">
-                                    <input type="text" class="form-control" value="<?=config_item('company_fax')?>" name="company_fax">
+                                    <input type="text" class="form-control" value="<?php echo config_item('company_fax'); ?>" name="company_fax">
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label class="col-lg-3 control-label"><?=lang('company_domain')?></label>
+                                <label class="col-lg-3 control-label"><?php echo lang('company_domain'); ?></label>
                                 <div class="col-lg-5">
-                                    <input type="text" class="form-control" value="<?=config_item('company_domain')?>" name="company_domain">
+                                    <input type="text" class="form-control" value="<?php echo config_item('company_domain'); ?>" name="company_domain">
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label class="col-lg-3 control-label"><?=lang('company_registration')?></label>
+                                <label class="col-lg-3 control-label"><?php echo lang('company_registration'); ?></label>
                                 <div class="col-lg-5">
-                                    <input type="text" class="form-control" value="<?=config_item('company_registration')?>" name="company_registration">
+                                    <input type="text" class="form-control" value="<?php echo config_item('company_registration'); ?>" name="company_registration">
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label class="col-lg-3 control-label"><?=lang('company_vat')?></label>
+                                <label class="col-lg-3 control-label"><?php echo lang('company_vat'); ?></label>
                                 <div class="col-lg-5">
-                                    <input type="text" class="form-control" value="<?=config_item('company_vat')?>" name="company_vat">
+                                    <input type="text" class="form-control" value="<?php echo config_item('company_vat'); ?>" name="company_vat">
                                 </div>
                             </div>
                             
          
                             <div class="text-center"> 
-                            <button type="submit" class="btn btn-sm btn-<?=config_item('theme_color');?> pull-right"><?=lang('save_changes')?></button>
+                            <button type="submit" class="btn btn-sm btn-<?php echo config_item('theme_color'); ?> pull-right"><?php echo lang('save_changes'); ?></button>
                          </div>
         </form> 
     <!-- End Form -->

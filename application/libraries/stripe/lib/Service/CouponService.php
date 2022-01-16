@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 // File generated from our OpenAPI spec
 
 namespace Stripe\Service;
@@ -9,7 +11,7 @@ class CouponService extends \Stripe\Service\AbstractService
     /**
      * Returns a list of your coupons.
      *
-     * @param null|array $params
+     * @param null|array                             $params
      * @param null|array|\Stripe\Util\RequestOptions $opts
      *
      * @throws \Stripe\Exception\ApiErrorException if the request fails
@@ -37,7 +39,7 @@ class CouponService extends \Stripe\Service\AbstractService
      * a coupon with an <code>amount_off</code> of <amount>200</amount> is applied to
      * it.
      *
-     * @param null|array $params
+     * @param null|array                             $params
      * @param null|array|\Stripe\Util\RequestOptions $opts
      *
      * @throws \Stripe\Exception\ApiErrorException if the request fails
@@ -56,8 +58,8 @@ class CouponService extends \Stripe\Service\AbstractService
      * have already applied the coupon; it means that new customers can’t redeem the
      * coupon. You can also delete coupons via the API.
      *
-     * @param string $id
-     * @param null|array $params
+     * @param string                                 $id
+     * @param null|array                             $params
      * @param null|array|\Stripe\Util\RequestOptions $opts
      *
      * @throws \Stripe\Exception\ApiErrorException if the request fails
@@ -72,8 +74,8 @@ class CouponService extends \Stripe\Service\AbstractService
     /**
      * Retrieves the coupon with the given ID.
      *
-     * @param string $id
-     * @param null|array $params
+     * @param string                                 $id
+     * @param null|array                             $params
      * @param null|array|\Stripe\Util\RequestOptions $opts
      *
      * @throws \Stripe\Exception\ApiErrorException if the request fails
@@ -89,8 +91,8 @@ class CouponService extends \Stripe\Service\AbstractService
      * Updates the metadata of a coupon. Other coupon details (currency, duration,
      * amount_off) are, by design, not editable.
      *
-     * @param string $id
-     * @param null|array $params
+     * @param string                                 $id
+     * @param null|array                             $params
      * @param null|array|\Stripe\Util\RequestOptions $opts
      *
      * @throws \Stripe\Exception\ApiErrorException if the request fails

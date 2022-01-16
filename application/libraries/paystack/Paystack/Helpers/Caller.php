@@ -1,9 +1,10 @@
 <?php
+
+declare(strict_types=1);
+
 namespace Yabacon\Paystack\Helpers;
 
-use \Closure;
-use \Yabacon\Paystack\Contracts\RouteInterface;
-use \Yabacon\Paystack\Http\RequestBuilder;
+use Yabacon\Paystack\Http\RequestBuilder;
 
 class Caller
 {
@@ -14,9 +15,10 @@ class Caller
         $this->paystackObj = $paystackObj;
     }
 
-    public function callEndpoint($interface, $payload = [ ], $sentargs = [ ])
+    public function callEndpoint($interface, $payload = [], $sentargs = [])
     {
         $builder = new RequestBuilder($this->paystackObj, $interface, $payload, $sentargs);
+
         return $builder->build()->send()->wrapUp();
     }
 }

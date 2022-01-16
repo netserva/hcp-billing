@@ -16,7 +16,8 @@ Your email address: <?php echo $email; ?>
 <?php if (isset($password)) { /* ?>
 
 Your password: <?php echo $password; ?>
-<?php */ } ?>
+<?php */
+} ?>
 
 
 

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Mollie\Api\Resources;
 
 abstract class BaseCollection extends \ArrayObject
@@ -14,8 +16,9 @@ abstract class BaseCollection extends \ArrayObject
      * @var \stdClass
      */
     public $_links;
+
     /**
-     * @param int $count
+     * @param int       $count
      * @param \stdClass $_links
      */
     public function __construct($count, $_links)
@@ -24,8 +27,9 @@ abstract class BaseCollection extends \ArrayObject
         $this->_links = $_links;
         parent::__construct();
     }
+
     /**
-     * @return string|null
+     * @return null|string
      */
-    public abstract function getCollectionResourceName();
+    abstract public function getCollectionResourceName();
 }

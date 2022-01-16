@@ -1,9 +1,10 @@
 <?php
 
+declare(strict_types=1);
+
 if (!defined('BASEPATH')) {
     exit('No direct script access allowed');
 }
-
 
 class Invoice extends CI_Model
 {
@@ -30,22 +31,21 @@ class Invoice extends CI_Model
         return self::$db->where('reference_no', $reference)->get('invoices')->row();
     }
 
-
     public static function get_invoices($limit = null, $status = null, $cancelled = false)
     {
-        if ($status != null) {
+        if (null != $status) {
             self::$db->where('status', $status);
         }
-        if($cancelled) :
-            return self::$db->where(array('inv_id >' => 0, 'status !=' => 'Cancelled'))->get('invoices')->result();
-        else:
-        return self::$db->order_by('inv_id', 'desc')->where(array('inv_id >' => 0, 'inv_deleted' => 'No'))->get('invoices', $limit)->result();
-        endif;
+        if ($cancelled) {
+            return self::$db->where(['inv_id >' => 0, 'status !=' => 'Cancelled'])->get('invoices')->result();
+        }
+
+        return self::$db->order_by('inv_id', 'desc')->where(['inv_id >' => 0, 'inv_deleted' => 'No'])->get('invoices', $limit)->result();
     }
 
     public static function saved_items()
     {
-        return self::$db->where(array('unit_cost >' => 0, 'deleted' => 'No'))->get('items_saved')->result();
+        return self::$db->where(['unit_cost >' => 0, 'deleted' => 'No'])->get('items_saved')->result();
     }
 
     // Update Invoice
@@ -78,6 +78,7 @@ class Invoice extends CI_Model
     {
         return self::$db->where('tax_rate_id', $id)->get('tax_rates')->row();
     }
+
     // Update tax rate
     public static function update_tax($id, $data)
     {
@@ -121,8 +122,8 @@ class Invoice extends CI_Model
         if ($sum_tax) {
             return self::total_tax($invoice);
         }
-        $tax = ($type == 'tax2') ? self::view_by_id($invoice)->tax2 : self::view_by_id($invoice)->tax;
-        if ($type == 'tax2') {
+        $tax = ('tax2' == $type) ? self::view_by_id($invoice)->tax2 : self::view_by_id($invoice)->tax;
+        if ('tax2' == $type) {
             return ($tax / 100) * self::get_invoice_subtotal($invoice);
         }
 
@@ -131,64 +132,57 @@ class Invoice extends CI_Model
 
     public static function total_tax($invoice = null)
     {
-        if($invoice) {
+        if ($invoice) {
             $tax1 = self::view_by_id($invoice)->tax;
             $tax2 = self::view_by_id($invoice)->tax2;
 
             return ($tax1 / 100) * self::get_invoice_subtotal($invoice) + ($tax2 / 100) * self::get_invoice_subtotal($invoice);
         }
-        else {
-            return 0;
-        }
+
+        return 0;
     }
 
     public static function get_invoice_discount($invoice = null)
     {
-        if($invoice) {
-         return (self::view_by_id($invoice)->discount / 100) * self::get_invoice_subtotal($invoice);
+        if ($invoice) {
+            return (self::view_by_id($invoice)->discount / 100) * self::get_invoice_subtotal($invoice);
         }
-        else 
-        {
-            return 0;
-        }
+
+        return 0;
     }
 
     public static function get_invoice_fee($invoice = null)
     {
-        if($invoice) {
+        if ($invoice) {
             return (self::view_by_id($invoice)->extra_fee / 100) * self::get_invoice_subtotal($invoice);
         }
-        else 
-        {
-            return 0;
-        }
+
+        return 0;
     }
 
     public static function get_invoice_subtotal($invoice = null)
     {
-        if($invoice) {
+        if ($invoice) {
             return self::$db->select_sum('total_cost')->where('invoice_id', $invoice)->get('items')->row()->total_cost;
         }
-        else 
-        {
-            return 0;
-        }
+
+        return 0;
     }
 
     public static function get_invoice_paid($invoice)
     {
-        return self::$db->select_sum('amount')->where(array('invoice' => $invoice, 'refunded' => 'No'))->get('payments')->row()->amount;
+        return self::$db->select_sum('amount')->where(['invoice' => $invoice, 'refunded' => 'No'])->get('payments')->row()->amount;
     }
 
     public static function get_payment_process($id, $gateway)
     {
-        return self::$db->select('*')->where(array('trans_id' => $id, 'gateway' => $gateway))->get('payment_process')->row();
+        return self::$db->select('*')->where(['trans_id' => $id, 'gateway' => $gateway])->get('payment_process')->row();
     }
 
     public static function all_invoice_amount()
     {
         $invoices = self::get_invoices(null, null, true);
-        $cost[] = array();
+        $cost[] = [];
         foreach ($invoices as $key => $invoice) {
             $tax = self::get_invoice_tax($invoice->inv_id, null, true);
             $discount = self::get_invoice_discount($invoice->inv_id);
@@ -202,9 +196,9 @@ class Invoice extends CI_Model
         }
         if (is_array($cost)) {
             return round(array_sum($cost), config_item('currency_decimals'));
-        } else {
-            return 0;
         }
+
+        return 0;
     }
 
     public static function outstanding()
@@ -226,7 +220,7 @@ class Invoice extends CI_Model
     {
         $total = 0;
         $date_today = date('Y-m-d');
-        $sql = "SELECT * FROM hd_invoices WHERE DATE(due_date) <= '$date_today' AND status = 'Unpaid'";
+        $sql = "SELECT * FROM hd_invoices WHERE DATE(due_date) <= '{$date_today}' AND status = 'Unpaid'";
         $invoices = self::$db->query($sql)->result();
         foreach ($invoices as $key => $inv) {
             if (config_item('default_currency') != config_item('default_currency')) {
@@ -259,69 +253,71 @@ class Invoice extends CI_Model
         return self::$db->where($type.'_id', $id)->order_by('item_order', 'asc')->get($table)->result();
     }
 
-
-    static function get_renewal_date($date, $days)
+    public static function get_renewal_date($date, $days)
     {
         $renewal_date = new DateTime($date);
-        $renewal_date->add(new DateInterval('P' . $days . 'D'));
+        $renewal_date->add(new DateInterval('P'.$days.'D'));
+
         return $renewal_date->format('Y-m-d');
     }
-
 
     // Get Invoice Status
     public static function payment_status($invoice = null)
     {
-        if($invoice) {
+        if ($invoice) {
             $invoice_status = self::view_by_id($invoice)->status;
-        }
-        else {
+        } else {
             $invoice_status = lang('unknown');
         }
-        
+
         $tax = self::get_invoice_tax($invoice, null, true);
         $discount = self::get_invoice_discount($invoice);
         $invoice_cost = self::get_invoice_subtotal($invoice);
         $payment_made = round(self::get_invoice_paid($invoice), 2);
         $due = round(((($invoice_cost - $discount) + $tax) - $payment_made));
 
-        if ($invoice_status == 'Cancelled') {
+        if ('Cancelled' == $invoice_status) {
             return 'cancelled'; // Cancelled
-        }elseif ($invoice_status != 'Paid') {
-            return 'not_paid'; // Not paid
-        } elseif ($due <= 0) {
-            return 'fully_paid'; // Fully paid
-        } else {
-            return 'partially_paid'; // Partially Paid
         }
+        if ('Paid' != $invoice_status) {
+            return 'not_paid'; // Not paid
+        }
+        if ($due <= 0) {
+            return 'fully_paid'; // Fully paid
+        }
+
+        return 'partially_paid'; // Partially Paid
     }
 
     // Get Invoice Activities
     public static function activities($invoice = null)
     {
-        return self::$db->where(array('module_field_id' => $invoice, 'module' => 'invoices'))
+        return self::$db->where(['module_field_id' => $invoice, 'module' => 'invoices'])
             ->order_by('activity_date', 'desc')->get('activities')->result();
     }
 
     // Get Invoices by CLIENT ID
     public static function get_client_invoices($company)
     {
-        return self::$db->where(array('client' => $company,'status !=' => 'Cancelled','show_client' => 'Yes'))->order_by('inv_id', 'desc')->get('invoices')->result();
+        return self::$db->where(['client' => $company, 'status !=' => 'Cancelled', 'show_client' => 'Yes'])->order_by('inv_id', 'desc')->get('invoices')->result();
     }
+
     // Get list of paid invoices
     public static function paid_invoices($company = null)
     {
-        if ($company != null) {
-            self::$db->where(array('client' => $company, 'show_client' => 'Yes'));
+        if (null != $company) {
+            self::$db->where(['client' => $company, 'show_client' => 'Yes']);
         }
 
-        return self::$db->where(array('status' => 'Paid', 'inv_id >' => 0))->get('invoices')->result();
+        return self::$db->where(['status' => 'Paid', 'inv_id >' => 0])->get('invoices')->result();
     }
+
     // Get list of unpaid invoices
     public static function unpaid_invoices($company = null)
     {
-        $invoices = ($company != null) ? self::get_client_invoices($company) : self::get_invoices(null, null, true);
+        $invoices = (null != $company) ? self::get_client_invoices($company) : self::get_invoices(null, null, true);
         foreach ($invoices as $key => &$inv) {
-            if (self::payment_status($inv->inv_id) != 'not_paid') {
+            if ('not_paid' != self::payment_status($inv->inv_id)) {
                 unset($invoices[$key]);
             }
         }
@@ -347,9 +343,9 @@ class Invoice extends CI_Model
             $next_number = self::ref_exists($next_number);
 
             return sprintf('%04d', $next_number);
-        } else {
-            return sprintf('%04d', config_item('invoice_start_no'));
         }
+
+        return sprintf('%04d', config_item('invoice_start_no'));
     }
 
     // Verify if REF Exists
@@ -362,15 +358,15 @@ class Invoice extends CI_Model
             ->get('invoices')->num_rows();
         if ($records > 0) {
             return self::ref_exists($next_number + 1);
-        } else {
-            return $next_number;
         }
+
+        return $next_number;
     }
 
     public static function by_range($start, $end, $report_by = null)
     {
-        $report_by = ($report_by == 'InvoiceDueDate') ? 'due_date' : 'date_saved';
-        $sql = "SELECT * FROM hd_invoices WHERE $report_by BETWEEN '$start' AND '$end'";
+        $report_by = ('InvoiceDueDate' == $report_by) ? 'due_date' : 'date_saved';
+        $sql = "SELECT * FROM hd_invoices WHERE {$report_by} BETWEEN '{$start}' AND '{$end}'";
 
         return self::$db->query($sql)->result();
     }
@@ -378,9 +374,9 @@ class Invoice extends CI_Model
     // Get a list of partially paid invoices
     public static function partially_paid_invoices($company = null)
     {
-        $invoices = ($company != null) ? self::get_client_invoices($company) : self::get_invoices(null, null, true);
+        $invoices = (null != $company) ? self::get_client_invoices($company) : self::get_invoices(null, null, true);
         foreach ($invoices as $key => &$inv) {
-            if (self::payment_status($inv->inv_id) != 'partially_paid') {
+            if ('partially_paid' != self::payment_status($inv->inv_id)) {
                 unset($invoices[$key]);
             }
         }
@@ -391,40 +387,38 @@ class Invoice extends CI_Model
     // Get a list of recurring invoices
     public static function recurring_invoices($company = null)
     {
-        if ($company != null) {
-            self::$db->where(array('client' => $company, 'show_client' => 'Yes'));
+        if (null != $company) {
+            self::$db->where(['client' => $company, 'show_client' => 'Yes']);
         }
 
-        return self::$db->where(array('recurring' => 'Yes', 'inv_id >' => 0))->get('invoices')->result();
+        return self::$db->where(['recurring' => 'Yes', 'inv_id >' => 0])->get('invoices')->result();
     }
 
-    public static function evaluate_invoice($id)
+    public static function evaluate_invoice($id): void
     {
         $has_balance = self::get_invoice_due_amount($id);
         $has_items = self::$db->where('invoice_id', $id)->get('items')->num_rows();
-        $is_cancelled = (self::view_by_id($id)->status == 'Cancelled') ? true : false;
-        if(!$is_cancelled) :
-            if ($has_items == 0 || $has_balance > 0) {
+        $is_cancelled = ('Cancelled' == self::view_by_id($id)->status) ? true : false;
+        if (!$is_cancelled) {
+            if (0 == $has_items || $has_balance > 0) {
                 self::$db->set('status', 'Unpaid')->where('inv_id', $id)->update('invoices');
             } else {
                 self::$db->set('status', 'Paid')->where('inv_id', $id)->update('invoices');
             }
-        endif;
-
-        return;
+        }
     }
 
     // Delete Invoice
-    public static function delete($invoice)
+    public static function delete($invoice): void
     {
         //delete invoice items
-        self::$db->where(array('invoice_id' => $invoice))->delete('items');
+        self::$db->where(['invoice_id' => $invoice])->delete('items');
         //delete invoice payments
-        self::$db->where(array('invoice' => $invoice))->delete('payments');
+        self::$db->where(['invoice' => $invoice])->delete('payments');
         //clear invoice activities
-        self::$db->where(array('module' => 'invoices', 'module_field_id' => $invoice))->delete('activities');
+        self::$db->where(['module' => 'invoices', 'module_field_id' => $invoice])->delete('activities');
         //delete invoice
-        self::$db->where(array('inv_id' => $invoice))->delete('invoices');
+        self::$db->where(['inv_id' => $invoice])->delete('invoices');
     }
 
     public static function recur($invoice, $data)
@@ -432,22 +426,22 @@ class Invoice extends CI_Model
         $recur_days = App::num_days($data['r_freq']);
         $due_date = self::view_by_id($invoice)->due_date;
         $next_date = date('Y-m-d', strtotime($due_date.'+ '.$recur_days.' days'));
-        if ($data['recur_end_date'] == '') {
+        if ('' == $data['recur_end_date']) {
             $recur_end_date = '0000-00-00';
         } else {
             $recur_end_date = date_format(date_create_from_format(config_item('date_php_format'), $data['recur_end_date']), 'Y-m-d');
         }
-        $data = array(
+        $data = [
             'recurring' => 'Yes',
             'r_freq' => $recur_days,
             'recur_frequency' => $data['r_freq'],
             'recur_start_date' => date_format(date_create_from_format(config_item('date_php_format'), $data['recur_start_date']), 'Y-m-d'),
             'recur_end_date' => $recur_end_date,
             'recur_next_date' => $next_date,
-        );
+        ];
         self::update($invoice, $data);
         // Log recur activity
-        $activity = array(
+        $activity = [
             'user' => User::get_id(),
             'module' => 'invoices',
             'module_field_id' => $invoice,
@@ -455,58 +449,47 @@ class Invoice extends CI_Model
             'icon' => 'fa-tweet',
             'value1' => self::view_by_id($invoice)->reference_no,
             'value2' => $next_date,
-        );
+        ];
         App::Log($activity);
 
         return true;
     }
 
-
-    static function credit_client($id)
-	{
+    public static function credit_client($id): void
+    {
         $payments = Payment::by_invoice($id);
         $amount = 0;
 
-        foreach($payments as $payment)
-        {
+        foreach ($payments as $payment) {
             $amount += $payment->amount;
         }
 
         $client = Client::view_by_id(self::view_by_id($id)->client);
         $credit = $client->transaction_value;
         $bal = $credit + $amount;
-        
-        $balance = array(
-            'transaction_value' => Applib::format_deci($bal)
-        );
-        
-        self::$db->where('co_id', $client->co_id)->update('companies', $balance); 
+
+        $balance = [
+            'transaction_value' => Applib::format_deci($bal),
+        ];
+
+        self::$db->where('co_id', $client->co_id)->update('companies', $balance);
     }
 
-
-
-
-    static function credit_item($id)
-	{
-        $item = Order::get_order($id);  
-       if(self::payment_status($item->invoice_id) == 'fully_paid')
-       {                          
+    public static function credit_item($id): void
+    {
+        $item = Order::get_order($id);
+        if ('fully_paid' == self::payment_status($item->invoice_id)) {
             $client = Client::view_by_id($item->client_id);
             $credit = $client->transaction_value;
-            $bal = $credit + $item->fee; 
-            
-            $balance = array(
-                'transaction_value' => Applib::format_deci($bal)
-            );
-            
-            self::$db->where('co_id', $client->co_id)->update('companies', $balance); 
+            $bal = $credit + $item->fee;
 
-       }
+            $balance = [
+                'transaction_value' => Applib::format_deci($bal),
+            ];
 
+            self::$db->where('co_id', $client->co_id)->update('companies', $balance);
+        }
     }
-    
-
-
 }
 
-/* End of file model.php */
+// End of file model.php

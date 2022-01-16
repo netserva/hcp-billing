@@ -1,6 +1,8 @@
 <?php
+
+declare(strict_types=1);
 /**
- * PHPExcel
+ * PHPExcel.
  *
  * Copyright (c) 2006 - 2014 PHPExcel
  *
@@ -19,29 +21,31 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  *
  * @category   PHPExcel
- * @package    PHPExcel_Writer_OpenDocument
+ *
  * @copyright  Copyright (c) 2006 - 2014 PHPExcel (http://www.codeplex.com/PHPExcel)
  * @license    http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt	LGPL
+ *
  * @version    ##VERSION##, ##DATE##
  */
 
-
 /**
- * PHPExcel_Writer_OpenDocument_MetaInf
+ * PHPExcel_Writer_OpenDocument_MetaInf.
  *
  * @category   PHPExcel
- * @package    PHPExcel_Writer_OpenDocument
+ *
  * @copyright  Copyright (c) 2006 - 2014 PHPExcel (http://www.codeplex.com/PHPExcel)
  * @author     Alexander Pervakov <frost-nzcr4@jagmort.com>
  */
 class PHPExcel_Writer_OpenDocument_MetaInf extends PHPExcel_Writer_OpenDocument_WriterPart
 {
     /**
-     * Write META-INF/manifest.xml to XML format
+     * Write META-INF/manifest.xml to XML format.
      *
-     * @param     PHPExcel    $pPHPExcel
-     * @return     string         XML Output
-     * @throws     PHPExcel_Writer_Exception
+     * @param PHPExcel $pPHPExcel
+     *
+     * @throws PHPExcel_Writer_Exception
+     *
+     * @return string XML Output
      */
     public function writeManifest(PHPExcel $pPHPExcel = null)
     {
@@ -61,34 +65,34 @@ class PHPExcel_Writer_OpenDocument_MetaInf extends PHPExcel_Writer_OpenDocument_
 
         // Manifest
         $objWriter->startElement('manifest:manifest');
-            $objWriter->writeAttribute('xmlns:manifest', 'urn:oasis:names:tc:opendocument:xmlns:manifest:1.0');
-            $objWriter->writeAttribute('manifest:version', '1.2');
+        $objWriter->writeAttribute('xmlns:manifest', 'urn:oasis:names:tc:opendocument:xmlns:manifest:1.0');
+        $objWriter->writeAttribute('manifest:version', '1.2');
 
-            $objWriter->startElement('manifest:file-entry');
-                $objWriter->writeAttribute('manifest:full-path', '/');
-                $objWriter->writeAttribute('manifest:version', '1.2');
-                $objWriter->writeAttribute('manifest:media-type', 'application/vnd.oasis.opendocument.spreadsheet');
-            $objWriter->endElement();
-            $objWriter->startElement('manifest:file-entry');
-                $objWriter->writeAttribute('manifest:full-path', 'meta.xml');
-                $objWriter->writeAttribute('manifest:media-type', 'text/xml');
-            $objWriter->endElement();
-            $objWriter->startElement('manifest:file-entry');
-                $objWriter->writeAttribute('manifest:full-path', 'settings.xml');
-                $objWriter->writeAttribute('manifest:media-type', 'text/xml');
-            $objWriter->endElement();
-            $objWriter->startElement('manifest:file-entry');
-                $objWriter->writeAttribute('manifest:full-path', 'content.xml');
-                $objWriter->writeAttribute('manifest:media-type', 'text/xml');
-            $objWriter->endElement();
-            $objWriter->startElement('manifest:file-entry');
-                $objWriter->writeAttribute('manifest:full-path', 'Thumbnails/thumbnail.png');
-                $objWriter->writeAttribute('manifest:media-type', 'image/png');
-            $objWriter->endElement();
-            $objWriter->startElement('manifest:file-entry');
-                $objWriter->writeAttribute('manifest:full-path', 'styles.xml');
-                $objWriter->writeAttribute('manifest:media-type', 'text/xml');
-            $objWriter->endElement();
+        $objWriter->startElement('manifest:file-entry');
+        $objWriter->writeAttribute('manifest:full-path', '/');
+        $objWriter->writeAttribute('manifest:version', '1.2');
+        $objWriter->writeAttribute('manifest:media-type', 'application/vnd.oasis.opendocument.spreadsheet');
+        $objWriter->endElement();
+        $objWriter->startElement('manifest:file-entry');
+        $objWriter->writeAttribute('manifest:full-path', 'meta.xml');
+        $objWriter->writeAttribute('manifest:media-type', 'text/xml');
+        $objWriter->endElement();
+        $objWriter->startElement('manifest:file-entry');
+        $objWriter->writeAttribute('manifest:full-path', 'settings.xml');
+        $objWriter->writeAttribute('manifest:media-type', 'text/xml');
+        $objWriter->endElement();
+        $objWriter->startElement('manifest:file-entry');
+        $objWriter->writeAttribute('manifest:full-path', 'content.xml');
+        $objWriter->writeAttribute('manifest:media-type', 'text/xml');
+        $objWriter->endElement();
+        $objWriter->startElement('manifest:file-entry');
+        $objWriter->writeAttribute('manifest:full-path', 'Thumbnails/thumbnail.png');
+        $objWriter->writeAttribute('manifest:media-type', 'image/png');
+        $objWriter->endElement();
+        $objWriter->startElement('manifest:file-entry');
+        $objWriter->writeAttribute('manifest:full-path', 'styles.xml');
+        $objWriter->writeAttribute('manifest:media-type', 'text/xml');
+        $objWriter->endElement();
         $objWriter->endElement();
 
         return $objWriter->getData();

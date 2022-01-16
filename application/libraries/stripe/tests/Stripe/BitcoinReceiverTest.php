@@ -1,10 +1,16 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Stripe;
 
+/**
+ * @internal
+ * @coversNothing
+ */
 class BitcoinReceiverTest extends TestCase
 {
-    public function testUrls()
+    public function testUrls(): void
     {
         $classUrl = BitcoinReceiver::classUrl('Stripe_BitcoinReceiver');
         $this->assertSame($classUrl, '/v1/bitcoin/receivers');

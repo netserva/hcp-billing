@@ -1,26 +1,26 @@
 <div class="modal-dialog">
 	<div class="modal-content">
 		<div class="modal-header">
-		<button type="button" class="close" data-dismiss="modal">&times;</button> <h4 class="modal-title"><?=lang('new_slide')?></h4>
+		<button type="button" class="close" data-dismiss="modal">&times;</button> <h4 class="modal-title"><?php echo lang('new_slide'); ?></h4>
 		</div>
 
 	<?php
-			 $attributes = array('class' => 'bs-example form-horizontal');
-          echo form_open_multipart(base_url().'sliders/add_slide/',$attributes); ?>
-          <input type="hidden" name="slider" value="<?=$slider_id?>">
+             $attributes = ['class' => 'bs-example form-horizontal'];
+          echo form_open_multipart(base_url().'sliders/add_slide/', $attributes); ?>
+          <input type="hidden" name="slider" value="<?php echo $slider_id; ?>">
 		<div class="modal-body">
 
                 <div class="form-group">
-                    <label class="col-lg-3 control-label"><?=lang('title')?></label>
+                    <label class="col-lg-3 control-label"><?php echo lang('title'); ?></label>
                     <div class="col-lg-9">
-                    <input name="title" class="form-control" placeholder="<?=lang('title')?>"/>
+                    <input name="title" class="form-control" placeholder="<?php echo lang('title'); ?>"/>
                     </div>
                 </div>
 
                 <div class="form-group">
-                    <label class="col-lg-3 control-label"><?=lang('description')?></label>
+                    <label class="col-lg-3 control-label"><?php echo lang('description'); ?></label>
                     <div class="col-lg-9">
-                    <textarea name="description" class="form-control ta" placeholder="<?=lang('description')?>" ></textarea>
+                    <textarea name="description" class="form-control ta" placeholder="<?php echo lang('description'); ?>" ></textarea>
                     </div>
                 </div>
 
@@ -33,8 +33,8 @@
                 </div>
 
 		<div class="modal-footer"> 
-                    <a href="#" class="btn btn-default" data-dismiss="modal"><?=lang('close')?></a>
-                    <button type="submit" class="btn btn-<?=config_item('theme_color');?>"><?=lang('add_slide')?></button>
+                    <a href="#" class="btn btn-default" data-dismiss="modal"><?php echo lang('close'); ?></a>
+                    <button type="submit" class="btn btn-<?php echo config_item('theme_color'); ?>"><?php echo lang('add_slide'); ?></button>
 		</form>
 		</div>
 	        </div>

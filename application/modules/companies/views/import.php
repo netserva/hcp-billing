@@ -4,40 +4,40 @@
   
                 <div class="table-responsive">
                 <?php
-			 $attributes = array('class' => 'bs-example form-horizontal');
+             $attributes = ['class' => 'bs-example form-horizontal'];
           echo form_open(base_url().'companies/import_clients', $attributes); ?>  
 
                 <table id="table-rates" class="table table-striped b-t">
                     <thead>
                     <tr>
-                        <th><?=lang('first_name')?></th> 
-                        <th><?=lang('last_name')?></th> 
-                        <th><?=lang('company_name')?></th>
-                        <th><?=lang('email')?></th> 
-                        <th><?=lang('address_line_1')?></th> 
-                        <th><?=lang('address_line_2')?></th> 
-                        <th><?=lang('city')?></th>
-                        <th><?=lang('country')?></th> 
-                        <th><?=lang('phone')?></th> 
-                        <th><input type="checkbox" id="select-all" checked> <?=lang('select')?></th>
+                        <th><?php echo lang('first_name'); ?></th> 
+                        <th><?php echo lang('last_name'); ?></th> 
+                        <th><?php echo lang('company_name'); ?></th>
+                        <th><?php echo lang('email'); ?></th> 
+                        <th><?php echo lang('address_line_1'); ?></th> 
+                        <th><?php echo lang('address_line_2'); ?></th> 
+                        <th><?php echo lang('city'); ?></th>
+                        <th><?php echo lang('country'); ?></th> 
+                        <th><?php echo lang('phone'); ?></th> 
+                        <th><input type="checkbox" id="select-all" checked> <?php echo lang('select'); ?></th>
                     </tr>
                     </thead>
                     <tbody>
                     <?php
-                    
-                    $data = $this->session->userdata('import_clients') ? $this->session->userdata('import_clients') : array();                    
+
+                    $data = $this->session->userdata('import_clients') ? $this->session->userdata('import_clients') : [];
                     foreach ($data as $acc) { ?>
                     <tr>
-                        <td><?=$acc->first_name?></td>
-                        <td><?=$acc->last_name?></td>
-                        <td><?=$acc->company?></td>
-                        <td><?=$acc->email?></td> 
-                        <td><?=$acc->address_1?></td>
-                        <td><?=$acc->address_2?></td>
-                        <td><?=$acc->city?></td>
-                        <td><?=$acc->country?></td> 
-                        <td><?=$acc->phone?></td> 
-                        <td><input type="checkbox" name="<?=$acc->id?>" checked></td>               
+                        <td><?php echo $acc->first_name; ?></td>
+                        <td><?php echo $acc->last_name; ?></td>
+                        <td><?php echo $acc->company; ?></td>
+                        <td><?php echo $acc->email; ?></td> 
+                        <td><?php echo $acc->address_1; ?></td>
+                        <td><?php echo $acc->address_2; ?></td>
+                        <td><?php echo $acc->city; ?></td>
+                        <td><?php echo $acc->country; ?></td> 
+                        <td><?php echo $acc->phone; ?></td> 
+                        <td><input type="checkbox" name="<?php echo $acc->id; ?>" checked></td>               
                     </tr>
                     <?php }  ?>
                    
@@ -53,7 +53,7 @@
                         <td></td>    
                         <td></td>
                         <td></td>
-                        <td><button class="btn btn-success btn-block btn-sm"><?=lang('import')?></button></td>                 
+                        <td><button class="btn btn-success btn-block btn-sm"><?php echo lang('import'); ?></button></td>                 
                     </tr>
                     </tfoot>
                 </table>  

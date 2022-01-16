@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 // File generated from our OpenAPI spec
 
 namespace Stripe\Service\Radar;
@@ -11,7 +13,7 @@ class ValueListItemService extends \Stripe\Service\AbstractService
      * descending order by creation date, with the most recently created object
      * appearing first.
      *
-     * @param null|array $params
+     * @param null|array                             $params
      * @param null|array|\Stripe\Util\RequestOptions $opts
      *
      * @throws \Stripe\Exception\ApiErrorException if the request fails
@@ -27,7 +29,7 @@ class ValueListItemService extends \Stripe\Service\AbstractService
      * Creates a new <code>ValueListItem</code> object, which is added to the specified
      * parent value list.
      *
-     * @param null|array $params
+     * @param null|array                             $params
      * @param null|array|\Stripe\Util\RequestOptions $opts
      *
      * @throws \Stripe\Exception\ApiErrorException if the request fails
@@ -43,8 +45,8 @@ class ValueListItemService extends \Stripe\Service\AbstractService
      * Deletes a <code>ValueListItem</code> object, removing it from its parent value
      * list.
      *
-     * @param string $id
-     * @param null|array $params
+     * @param string                                 $id
+     * @param null|array                             $params
      * @param null|array|\Stripe\Util\RequestOptions $opts
      *
      * @throws \Stripe\Exception\ApiErrorException if the request fails
@@ -59,8 +61,8 @@ class ValueListItemService extends \Stripe\Service\AbstractService
     /**
      * Retrieves a <code>ValueListItem</code> object.
      *
-     * @param string $id
-     * @param null|array $params
+     * @param string                                 $id
+     * @param null|array                             $params
      * @param null|array|\Stripe\Util\RequestOptions $opts
      *
      * @throws \Stripe\Exception\ApiErrorException if the request fails

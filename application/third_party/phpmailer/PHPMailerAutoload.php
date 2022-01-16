@@ -1,9 +1,12 @@
 <?php
+
+declare(strict_types=1);
 /**
  * PHPMailer SPL autoloader.
- * PHP Version 5
- * @package PHPMailer
- * @link https://github.com/PHPMailer/PHPMailer/ The PHPMailer GitHub project
+ * PHP Version 5.
+ *
+ * @see https://github.com/PHPMailer/PHPMailer/ The PHPMailer GitHub project
+ *
  * @author Marcus Bointon (Synchro/coolbru) <phpmailer@synchromedia.co.uk>
  * @author Jim Jagielski (jimjag) <jimjag@gmail.com>
  * @author Andy Prevost (codeworxtech) <codeworxtech@users.sourceforge.net>
@@ -15,13 +18,16 @@
  * @note This program is distributed in the hope that it will be useful - WITHOUT
  * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
  * FITNESS FOR A PARTICULAR PURPOSE.
+ *
+ * @param mixed $classname
  */
 
 /**
  * PHPMailer SPL autoloader.
+ *
  * @param string $classname The name of the class to load
  */
-function PHPMailerAutoload($classname)
+function PHPMailerAutoload($classname): void
 {
     //Can't use __DIR__ as it's only in PHP 5.3+
     $filename = dirname(__FILE__).DIRECTORY_SEPARATOR.'class.'.strtolower($classname).'.php';
@@ -39,10 +45,11 @@ if (version_compare(PHP_VERSION, '5.1.2', '>=')) {
     }
 } else {
     /**
-     * Fall back to traditional autoload for old PHP versions
+     * Fall back to traditional autoload for old PHP versions.
+     *
      * @param string $classname The name of the class to load
      */
-    function __autoload($classname)
+    function __autoload($classname): void
     {
         PHPMailerAutoload($classname);
     }

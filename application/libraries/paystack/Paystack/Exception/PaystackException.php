@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Yabacon\Paystack\Exception;
 
 class PaystackException extends \Exception

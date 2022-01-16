@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 // File generated from our OpenAPI spec
 
 namespace Stripe\Service\Radar;
@@ -8,8 +10,8 @@ namespace Stripe\Service\Radar;
  * Service factory class for API resources in the Radar namespace.
  *
  * @property EarlyFraudWarningService $earlyFraudWarnings
- * @property ValueListItemService $valueListItems
- * @property ValueListService $valueLists
+ * @property ValueListItemService     $valueListItems
+ * @property ValueListService         $valueLists
  */
 class RadarServiceFactory extends \Stripe\Service\AbstractServiceFactory
 {

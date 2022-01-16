@@ -1,22 +1,24 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Stripe;
 
 abstract class WebhookSignature
 {
-    const EXPECTED_SCHEME = 'v1';
+    public const EXPECTED_SCHEME = 'v1';
 
     /**
      * Verifies the signature header sent by Stripe. Throws an
      * Exception\SignatureVerificationException exception if the verification fails for
      * any reason.
      *
-     * @param string $payload the payload sent by Stripe
-     * @param string $header the contents of the signature header sent by
-     *  Stripe
-     * @param string $secret secret used to generate the signature
-     * @param int $tolerance maximum difference allowed between the header's
-     *  timestamp and the current time
+     * @param string $payload   the payload sent by Stripe
+     * @param string $header    the contents of the signature header sent by
+     *                          Stripe
+     * @param string $secret    secret used to generate the signature
+     * @param int    $tolerance maximum difference allowed between the header's
+     *                          timestamp and the current time
      *
      * @throws Exception\SignatureVerificationException if the verification fails
      *
@@ -80,7 +82,7 @@ abstract class WebhookSignature
      * @param string $header the signature header
      *
      * @return int the timestamp contained in the header, or -1 if no valid
-     *  timestamp is found
+     *             timestamp is found
      */
     private static function getTimestamp($header)
     {
@@ -129,7 +131,7 @@ abstract class WebhookSignature
      * The current scheme used by Stripe ("v1") is HMAC/SHA-256.
      *
      * @param string $payload the payload to sign
-     * @param string $secret the secret used to generate the signature
+     * @param string $secret  the secret used to generate the signature
      *
      * @return string the signature as a string
      */

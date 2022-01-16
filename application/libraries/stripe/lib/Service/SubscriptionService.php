@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 // File generated from our OpenAPI spec
 
 namespace Stripe\Service;
@@ -10,7 +12,7 @@ class SubscriptionService extends \Stripe\Service\AbstractService
      * By default, returns a list of subscriptions that have not been canceled. In
      * order to list canceled subscriptions, specify <code>status=canceled</code>.
      *
-     * @param null|array $params
+     * @param null|array                             $params
      * @param null|array|\Stripe\Util\RequestOptions $opts
      *
      * @throws \Stripe\Exception\ApiErrorException if the request fails
@@ -41,8 +43,8 @@ class SubscriptionService extends \Stripe\Service\AbstractService
      * for unpaid invoices before allowing the customer to cancel the subscription at
      * all.
      *
-     * @param string $id
-     * @param null|array $params
+     * @param string                                 $id
+     * @param null|array                             $params
      * @param null|array|\Stripe\Util\RequestOptions $opts
      *
      * @throws \Stripe\Exception\ApiErrorException if the request fails
@@ -58,7 +60,7 @@ class SubscriptionService extends \Stripe\Service\AbstractService
      * Creates a new subscription on an existing customer. Each customer can have up to
      * 500 active or scheduled subscriptions.
      *
-     * @param null|array $params
+     * @param null|array                             $params
      * @param null|array|\Stripe\Util\RequestOptions $opts
      *
      * @throws \Stripe\Exception\ApiErrorException if the request fails
@@ -73,8 +75,8 @@ class SubscriptionService extends \Stripe\Service\AbstractService
     /**
      * Removes the currently applied discount on a subscription.
      *
-     * @param string $id
-     * @param null|array $params
+     * @param string                                 $id
+     * @param null|array                             $params
      * @param null|array|\Stripe\Util\RequestOptions $opts
      *
      * @throws \Stripe\Exception\ApiErrorException if the request fails
@@ -89,8 +91,8 @@ class SubscriptionService extends \Stripe\Service\AbstractService
     /**
      * Retrieves the subscription with the given ID.
      *
-     * @param string $id
-     * @param null|array $params
+     * @param string                                 $id
+     * @param null|array                             $params
      * @param null|array|\Stripe\Util\RequestOptions $opts
      *
      * @throws \Stripe\Exception\ApiErrorException if the request fails
@@ -109,8 +111,8 @@ class SubscriptionService extends \Stripe\Service\AbstractService
      * proration will be calculated, use the <a href="#upcoming_invoice">upcoming
      * invoice</a> endpoint.
      *
-     * @param string $id
-     * @param null|array $params
+     * @param string                                 $id
+     * @param null|array                             $params
      * @param null|array|\Stripe\Util\RequestOptions $opts
      *
      * @throws \Stripe\Exception\ApiErrorException if the request fails

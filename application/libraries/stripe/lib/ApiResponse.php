@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Stripe;
 
 use Stripe\Util\CaseInsensitiveArray;
@@ -30,10 +32,10 @@ class ApiResponse
     public $code;
 
     /**
-     * @param string $body
-     * @param int $code
+     * @param string                          $body
+     * @param int                             $code
      * @param null|array|CaseInsensitiveArray $headers
-     * @param null|array $json
+     * @param null|array                      $json
      */
     public function __construct($body, $code, $headers, $json)
     {

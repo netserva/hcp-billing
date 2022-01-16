@@ -1,4 +1,9 @@
-<?php  if ( ! defined('BASEPATH')) exit('No direct script access allowed');
+<?php
+
+declare(strict_types=1);
+if (!defined('BASEPATH')) {
+    exit('No direct script access allowed');
+}
 /*
 | -------------------------------------------------------------------------
 | URI ROUTING
@@ -38,26 +43,24 @@
 |
 */
 
-$route['default_controller'] 	= 'home';
-$route['404_override'] 		= 'errors/error_404';
-$route['translate_uri_dashes'] = FALSE;
+$route['default_controller'] = 'home';
+$route['404_override'] = 'errors/error_404';
+$route['translate_uri_dashes'] = false;
 
 $route['dashboard'] = 'dashboard';
 $route['contact'] = 'contact';
 $route['login'] = 'auth/login';
 $route['logout'] = 'auth/logout';
 
-if($route['default_controller'] == 'home') {
-    require_once( BASEPATH .'database/DB'. EXT );
-    $db =& DB();
-    $query = $db->get( 'posts' );
+if ('home' == $route['default_controller']) {
+    require_once BASEPATH.'database/DB'.EXT;
+    $db = &DB();
+    $query = $db->get('posts');
     $result = $query->result();
-    foreach( $result as $row )
-    {
-        $route[ $row->slug ] = 'pages/page/$1';
+    foreach ($result as $row) {
+        $route[$row->slug] = 'pages/page/$1';
     }
 }
 
- 
-/* End of file routes.php */
-/* Location: ./application/config/routes.php */
+// End of file routes.php
+// Location: ./application/config/routes.php

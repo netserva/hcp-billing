@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 // File generated from our OpenAPI spec
 
 namespace Stripe\Service;
@@ -9,7 +11,7 @@ class PaymentIntentService extends \Stripe\Service\AbstractService
     /**
      * Returns a list of PaymentIntents.
      *
-     * @param null|array $params
+     * @param null|array                             $params
      * @param null|array|\Stripe\Util\RequestOptions $opts
      *
      * @throws \Stripe\Exception\ApiErrorException if the request fails
@@ -31,8 +33,8 @@ class PaymentIntentService extends \Stripe\Service\AbstractService
      * <code>status=’requires_capture’</code>, the remaining
      * <code>amount_capturable</code> will automatically be refunded.
      *
-     * @param string $id
-     * @param null|array $params
+     * @param string                                 $id
+     * @param null|array                             $params
      * @param null|array|\Stripe\Util\RequestOptions $opts
      *
      * @throws \Stripe\Exception\ApiErrorException if the request fails
@@ -54,8 +56,8 @@ class PaymentIntentService extends \Stripe\Service\AbstractService
      * Learn more about <a href="/docs/payments/capture-later">separate authorization
      * and capture</a>.
      *
-     * @param string $id
-     * @param null|array $params
+     * @param string                                 $id
+     * @param null|array                             $params
      * @param null|array|\Stripe\Util\RequestOptions $opts
      *
      * @throws \Stripe\Exception\ApiErrorException if the request fails
@@ -96,8 +98,8 @@ class PaymentIntentService extends \Stripe\Service\AbstractService
      * href="/docs/payments/payment-intents/web-manual">expanded documentation</a> to
      * learn more about manual confirmation.
      *
-     * @param string $id
-     * @param null|array $params
+     * @param string                                 $id
+     * @param null|array                             $params
      * @param null|array|\Stripe\Util\RequestOptions $opts
      *
      * @throws \Stripe\Exception\ApiErrorException if the request fails
@@ -122,7 +124,7 @@ class PaymentIntentService extends \Stripe\Service\AbstractService
      * parameters available in the <a href="/docs/api/payment_intents/confirm">confirm
      * API</a> when <code>confirm=true</code> is supplied.
      *
-     * @param null|array $params
+     * @param null|array                             $params
      * @param null|array|\Stripe\Util\RequestOptions $opts
      *
      * @throws \Stripe\Exception\ApiErrorException if the request fails
@@ -144,8 +146,8 @@ class PaymentIntentService extends \Stripe\Service\AbstractService
      * returned. Please refer to the <a href="#payment_intent_object">payment
      * intent</a> object reference for more details.
      *
-     * @param string $id
-     * @param null|array $params
+     * @param string                                 $id
+     * @param null|array                             $params
      * @param null|array|\Stripe\Util\RequestOptions $opts
      *
      * @throws \Stripe\Exception\ApiErrorException if the request fails
@@ -166,8 +168,8 @@ class PaymentIntentService extends \Stripe\Service\AbstractService
      * and confirm at the same time, we recommend updating properties via the <a
      * href="/docs/api/payment_intents/confirm">confirm API</a> instead.
      *
-     * @param string $id
-     * @param null|array $params
+     * @param string                                 $id
+     * @param null|array                             $params
      * @param null|array|\Stripe\Util\RequestOptions $opts
      *
      * @throws \Stripe\Exception\ApiErrorException if the request fails

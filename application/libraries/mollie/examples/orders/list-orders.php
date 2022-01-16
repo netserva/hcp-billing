@@ -1,16 +1,13 @@
 <?php
 
+declare(strict_types=1);
+
 namespace _PhpScoper5ed105407e8f2;
 
-/*
- * List orders using the Mollie API.
- */
-use Mollie\Api\Resources\OrderCollection;
+// List orders using the Mollie API.
 try {
-    /*
-     * Initialize the Mollie API library with your API key or OAuth access token.
-     */
-    require "../initialize.php";
+    // Initialize the Mollie API library with your API key or OAuth access token.
+    require '../initialize.php';
     /*
      * List the most recent orders
      *
@@ -23,24 +20,24 @@ try {
     \_PhpScoper5ed105407e8f2\printOrders($previousOrders);
     echo '</ul>';
 } catch (\Mollie\Api\Exceptions\ApiException $e) {
-    echo "API call failed: " . \htmlspecialchars($e->getMessage());
+    echo 'API call failed: '.\htmlspecialchars($e->getMessage());
 }
-function printOrders($orders)
+function printOrders($orders): void
 {
     if (empty($orders)) {
         return;
     }
     foreach ($orders as $order) {
-        echo '<li><b>Order ' . \htmlspecialchars($order->id) . ':</b> (' . \htmlspecialchars($order->createdAt) . ')';
-        echo '<br>Status: <b>' . \htmlspecialchars($order->status);
+        echo '<li><b>Order '.\htmlspecialchars($order->id).':</b> ('.\htmlspecialchars($order->createdAt).')';
+        echo '<br>Status: <b>'.\htmlspecialchars($order->status);
         echo '<table border="1"><tr><th>Billed to</th><th>Shipped to</th><th>Total amount</th></tr>';
         echo '<tr>';
-        echo '<td>' . \htmlspecialchars($order->shippingAddress->givenName) . ' ' . \htmlspecialchars($order->shippingAddress->familyName) . '</td>';
-        echo '<td>' . \htmlspecialchars($order->billingAddress->givenName) . ' ' . \htmlspecialchars($order->billingAddress->familyName) . '</td>';
-        echo '<td>' . \htmlspecialchars($order->amount->currency) . \str_replace('.', ',', \htmlspecialchars($order->amount->value)) . '</td>';
+        echo '<td>'.\htmlspecialchars($order->shippingAddress->givenName).' '.\htmlspecialchars($order->shippingAddress->familyName).'</td>';
+        echo '<td>'.\htmlspecialchars($order->billingAddress->givenName).' '.\htmlspecialchars($order->billingAddress->familyName).'</td>';
+        echo '<td>'.\htmlspecialchars($order->amount->currency).\str_replace('.', ',', \htmlspecialchars($order->amount->value)).'</td>';
         echo '</tr>';
         echo '</table>';
-        echo '<a href="' . $order->getCheckoutUrl() . '" target="_blank">Click here to pay</a>';
+        echo '<a href="'.$order->getCheckoutUrl().'" target="_blank">Click here to pay</a>';
         echo '</li>';
     }
 }

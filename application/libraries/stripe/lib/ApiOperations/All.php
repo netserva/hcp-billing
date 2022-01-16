@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Stripe\ApiOperations;
 
 /**
@@ -10,7 +12,7 @@ namespace Stripe\ApiOperations;
 trait All
 {
     /**
-     * @param null|array $params
+     * @param null|array        $params
      * @param null|array|string $opts
      *
      * @throws \Stripe\Exception\ApiErrorException if the request fails
@@ -22,11 +24,11 @@ trait All
         self::_validateParams($params);
         $url = static::classUrl();
 
-        list($response, $opts) = static::_staticRequest('get', $url, $params, $opts);
+        [$response, $opts] = static::_staticRequest('get', $url, $params, $opts);
         $obj = \Stripe\Util\Util::convertToStripeObject($response->json, $opts);
         if (!($obj instanceof \Stripe\Collection)) {
             throw new \Stripe\Exception\UnexpectedValueException(
-                'Expected type ' . \Stripe\Collection::class . ', got "' . \get_class($obj) . '" instead.'
+                'Expected type '.\Stripe\Collection::class.', got "'.\get_class($obj).'" instead.'
             );
         }
         $obj->setLastResponse($response);

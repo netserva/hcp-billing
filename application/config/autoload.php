@@ -1,4 +1,9 @@
-<?php  if ( ! defined('BASEPATH')) exit('No direct script access allowed');
+<?php
+
+declare(strict_types=1);
+if (!defined('BASEPATH')) {
+    exit('No direct script access allowed');
+}
 /*
 | -------------------------------------------------------------------
 | AUTO-LOADER
@@ -37,7 +42,7 @@
 |
 */
 
-$autoload['packages'] = array();
+$autoload['packages'] = [];
 
 /*
 | -------------------------------------------------------------------
@@ -51,7 +56,7 @@ $autoload['packages'] = array();
 |	$autoload['libraries'] = array('database', 'session', 'xmlrpc');
 */
 
-$autoload['libraries'] = array('session','database','tank_auth','applib','module');
+$autoload['libraries'] = ['session', 'database', 'tank_auth', 'applib', 'module'];
 
 /*
 | -------------------------------------------------------------------
@@ -62,8 +67,7 @@ $autoload['libraries'] = array('session','database','tank_auth','applib','module
 |	$autoload['helper'] = array('url', 'file');
 */
 
-$autoload['helper'] = array('language','url','hostingbilling','form','typography','security','date','app');
-
+$autoload['helper'] = ['language', 'url', 'hostingbilling', 'form', 'typography', 'security', 'date', 'app'];
 
 /*
 | -------------------------------------------------------------------
@@ -78,8 +82,7 @@ $autoload['helper'] = array('language','url','hostingbilling','form','typography
 |
 */
 
-$autoload['config'] = array('version');
-
+$autoload['config'] = ['version'];
 
 /*
 | -------------------------------------------------------------------
@@ -94,8 +97,7 @@ $autoload['config'] = array('version');
 |
 */
 
-$autoload['language'] = array('tank_auth');
-
+$autoload['language'] = ['tank_auth'];
 
 /*
 | -------------------------------------------------------------------
@@ -107,8 +109,7 @@ $autoload['language'] = array('tank_auth');
 |
 */
 
-$autoload['model'] = array('Inithook','User','');
+$autoload['model'] = ['Inithook', 'User', ''];
 
-
-/* End of file autoload.php */
-/* Location: ./application/config/autoload.php */
+// End of file autoload.php
+// Location: ./application/config/autoload.php

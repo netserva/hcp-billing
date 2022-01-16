@@ -1,12 +1,13 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Yabacon\Paystack\Routes;
 
 use Yabacon\Paystack\Contracts\RouteInterface;
 
 class Subaccount implements RouteInterface
 {
-
     public static function root()
     {
         return '/subaccount';
@@ -31,7 +32,7 @@ class Subaccount implements RouteInterface
     {
         return [
             RouteInterface::METHOD_KEY => RouteInterface::GET_METHOD,
-            RouteInterface::ENDPOINT_KEY => Subaccount::root() . '/{id}',
+            RouteInterface::ENDPOINT_KEY => Subaccount::root().'/{id}',
             RouteInterface::ARGS_KEY => ['id'],
         ];
     }
@@ -48,7 +49,7 @@ class Subaccount implements RouteInterface
     {
         return [
             RouteInterface::METHOD_KEY => RouteInterface::PUT_METHOD,
-            RouteInterface::ENDPOINT_KEY => Subaccount::root() . '/{id}',
+            RouteInterface::ENDPOINT_KEY => Subaccount::root().'/{id}',
             RouteInterface::PARAMS_KEY => [
                 'business_name', 'settlement_bank',
                 'account_number', 'percentage_charge',

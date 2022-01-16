@@ -1,9 +1,9 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Mollie\Api\Resources;
 
-use Mollie\Api\MollieApiClient;
-use Mollie\Api\Types\MandateStatus;
 class Mandate extends \Mollie\Api\Resources\BaseResource
 {
     /**
@@ -27,7 +27,7 @@ class Mandate extends \Mollie\Api\Resources\BaseResource
      */
     public $method;
     /**
-     * @var \stdClass|null
+     * @var null|\stdClass
      */
     public $details;
     /**
@@ -43,7 +43,7 @@ class Mandate extends \Mollie\Api\Resources\BaseResource
      */
     public $mandateReference;
     /**
-     * Date of signature, for example: 2018-05-07
+     * Date of signature, for example: 2018-05-07.
      *
      * @var string
      */
@@ -52,31 +52,33 @@ class Mandate extends \Mollie\Api\Resources\BaseResource
      * @var \stdClass
      */
     public $_links;
+
     /**
      * @return bool
      */
     public function isValid()
     {
-        return $this->status === \Mollie\Api\Types\MandateStatus::STATUS_VALID;
+        return \Mollie\Api\Types\MandateStatus::STATUS_VALID === $this->status;
     }
+
     /**
      * @return bool
      */
     public function isPending()
     {
-        return $this->status === \Mollie\Api\Types\MandateStatus::STATUS_PENDING;
+        return \Mollie\Api\Types\MandateStatus::STATUS_PENDING === $this->status;
     }
+
     /**
      * @return bool
      */
     public function isInvalid()
     {
-        return $this->status === \Mollie\Api\Types\MandateStatus::STATUS_INVALID;
+        return \Mollie\Api\Types\MandateStatus::STATUS_INVALID === $this->status;
     }
+
     /**
-     * Revoke the mandate
-     *
-     * @return null
+     * Revoke the mandate.
      */
     public function revoke()
     {
@@ -85,9 +87,9 @@ class Mandate extends \Mollie\Api\Resources\BaseResource
         }
         $body = null;
         if ($this->client->usesOAuth()) {
-            $body = \json_encode(["testmode" => $this->mode === "test" ? \true : \false]);
+            $body = \json_encode(['testmode' => 'test' === $this->mode ? \true : \false]);
         }
-        $result = $this->client->performHttpCallToFullUrl(\Mollie\Api\MollieApiClient::HTTP_DELETE, $this->_links->self->href, $body);
-        return $result;
+
+        return $this->client->performHttpCallToFullUrl(\Mollie\Api\MollieApiClient::HTTP_DELETE, $this->_links->self->href, $body);
     }
 }

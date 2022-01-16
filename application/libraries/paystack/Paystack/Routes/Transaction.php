@@ -1,12 +1,13 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Yabacon\Paystack\Routes;
 
 use Yabacon\Paystack\Contracts\RouteInterface;
 
 class Transaction implements RouteInterface
 {
-
     public static function root()
     {
         return '/transaction';
@@ -16,7 +17,7 @@ class Transaction implements RouteInterface
     {
         return [
             RouteInterface::METHOD_KEY => RouteInterface::POST_METHOD,
-            RouteInterface::ENDPOINT_KEY => Transaction::root() . '/initialize',
+            RouteInterface::ENDPOINT_KEY => Transaction::root().'/initialize',
             RouteInterface::PARAMS_KEY => [
                 'reference',
                 'callback_url',
@@ -31,7 +32,7 @@ class Transaction implements RouteInterface
     {
         return [
             RouteInterface::METHOD_KEY => RouteInterface::POST_METHOD,
-            RouteInterface::ENDPOINT_KEY => Transaction::root() . '/charge_authorization',
+            RouteInterface::ENDPOINT_KEY => Transaction::root().'/charge_authorization',
             RouteInterface::PARAMS_KEY => [
                 'reference',
                 'authorization_code',
@@ -45,7 +46,7 @@ class Transaction implements RouteInterface
     {
         return [
             RouteInterface::METHOD_KEY => RouteInterface::POST_METHOD,
-            RouteInterface::ENDPOINT_KEY => Transaction::root() . '/check_authorization',
+            RouteInterface::ENDPOINT_KEY => Transaction::root().'/check_authorization',
             RouteInterface::PARAMS_KEY => [
                 'authorization_code',
                 'email',
@@ -62,9 +63,10 @@ class Transaction implements RouteInterface
     public static function chargeToken()
     {
         trigger_error('This endpoint is deprecated!', E_USER_NOTICE);
+
         return [
             RouteInterface::METHOD_KEY => RouteInterface::POST_METHOD,
-            RouteInterface::ENDPOINT_KEY => Transaction::root() . '/charge_token',
+            RouteInterface::ENDPOINT_KEY => Transaction::root().'/charge_token',
             RouteInterface::PARAMS_KEY => [
                 'reference',
                 'token',
@@ -78,7 +80,7 @@ class Transaction implements RouteInterface
     {
         return [
             RouteInterface::METHOD_KEY => RouteInterface::GET_METHOD,
-            RouteInterface::ENDPOINT_KEY => Transaction::root() . '/{id}',
+            RouteInterface::ENDPOINT_KEY => Transaction::root().'/{id}',
             RouteInterface::ARGS_KEY => ['id'],
         ];
     }
@@ -95,7 +97,7 @@ class Transaction implements RouteInterface
     {
         return [
             RouteInterface::METHOD_KEY => RouteInterface::GET_METHOD,
-            RouteInterface::ENDPOINT_KEY => Transaction::root() . '/export',
+            RouteInterface::ENDPOINT_KEY => Transaction::root().'/export',
             RouteInterface::PARAMS_KEY => [
                 'from',
                 'to',
@@ -109,7 +111,7 @@ class Transaction implements RouteInterface
     {
         return [
             RouteInterface::METHOD_KEY => RouteInterface::GET_METHOD,
-            RouteInterface::ENDPOINT_KEY => Transaction::root() . '/totals',
+            RouteInterface::ENDPOINT_KEY => Transaction::root().'/totals',
         ];
     }
 
@@ -117,7 +119,7 @@ class Transaction implements RouteInterface
     {
         return [
             RouteInterface::METHOD_KEY => RouteInterface::GET_METHOD,
-            RouteInterface::ENDPOINT_KEY => Transaction::root() . '/verify/{reference}',
+            RouteInterface::ENDPOINT_KEY => Transaction::root().'/verify/{reference}',
             RouteInterface::ARGS_KEY => ['reference'],
         ];
     }
@@ -126,7 +128,7 @@ class Transaction implements RouteInterface
     {
         return [
             RouteInterface::METHOD_KEY => RouteInterface::GET_METHOD,
-            RouteInterface::ENDPOINT_KEY => Transaction::root() . '/verify_access_code/{access_code}',
+            RouteInterface::ENDPOINT_KEY => Transaction::root().'/verify_access_code/{access_code}',
             RouteInterface::ARGS_KEY => ['access_code'],
         ];
     }

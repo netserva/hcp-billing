@@ -1,10 +1,13 @@
-<?php defined('BASEPATH') OR exit('No direct script access allowed');
-/**
-* Gravatar Library for CodeIgniter - Configuration
-*
-* @author Ivan Tcholakov <ivantcholakov@gmail.com>, 2015
-* @license The MIT License, http://opensource.org/licenses/MIT
-*/
+<?php
+
+declare(strict_types=1);
+defined('BASEPATH') or exit('No direct script access allowed');
+/*
+ * Gravatar Library for CodeIgniter - Configuration
+ *
+ * @author Ivan Tcholakov <ivantcholakov@gmail.com>, 2015
+ * @license The MIT License, http://opensource.org/licenses/MIT
+ */
 // For more information see http://en.gravatar.com/site/implement/images/
 $config['gravatar_base_url'] = 'https://www.gravatar.com/';
 $config['gravatar_secure_base_url'] = 'https://secure.gravatar.com/';

@@ -1,4 +1,5 @@
-<?php defined('BASEPATH') OR exit('No direct script access allowed'); ?>
+<?php declare(strict_types=1);
+defined('BASEPATH') or exit('No direct script access allowed'); ?>
 
 ERROR - 2021-09-20 07:26:32 --> Severity: Notice --> Trying to get property 'email' of non-object C:\Users\T\Desktop\laragon\www\application\third_party\MX\Loader.php(360) : eval()'d code 3
 ERROR - 2021-09-20 07:56:43 --> Could not find the language line "download_install"

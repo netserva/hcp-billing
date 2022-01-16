@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 // File generated from our OpenAPI spec
 
 namespace Stripe\Util;
@@ -9,7 +11,7 @@ class ObjectTypes
     /**
      * @var array Mapping from object types to resource classes
      */
-    const mapping = [
+    public const mapping = [
         \Stripe\Account::OBJECT_NAME => \Stripe\Account::class,
         \Stripe\AccountLink::OBJECT_NAME => \Stripe\AccountLink::class,
         \Stripe\AlipayAccount::OBJECT_NAME => \Stripe\AlipayAccount::class,

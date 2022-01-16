@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace _PhpScoper5ed105407e8f2;
 
 /*
@@ -13,15 +15,11 @@ try {
      *
      * See: https://www.mollie.com/dashboard/developers/api-keys
      */
-    require "../initialize.php";
-    /*
-     * Retrieve the payment's current state.
-     */
-    $payment = $mollie->payments->get($_POST["id"]);
+    require '../initialize.php';
+    // Retrieve the payment's current state.
+    $payment = $mollie->payments->get($_POST['id']);
     $orderId = $payment->metadata->order_id;
-    /*
-     * Update the order in the database.
-     */
+    // Update the order in the database.
     \_PhpScoper5ed105407e8f2\database_write($orderId, $payment->status);
     if ($payment->isPaid() && !$payment->hasRefunds() && !$payment->hasChargebacks()) {
         /*
@@ -29,25 +27,15 @@ try {
          * At this point you'd probably want to start the process of delivering the product to the customer.
          */
     } elseif ($payment->isOpen()) {
-        /*
-         * The payment is open.
-         */
+        // The payment is open.
     } elseif ($payment->isPending()) {
-        /*
-         * The payment is pending.
-         */
+        // The payment is pending.
     } elseif ($payment->isFailed()) {
-        /*
-         * The payment has failed.
-         */
+        // The payment has failed.
     } elseif ($payment->isExpired()) {
-        /*
-         * The payment is expired.
-         */
+        // The payment is expired.
     } elseif ($payment->isCanceled()) {
-        /*
-         * The payment has been canceled.
-         */
+        // The payment has been canceled.
     } elseif ($payment->hasRefunds()) {
         /*
          * The payment has been (partially) refunded.
@@ -60,5 +48,5 @@ try {
          */
     }
 } catch (\Mollie\Api\Exceptions\ApiException $e) {
-    echo "API call failed: " . \htmlspecialchars($e->getMessage());
+    echo 'API call failed: '.\htmlspecialchars($e->getMessage());
 }

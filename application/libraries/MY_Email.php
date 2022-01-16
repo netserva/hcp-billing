@@ -1,6 +1,9 @@
-<?php defined('BASEPATH') OR exit('No direct script access allowed.');
+<?php
 
-/**
+declare(strict_types=1);
+defined('BASEPATH') or exit('No direct script access allowed.');
+
+/*
  * CodeIgniter compatible email-library powered by PHPMailer.
  * Version: 1.2.29
  * @author Ivan Tcholakov <ivantcholakov@gmail.com>, 2012-2017.

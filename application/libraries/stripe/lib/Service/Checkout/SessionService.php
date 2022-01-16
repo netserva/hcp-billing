@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 // File generated from our OpenAPI spec
 
 namespace Stripe\Service\Checkout;
@@ -9,7 +11,7 @@ class SessionService extends \Stripe\Service\AbstractService
     /**
      * Returns a list of Checkout Sessions.
      *
-     * @param null|array $params
+     * @param null|array                             $params
      * @param null|array|\Stripe\Util\RequestOptions $opts
      *
      * @throws \Stripe\Exception\ApiErrorException if the request fails
@@ -27,8 +29,8 @@ class SessionService extends \Stripe\Service\AbstractService
      * items. There is also a URL where you can retrieve the full (paginated) list of
      * line items.
      *
-     * @param string $parentId
-     * @param null|array $params
+     * @param string                                 $parentId
+     * @param null|array                             $params
      * @param null|array|\Stripe\Util\RequestOptions $opts
      *
      * @throws \Stripe\Exception\ApiErrorException if the request fails
@@ -43,7 +45,7 @@ class SessionService extends \Stripe\Service\AbstractService
     /**
      * Creates a Session object.
      *
-     * @param null|array $params
+     * @param null|array                             $params
      * @param null|array|\Stripe\Util\RequestOptions $opts
      *
      * @throws \Stripe\Exception\ApiErrorException if the request fails
@@ -58,8 +60,8 @@ class SessionService extends \Stripe\Service\AbstractService
     /**
      * Retrieves a Session object.
      *
-     * @param string $id
-     * @param null|array $params
+     * @param string                                 $id
+     * @param null|array                             $params
      * @param null|array|\Stripe\Util\RequestOptions $opts
      *
      * @throws \Stripe\Exception\ApiErrorException if the request fails

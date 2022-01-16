@@ -1,12 +1,18 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Stripe;
 
+/**
+ * @internal
+ * @coversNothing
+ */
 class CountrySpecTest extends TestCase
 {
-    const TEST_RESOURCE_ID = 'US';
+    public const TEST_RESOURCE_ID = 'US';
 
-    public function testIsListable()
+    public function testIsListable(): void
     {
         $this->expectsRequest(
             'get',
@@ -14,16 +20,16 @@ class CountrySpecTest extends TestCase
         );
         $resources = CountrySpec::all();
         $this->assertTrue(is_array($resources->data));
-        $this->assertInstanceOf("Stripe\\CountrySpec", $resources->data[0]);
+        $this->assertInstanceOf('Stripe\\CountrySpec', $resources->data[0]);
     }
 
-    public function testIsRetrievable()
+    public function testIsRetrievable(): void
     {
         $this->expectsRequest(
             'get',
-            '/v1/country_specs/' . self::TEST_RESOURCE_ID
+            '/v1/country_specs/'.self::TEST_RESOURCE_ID
         );
         $resource = CountrySpec::retrieve(self::TEST_RESOURCE_ID);
-        $this->assertInstanceOf("Stripe\\CountrySpec", $resource);
+        $this->assertInstanceOf('Stripe\\CountrySpec', $resource);
     }
 }

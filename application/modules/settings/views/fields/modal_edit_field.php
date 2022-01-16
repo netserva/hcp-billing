@@ -1,26 +1,26 @@
 <div class="modal-dialog">
 	<div class="modal-content">
 		<div class="modal-header">
-		<button type="button" class="close" data-dismiss="modal">&times;</button> <h4 class="modal-title"><?=lang('edit_custom_field')?></h4>
+		<button type="button" class="close" data-dismiss="modal">&times;</button> <h4 class="modal-title"><?php echo lang('edit_custom_field'); ?></h4>
 		</div>
 		<?php
-					if (!empty($field_info)) {
-					foreach ($field_info as $key => $f) { ?>
+                    if (!empty($field_info)) {
+                        foreach ($field_info as $key => $f) { ?>
 					<?php
-			 $attributes = array('class' => 'bs-example form-horizontal');
-          echo form_open(base_url().'settings/edit_custom_field',$attributes); ?>
+             $attributes = ['class' => 'bs-example form-horizontal'];
+          echo form_open(base_url().'settings/edit_custom_field', $attributes); ?>
 		<div class="modal-body">
-			 <input type="hidden" name="deptid" value="<?=$f->deptid?>">
+			 <input type="hidden" name="deptid" value="<?php echo $f->deptid; ?>">
 
           		<div class="form-group">
-				<label class="col-lg-4 control-label"><?=lang('custom_field_name')?> <span class="text-danger">*</span></label>
+				<label class="col-lg-4 control-label"><?php echo lang('custom_field_name'); ?> <span class="text-danger">*</span></label>
 				<div class="col-lg-8">
-					<input type="text" class="form-control" value="<?=$f->name?>" required name="name">
+					<input type="text" class="form-control" value="<?php echo $f->name; ?>" required name="name">
 				</div>
 				</div>
 
 				<div class="form-group">
-                <label class="col-lg-4 control-label"><?=lang('field_type')?> <span class="text-danger">*</span> </label>
+                <label class="col-lg-4 control-label"><?php echo lang('field_type'); ?> <span class="text-danger">*</span> </label>
                 <div class="col-lg-6">
                     <select name="type" class="form-control">
                     <option value="text">Text Field</option>
@@ -29,7 +29,7 @@
             </div>
 
 				<div class="form-group">
-                      <label class="col-lg-4 control-label"><?=lang('delete_custom_field')?></label>
+                      <label class="col-lg-4 control-label"><?php echo lang('delete_custom_field'); ?></label>
                       <div class="col-lg-8">
                         <label class="switch">
                           <input type="checkbox" name="delete_field">
@@ -38,13 +38,14 @@
                       </div>
                     </div>
 
-				<input type="hidden" name="id" value="<?=$f->id?>">
+				<input type="hidden" name="id" value="<?php echo $f->id; ?>">
 			
 		</div>
-		<div class="modal-footer"> <a href="#" class="btn btn-default" data-dismiss="modal"><?=lang('close')?></a> 
-		<button type="submit" class="btn btn-primary"><?=lang('save_changes')?></button>
+		<div class="modal-footer"> <a href="#" class="btn btn-default" data-dismiss="modal"><?php echo lang('close'); ?></a> 
+		<button type="submit" class="btn btn-primary"><?php echo lang('save_changes'); ?></button>
 		</form>
-		<?php } } ?>
+		<?php }
+                    } ?>
 		</div>
 	</div>
 	<!-- /.modal-content -->

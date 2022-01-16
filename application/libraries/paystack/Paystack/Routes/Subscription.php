@@ -1,12 +1,13 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Yabacon\Paystack\Routes;
 
 use Yabacon\Paystack\Contracts\RouteInterface;
 
 class Subscription implements RouteInterface
 {
-
     public static function root()
     {
         return '/subscription';
@@ -29,7 +30,7 @@ class Subscription implements RouteInterface
     {
         return [
             RouteInterface::METHOD_KEY => RouteInterface::GET_METHOD,
-            RouteInterface::ENDPOINT_KEY => Subscription::root() . '/{id}',
+            RouteInterface::ENDPOINT_KEY => Subscription::root().'/{id}',
             RouteInterface::ARGS_KEY => ['id'],
         ];
     }
@@ -46,7 +47,7 @@ class Subscription implements RouteInterface
     {
         return [
             RouteInterface::METHOD_KEY => RouteInterface::POST_METHOD,
-            RouteInterface::ENDPOINT_KEY => Subscription::root() . '/disable',
+            RouteInterface::ENDPOINT_KEY => Subscription::root().'/disable',
             RouteInterface::PARAMS_KEY => [
                 'code',
                 'token',
@@ -58,7 +59,7 @@ class Subscription implements RouteInterface
     {
         return [
             RouteInterface::METHOD_KEY => RouteInterface::POST_METHOD,
-            RouteInterface::ENDPOINT_KEY => Subscription::root() . '/enable',
+            RouteInterface::ENDPOINT_KEY => Subscription::root().'/enable',
             RouteInterface::PARAMS_KEY => [
                 'code',
                 'token',

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Stripe\Util;
 
 use ArrayIterator;
@@ -22,12 +24,12 @@ class Set implements IteratorAggregate
         return isset($this->_elts[$elt]);
     }
 
-    public function add($elt)
+    public function add($elt): void
     {
         $this->_elts[$elt] = true;
     }
 
-    public function discard($elt)
+    public function discard($elt): void
     {
         unset($this->_elts[$elt]);
     }

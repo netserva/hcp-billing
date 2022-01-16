@@ -1,12 +1,18 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Stripe;
 
+/**
+ * @internal
+ * @coversNothing
+ */
 class OrderTest extends TestCase
 {
-    const TEST_RESOURCE_ID = 'or_123';
+    public const TEST_RESOURCE_ID = 'or_123';
 
-    public function testIsListable()
+    public function testIsListable(): void
     {
         $this->expectsRequest(
             'get',
@@ -14,74 +20,74 @@ class OrderTest extends TestCase
         );
         $resources = Order::all();
         $this->assertTrue(is_array($resources->data));
-        $this->assertInstanceOf("Stripe\\Order", $resources->data[0]);
+        $this->assertInstanceOf('Stripe\\Order', $resources->data[0]);
     }
 
-    public function testIsRetrievable()
+    public function testIsRetrievable(): void
     {
         $this->expectsRequest(
             'get',
-            '/v1/orders/' . self::TEST_RESOURCE_ID
+            '/v1/orders/'.self::TEST_RESOURCE_ID
         );
         $resource = Order::retrieve(self::TEST_RESOURCE_ID);
-        $this->assertInstanceOf("Stripe\\Order", $resource);
+        $this->assertInstanceOf('Stripe\\Order', $resource);
     }
 
-    public function testIsCreatable()
+    public function testIsCreatable(): void
     {
         $this->expectsRequest(
             'post',
             '/v1/orders'
         );
-        $resource = Order::create(array(
-            'currency' => 'usd'
-        ));
-        $this->assertInstanceOf("Stripe\\Order", $resource);
+        $resource = Order::create([
+            'currency' => 'usd',
+        ]);
+        $this->assertInstanceOf('Stripe\\Order', $resource);
     }
 
-    public function testIsSaveable()
+    public function testIsSaveable(): void
     {
         $resource = Order::retrieve(self::TEST_RESOURCE_ID);
-        $resource->metadata["key"] = "value";
+        $resource->metadata['key'] = 'value';
         $this->expectsRequest(
             'post',
-            '/v1/orders/' . self::TEST_RESOURCE_ID
+            '/v1/orders/'.self::TEST_RESOURCE_ID
         );
         $resource->save();
-        $this->assertInstanceOf("Stripe\\Order", $resource);
+        $this->assertInstanceOf('Stripe\\Order', $resource);
     }
 
-    public function testIsUpdatable()
+    public function testIsUpdatable(): void
     {
         $this->expectsRequest(
             'post',
-            '/v1/orders/' . self::TEST_RESOURCE_ID
+            '/v1/orders/'.self::TEST_RESOURCE_ID
         );
-        $resource = Order::update(self::TEST_RESOURCE_ID, array(
-            "metadata" => array("key" => "value"),
-        ));
-        $this->assertInstanceOf("Stripe\\Order", $resource);
+        $resource = Order::update(self::TEST_RESOURCE_ID, [
+            'metadata' => ['key' => 'value'],
+        ]);
+        $this->assertInstanceOf('Stripe\\Order', $resource);
     }
 
-    public function testIsPayable()
+    public function testIsPayable(): void
     {
         $resource = Order::retrieve(self::TEST_RESOURCE_ID);
         $this->expectsRequest(
             'post',
-            '/v1/orders/' . self::TEST_RESOURCE_ID . '/pay'
+            '/v1/orders/'.self::TEST_RESOURCE_ID.'/pay'
         );
         $resource->pay();
-        $this->assertInstanceOf("Stripe\\Order", $resource);
+        $this->assertInstanceOf('Stripe\\Order', $resource);
     }
 
-    public function testIsReturnable()
+    public function testIsReturnable(): void
     {
         $order = Order::retrieve(self::TEST_RESOURCE_ID);
         $this->expectsRequest(
             'post',
-            '/v1/orders/' . self::TEST_RESOURCE_ID . '/returns'
+            '/v1/orders/'.self::TEST_RESOURCE_ID.'/returns'
         );
         $resource = $order->returnOrder();
-        $this->assertInstanceOf("Stripe\\OrderReturn", $resource);
+        $this->assertInstanceOf('Stripe\\OrderReturn', $resource);
     }
 }

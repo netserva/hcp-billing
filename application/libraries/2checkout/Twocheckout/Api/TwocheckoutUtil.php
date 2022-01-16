@@ -1,35 +1,43 @@
 <?php
 
+declare(strict_types=1);
+
 class Twocheckout_Util extends Twocheckout
 {
+    public static function returnResponse($contents, $format = null)
+    {
+        $format = null == $format ? Twocheckout::$format : $format;
 
-    static function returnResponse($contents, $format=null) {
-        $format = $format == null ? Twocheckout::$format : $format;
         switch ($format) {
-            case "array":
+            case 'array':
                 $response = self::objectToArray($contents);
                 self::checkError($response);
+
                 break;
-            case "force_json":
+
+            case 'force_json':
                 $response = self::objectToJson($contents);
+
                 break;
+
             default:
                 $response = self::objectToArray($contents);
                 self::checkError($response);
                 $response = json_encode($contents);
                 $response = json_decode($response);
         }
+
         return $response;
     }
 
     public static function objectToArray($object)
     {
         $object = json_decode($object, true);
-        $array=array();
-        foreach($object as $member=>$data)
-        {
-            $array[$member]=$data;
+        $array = [];
+        foreach ($object as $member => $data) {
+            $array[$member] = $data;
         }
+
         return $array;
     }
 
@@ -38,37 +46,37 @@ class Twocheckout_Util extends Twocheckout
         return json_encode($object);
     }
 
-    public static function getRecurringLineitems($saleDetail) {
+    public static function getRecurringLineitems($saleDetail)
+    {
         $i = 0;
-        $invoiceData = array();
+        $invoiceData = [];
 
         while (isset($saleDetail['sale']['invoices'][$i])) {
             $invoiceData[$i] = $saleDetail['sale']['invoices'][$i];
-            $i++;
+            ++$i;
         }
 
         $invoice = max($invoiceData);
         $i = 0;
-        $lineitemData = array();
+        $lineitemData = [];
 
         while (isset($invoice['lineitems'][$i])) {
-            if ($invoice['lineitems'][$i]['billing']['recurring_status'] == "active") {
+            if ('active' == $invoice['lineitems'][$i]['billing']['recurring_status']) {
                 $lineitemData[] = $invoice['lineitems'][$i]['billing']['lineitem_id'];
             }
-            $i++;
-        };
+            ++$i;
+        }
 
         return $lineitemData;
-
     }
 
-    public static function checkError($contents)
+    public static function checkError($contents): void
     {
         if (isset($contents['errors'])) {
             throw new Twocheckout_Error($contents['errors'][0]['message']);
-        } elseif (isset($contents['exception'])) {
+        }
+        if (isset($contents['exception'])) {
             throw new Twocheckout_Error($contents['exception']['errorMsg'], $contents['exception']['errorCode']);
         }
     }
-
 }

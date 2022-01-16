@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Stripe;
 
 /**
@@ -40,6 +42,79 @@ class ApiRequestor
             $apiBase = Stripe::$apiBase;
         }
         $this->_apiBase = $apiBase;
+    }
+
+    /**
+     * @param string     $method
+     * @param string     $url
+     * @param null|array $params
+     * @param null|array $headers
+     *
+     * @throws Exception\ApiErrorException
+     *
+     * @return array tuple containing (ApiReponse, API key)
+     */
+    public function request($method, $url, $params = null, $headers = null)
+    {
+        $params = $params ?: [];
+        $headers = $headers ?: [];
+        [$rbody, $rcode, $rheaders, $myApiKey] =
+        $this->_requestRaw($method, $url, $params, $headers);
+        $json = $this->_interpretResponse($rbody, $rcode, $rheaders);
+        $resp = new ApiResponse($rbody, $rcode, $rheaders, $json);
+
+        return [$resp, $myApiKey];
+    }
+
+    /**
+     * @param string $rbody    a JSON string
+     * @param int    $rcode
+     * @param array  $rheaders
+     * @param array  $resp
+     *
+     * @throws Exception\UnexpectedValueException
+     * @throws Exception\ApiErrorException
+     */
+    public function handleErrorResponse($rbody, $rcode, $rheaders, $resp): void
+    {
+        if (!\is_array($resp) || !isset($resp['error'])) {
+            $msg = "Invalid response object from API: {$rbody} "
+              ."(HTTP response code was {$rcode})";
+
+            throw new Exception\UnexpectedValueException($msg);
+        }
+
+        $errorData = $resp['error'];
+
+        $error = null;
+        if (\is_string($errorData)) {
+            $error = self::_specificOAuthError($rbody, $rcode, $rheaders, $resp, $errorData);
+        }
+        if (!$error) {
+            $error = self::_specificAPIError($rbody, $rcode, $rheaders, $resp, $errorData);
+        }
+
+        throw $error;
+    }
+
+    /**
+     * @static
+     *
+     * @param HttpClient\ClientInterface $client
+     */
+    public static function setHttpClient($client): void
+    {
+        self::$_httpClient = $client;
+    }
+
+    /**
+     * @static
+     *
+     * Resets any stateful telemetry data
+     */
+    public static function resetTelemetry(): void
+    {
+        self::$requestTelemetry = null;
     }
 
     /**
@@ -100,59 +175,6 @@ class ApiRequestor
     }
 
     /**
-     * @param string     $method
-     * @param string     $url
-     * @param null|array $params
-     * @param null|array $headers
-     *
-     * @throws Exception\ApiErrorException
-     *
-     * @return array tuple containing (ApiReponse, API key)
-     */
-    public function request($method, $url, $params = null, $headers = null)
-    {
-        $params = $params ?: [];
-        $headers = $headers ?: [];
-        list($rbody, $rcode, $rheaders, $myApiKey) =
-        $this->_requestRaw($method, $url, $params, $headers);
-        $json = $this->_interpretResponse($rbody, $rcode, $rheaders);
-        $resp = new ApiResponse($rbody, $rcode, $rheaders, $json);
-
-        return [$resp, $myApiKey];
-    }
-
-    /**
-     * @param string $rbody a JSON string
-     * @param int $rcode
-     * @param array $rheaders
-     * @param array $resp
-     *
-     * @throws Exception\UnexpectedValueException
-     * @throws Exception\ApiErrorException
-     */
-    public function handleErrorResponse($rbody, $rcode, $rheaders, $resp)
-    {
-        if (!\is_array($resp) || !isset($resp['error'])) {
-            $msg = "Invalid response object from API: {$rbody} "
-              . "(HTTP response code was {$rcode})";
-
-            throw new Exception\UnexpectedValueException($msg);
-        }
-
-        $errorData = $resp['error'];
-
-        $error = null;
-        if (\is_string($errorData)) {
-            $error = self::_specificOAuthError($rbody, $rcode, $rheaders, $resp, $errorData);
-        }
-        if (!$error) {
-            $error = self::_specificAPIError($rbody, $rcode, $rheaders, $resp, $errorData);
-        }
-
-        throw $error;
-    }
-
-    /**
      * @static
      *
      * @param string $rbody
@@ -165,11 +187,11 @@ class ApiRequestor
      */
     private static function _specificAPIError($rbody, $rcode, $rheaders, $resp, $errorData)
     {
-        $msg = isset($errorData['message']) ? $errorData['message'] : null;
-        $param = isset($errorData['param']) ? $errorData['param'] : null;
-        $code = isset($errorData['code']) ? $errorData['code'] : null;
-        $type = isset($errorData['type']) ? $errorData['type'] : null;
-        $declineCode = isset($errorData['decline_code']) ? $errorData['decline_code'] : null;
+        $msg = $errorData['message'] ?? null;
+        $param = $errorData['param'] ?? null;
+        $code = $errorData['code'] ?? null;
+        $type = $errorData['type'] ?? null;
+        $declineCode = $errorData['decline_code'] ?? null;
 
         switch ($rcode) {
             case 400:
@@ -185,14 +207,19 @@ class ApiRequestor
                 // no break
             case 404:
                 return Exception\InvalidRequestException::factory($msg, $rcode, $rbody, $resp, $rheaders, $code, $param);
+
             case 401:
                 return Exception\AuthenticationException::factory($msg, $rcode, $rbody, $resp, $rheaders, $code);
+
             case 402:
                 return Exception\CardException::factory($msg, $rcode, $rbody, $resp, $rheaders, $code, $declineCode, $param);
+
             case 403:
                 return Exception\PermissionException::factory($msg, $rcode, $rbody, $resp, $rheaders, $code);
+
             case 429:
                 return Exception\RateLimitException::factory($msg, $rcode, $rbody, $resp, $rheaders, $code, $param);
+
             default:
                 return Exception\UnknownApiErrorException::factory($msg, $rcode, $rbody, $resp, $rheaders, $code);
         }
@@ -211,21 +238,27 @@ class ApiRequestor
      */
     private static function _specificOAuthError($rbody, $rcode, $rheaders, $resp, $errorCode)
     {
-        $description = isset($resp['error_description']) ? $resp['error_description'] : $errorCode;
+        $description = $resp['error_description'] ?? $errorCode;
 
         switch ($errorCode) {
             case 'invalid_client':
                 return Exception\OAuth\InvalidClientException::factory($description, $rcode, $rbody, $resp, $rheaders, $errorCode);
+
             case 'invalid_grant':
                 return Exception\OAuth\InvalidGrantException::factory($description, $rcode, $rbody, $resp, $rheaders, $errorCode);
+
             case 'invalid_request':
                 return Exception\OAuth\InvalidRequestException::factory($description, $rcode, $rbody, $resp, $rheaders, $errorCode);
+
             case 'invalid_scope':
                 return Exception\OAuth\InvalidScopeException::factory($description, $rcode, $rbody, $resp, $rheaders, $errorCode);
+
             case 'unsupported_grant_type':
                 return Exception\OAuth\UnsupportedGrantTypeException::factory($description, $rcode, $rbody, $resp, $rheaders, $errorCode);
+
             case 'unsupported_response_type':
                 return Exception\OAuth\UnsupportedResponseTypeException::factory($description, $rcode, $rbody, $resp, $rheaders, $errorCode);
+
             default:
                 return Exception\OAuth\UnknownOAuthErrorException::factory($description, $rcode, $rbody, $resp, $rheaders, $errorCode);
         }
@@ -243,10 +276,10 @@ class ApiRequestor
         if (null !== $appInfo) {
             $string = $appInfo['name'];
             if (null !== $appInfo['version']) {
-                $string .= '/' . $appInfo['version'];
+                $string .= '/'.$appInfo['version'];
             }
             if (null !== $appInfo['url']) {
-                $string .= ' (' . $appInfo['url'] . ')';
+                $string .= ' ('.$appInfo['url'].')';
             }
 
             return $string;
@@ -259,8 +292,8 @@ class ApiRequestor
      * @static
      *
      * @param string $disabledFunctionsOutput - String value of the 'disable_function' setting, as output by \ini_get('disable_functions')
-     * @param string $functionName - Name of the function we are interesting in seeing whether or not it is disabled
-     * @param mixed $disableFunctionsOutput
+     * @param string $functionName            - Name of the function we are interesting in seeing whether or not it is disabled
+     * @param mixed  $disableFunctionsOutput
      *
      * @return bool
      */
@@ -286,7 +319,7 @@ class ApiRequestor
      */
     private static function _defaultHeaders($apiKey, $clientInfo = null)
     {
-        $uaString = 'Stripe/v1 PhpBindings/' . Stripe::VERSION;
+        $uaString = 'Stripe/v1 PhpBindings/'.Stripe::VERSION;
 
         $langVersion = \PHP_VERSION;
         $uname_disabled = static::_isDisabled(\ini_get('disable_functions'), 'php_uname');
@@ -304,22 +337,22 @@ class ApiRequestor
             $ua = \array_merge($clientInfo, $ua);
         }
         if (null !== $appInfo) {
-            $uaString .= ' ' . self::_formatAppInfo($appInfo);
+            $uaString .= ' '.self::_formatAppInfo($appInfo);
             $ua['application'] = $appInfo;
         }
 
         return [
             'X-Stripe-Client-User-Agent' => \json_encode($ua),
             'User-Agent' => $uaString,
-            'Authorization' => 'Bearer ' . $apiKey,
+            'Authorization' => 'Bearer '.$apiKey,
         ];
     }
 
     /**
      * @param string $method
      * @param string $url
-     * @param array $params
-     * @param array $headers
+     * @param array  $params
+     * @param array  $headers
      *
      * @throws Exception\AuthenticationException
      * @throws Exception\ApiConnectionException
@@ -335,9 +368,9 @@ class ApiRequestor
 
         if (!$myApiKey) {
             $msg = 'No API key provided.  (HINT: set your API key using '
-              . '"Stripe::setApiKey(<API-KEY>)".  You can generate API keys from '
-              . 'the Stripe web interface.  See https://stripe.com/api for '
-              . 'details, or email support@stripe.com if you have any questions.';
+              .'"Stripe::setApiKey(<API-KEY>)".  You can generate API keys from '
+              .'the Stripe web interface.  See https://stripe.com/api for '
+              .'details, or email support@stripe.com if you have any questions.';
 
             throw new Exception\AuthenticationException($msg);
         }
@@ -350,7 +383,7 @@ class ApiRequestor
             $clientUAInfo = $this->httpClient()->getUserAgentInfo();
         }
 
-        $absUrl = $this->_apiBase . $url;
+        $absUrl = $this->_apiBase.$url;
         $params = self::_encodeObjects($params);
         $defaultHeaders = $this->_defaultHeaders($myApiKey, $clientUAInfo);
         if (Stripe::$apiVersion) {
@@ -385,12 +418,12 @@ class ApiRequestor
         $rawHeaders = [];
 
         foreach ($combinedHeaders as $header => $value) {
-            $rawHeaders[] = $header . ': ' . $value;
+            $rawHeaders[] = $header.': '.$value;
         }
 
         $requestStartMs = Util\Util::currentTimeMillis();
 
-        list($rbody, $rcode, $rheaders) = $this->httpClient()->request(
+        [$rbody, $rcode, $rheaders] = $this->httpClient()->request(
             $method,
             $absUrl,
             $rawHeaders,
@@ -452,7 +485,7 @@ class ApiRequestor
         $jsonError = \json_last_error();
         if (null === $resp && \JSON_ERROR_NONE !== $jsonError) {
             $msg = "Invalid response body from API: {$rbody} "
-              . "(HTTP response code was {$rcode}, json_last_error() was {$jsonError})";
+              ."(HTTP response code was {$rcode}, json_last_error() was {$jsonError})";
 
             throw new Exception\UnexpectedValueException($msg, $rcode);
         }
@@ -462,26 +495,6 @@ class ApiRequestor
         }
 
         return $resp;
-    }
-
-    /**
-     * @static
-     *
-     * @param HttpClient\ClientInterface $client
-     */
-    public static function setHttpClient($client)
-    {
-        self::$_httpClient = $client;
-    }
-
-    /**
-     * @static
-     *
-     * Resets any stateful telemetry data
-     */
-    public static function resetTelemetry()
-    {
-        self::$requestTelemetry = null;
     }
 
     /**

@@ -3,17 +3,12 @@
               <div class="box">
  
                 <div class="box-body">
-                  <?php 
-
-                        if ($version_notifications_array['notification_case']=="notification_operation_ok")  
-                        {
-                        $demo_page_message=$version_notifications_array['notification_data']['product_title']." <b>Version</b>: ".$version_notifications_array['notification_data']['version_number']."<br><b>Release date</b>: ".$version_notifications_array['notification_data']['version_date'];
-                        $demo_page_class="alert alert-success";
-                        }
-                        else  
-                        {
-                        $demo_page_message="Version data could not be processed: ".$version_notifications_array['notification_text'];
-                        $demo_page_class="alert alert-danger";
+                  <?php if ('notification_operation_ok' == $version_notifications_array['notification_case']) {
+    $demo_page_message = $version_notifications_array['notification_data']['product_title'].' <b>Version</b>: '.$version_notifications_array['notification_data']['version_number'].'<br><b>Release date</b>: '.$version_notifications_array['notification_data']['version_date'];
+    $demo_page_class = 'alert alert-success';
+} else {
+                            $demo_page_message = 'Version data could not be processed: '.$version_notifications_array['notification_text'];
+                            $demo_page_class = 'alert alert-danger';
                         }
 
                         ?>
@@ -23,7 +18,7 @@
                       </div>
 
 
-                      <?php if(isset($version_notifications_array['notification_data']) && isset($version_notifications_array['notification_data']['version_changelog'])) { ?>
+                      <?php if (isset($version_notifications_array['notification_data'], $version_notifications_array['notification_data']['version_changelog'])) { ?>
 
                       <h4>Downloading and Installing</h4>
                       <div class="progress">
@@ -33,13 +28,13 @@
                       <br>
 
                       <?php
-                      echo "<p>" . $version_notifications_array['notification_data']['version_changelog'] . "</p>";
-                      echo "<p>" . $status . "</p>";
+                      echo '<p>'.$version_notifications_array['notification_data']['version_changelog'].'</p>';
+                      echo '<p>'.$status.'</p>';
                       } ?>
 
                       
                     <br />
-                    <a class="btn btn-default" href="<?=base_url()?>plugins/installed"><?=lang('continue')?></a>            
+                    <a class="btn btn-default" href="<?php echo base_url(); ?>plugins/installed"><?php echo lang('continue'); ?></a>            
 
                 </div>
               </div>

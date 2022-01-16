@@ -1,31 +1,32 @@
-<?php $action = (isset($action)) ? $action : ''; ?>
+<?php declare(strict_types=1);
+$action = (isset($action)) ? $action : ''; ?>
 
-<?php if($action == 'add_file') { ?>
+<?php if ('add_file' == $action) { ?>
 
 
 <div class="modal-dialog">
 	<div class="modal-content">
 		<div class="modal-header">
-		<button type="button" class="close" data-dismiss="modal">&times;</button> <h4 class="modal-title"><?=lang('upload_file')?></h4>
+		<button type="button" class="close" data-dismiss="modal">&times;</button> <h4 class="modal-title"><?php echo lang('upload_file'); ?></h4>
 		</div>
 
 	<?php
-			 $attributes = array('class' => 'bs-example form-horizontal');
-          echo form_open_multipart(base_url().'companies/file/add',$attributes); ?>
-          <input type="hidden" name="company" value="<?=$company?>">
+             $attributes = ['class' => 'bs-example form-horizontal'];
+          echo form_open_multipart(base_url().'companies/file/add', $attributes); ?>
+          <input type="hidden" name="company" value="<?php echo $company; ?>">
 		<div class="modal-body">
 
                 <div class="form-group">
-                    <label class="col-lg-3 control-label"><?=lang('file_title')?> <span class="text-danger">*</span></label>
+                    <label class="col-lg-3 control-label"><?php echo lang('file_title'); ?> <span class="text-danger">*</span></label>
                     <div class="col-lg-9">
-                    <input name="title" class="form-control" required placeholder="<?=lang('file_title')?>"/>
+                    <input name="title" class="form-control" required placeholder="<?php echo lang('file_title'); ?>"/>
                     </div>
                 </div>
 
                 <div class="form-group">
-                    <label class="col-lg-3 control-label"><?=lang('description')?></label>
+                    <label class="col-lg-3 control-label"><?php echo lang('description'); ?></label>
                     <div class="col-lg-9">
-                    <textarea name="description" class="form-control ta" placeholder="<?=lang('description')?>" ></textarea>
+                    <textarea name="description" class="form-control ta" placeholder="<?php echo lang('description'); ?>" ></textarea>
                     </div>
                 </div>
 
@@ -38,10 +39,10 @@
                 </div>
 
 		<div class="modal-footer">
-                    <a href="#" class="btn btn-<?=config_item('theme_color');?> pull-left" id="add-new-file"><?=lang('upload_another_file')?></a>
-                    <a href="#" class="btn btn-default pull-left" id="clear-files"><?=lang('clear_files')?></a>
-                    <a href="#" class="btn btn-default" data-dismiss="modal"><?=lang('close')?></a>
-                    <button type="submit" class="btn btn-<?=config_item('theme_color');?>"><?=lang('upload_file')?></button>
+                    <a href="#" class="btn btn-<?php echo config_item('theme_color'); ?> pull-left" id="add-new-file"><?php echo lang('upload_another_file'); ?></a>
+                    <a href="#" class="btn btn-default pull-left" id="clear-files"><?php echo lang('clear_files'); ?></a>
+                    <a href="#" class="btn btn-default" data-dismiss="modal"><?php echo lang('close'); ?></a>
+                    <button type="submit" class="btn btn-<?php echo config_item('theme_color'); ?>"><?php echo lang('upload_file'); ?></button>
 		</form>
 		</div>
 	        </div>
@@ -74,22 +75,22 @@
 
 <?php } ?>
 
-<?php if($action == 'delete_file') { ?>
+<?php if ('delete_file' == $action) { ?>
 
 <div class="modal-dialog">
     <div class="modal-content">
         <div class="modal-header"> <button type="button" class="close" data-dismiss="modal">&times;</button>
-        <h4 class="modal-title"><?=lang('delete_file')?></h4>
+        <h4 class="modal-title"><?php echo lang('delete_file'); ?></h4>
         </div><?php
             echo form_open(base_url().'companies/file/delete'); ?>
         <div class="modal-body">
-            <p><?=lang('delete_file_warning')?></p>
+            <p><?php echo lang('delete_file_warning'); ?></p>
 
-            <input type="hidden" name="file" value="<?=$file_id?>">
+            <input type="hidden" name="file" value="<?php echo $file_id; ?>">
 
         </div>
-        <div class="modal-footer"> <a href="#" class="btn btn-default" data-dismiss="modal"><?=lang('close')?></a>
-            <button type="submit" class="btn btn-danger"><?=lang('delete_button')?></button>
+        <div class="modal-footer"> <a href="#" class="btn btn-default" data-dismiss="modal"><?php echo lang('close'); ?></a>
+            <button type="submit" class="btn btn-danger"><?php echo lang('delete_button'); ?></button>
         </form>
     </div>
 </div>

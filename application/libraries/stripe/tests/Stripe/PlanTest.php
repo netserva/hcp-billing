@@ -1,12 +1,18 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Stripe;
 
+/**
+ * @internal
+ * @coversNothing
+ */
 class PlanTest extends TestCase
 {
-    const TEST_RESOURCE_ID = 'plan';
+    public const TEST_RESOURCE_ID = 'plan';
 
-    public function testIsListable()
+    public function testIsListable(): void
     {
         $this->expectsRequest(
             'get',
@@ -14,67 +20,67 @@ class PlanTest extends TestCase
         );
         $resources = Plan::all();
         $this->assertTrue(is_array($resources->data));
-        $this->assertInstanceOf("Stripe\\Plan", $resources->data[0]);
+        $this->assertInstanceOf('Stripe\\Plan', $resources->data[0]);
     }
 
-    public function testIsRetrievable()
+    public function testIsRetrievable(): void
     {
         $this->expectsRequest(
             'get',
-            '/v1/plans/' . self::TEST_RESOURCE_ID
+            '/v1/plans/'.self::TEST_RESOURCE_ID
         );
         $resource = Plan::retrieve(self::TEST_RESOURCE_ID);
-        $this->assertInstanceOf("Stripe\\Plan", $resource);
+        $this->assertInstanceOf('Stripe\\Plan', $resource);
     }
 
-    public function testIsCreatable()
+    public function testIsCreatable(): void
     {
         $this->expectsRequest(
             'post',
             '/v1/plans'
         );
-        $resource = Plan::create(array(
+        $resource = Plan::create([
             'amount' => 100,
             'interval' => 'month',
             'currency' => 'usd',
             'name' => self::TEST_RESOURCE_ID,
-            'id' => self::TEST_RESOURCE_ID
-        ));
-        $this->assertInstanceOf("Stripe\\Plan", $resource);
+            'id' => self::TEST_RESOURCE_ID,
+        ]);
+        $this->assertInstanceOf('Stripe\\Plan', $resource);
     }
 
-    public function testIsSaveable()
+    public function testIsSaveable(): void
     {
         $resource = Plan::retrieve(self::TEST_RESOURCE_ID);
-        $resource->metadata["key"] = "value";
+        $resource->metadata['key'] = 'value';
         $this->expectsRequest(
             'post',
-            '/v1/plans/' . self::TEST_RESOURCE_ID
+            '/v1/plans/'.self::TEST_RESOURCE_ID
         );
         $resource->save();
-        $this->assertInstanceOf("Stripe\\Plan", $resource);
+        $this->assertInstanceOf('Stripe\\Plan', $resource);
     }
 
-    public function testIsUpdatable()
+    public function testIsUpdatable(): void
     {
         $this->expectsRequest(
             'post',
-            '/v1/plans/' . self::TEST_RESOURCE_ID
+            '/v1/plans/'.self::TEST_RESOURCE_ID
         );
-        $resource = Plan::update(self::TEST_RESOURCE_ID, array(
-            "metadata" => array("key" => "value"),
-        ));
-        $this->assertInstanceOf("Stripe\\Plan", $resource);
+        $resource = Plan::update(self::TEST_RESOURCE_ID, [
+            'metadata' => ['key' => 'value'],
+        ]);
+        $this->assertInstanceOf('Stripe\\Plan', $resource);
     }
 
-    public function testIsDeletable()
+    public function testIsDeletable(): void
     {
         $resource = Plan::retrieve(self::TEST_RESOURCE_ID);
         $this->expectsRequest(
             'delete',
-            '/v1/plans/' . self::TEST_RESOURCE_ID
+            '/v1/plans/'.self::TEST_RESOURCE_ID
         );
         $resource->delete();
-        $this->assertInstanceOf("Stripe\\Plan", $resource);
+        $this->assertInstanceOf('Stripe\\Plan', $resource);
     }
 }

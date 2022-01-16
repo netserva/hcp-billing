@@ -1,18 +1,18 @@
 <?php
+
+declare(strict_types=1);
 /**
- * InvalidItemException
+ * InvalidItemException.
  */
 
 namespace Resellerclub;
 
 /**
- * Class InvalidItemException
+ * Class InvalidItemException.
  *
  * Throws when an item sends for validation is invalid
  * according to item validator.
- *
- * @package Resellerclub
  */
-class InvalidItemException extends \Exception{
-
+class InvalidItemException extends \Exception
+{
 }

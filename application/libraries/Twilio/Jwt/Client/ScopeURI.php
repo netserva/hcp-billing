@@ -1,11 +1,11 @@
 <?php
 
+declare(strict_types=1);
 
 namespace Twilio\Jwt\Client;
 
-
 /**
- * Scope URI implementation
+ * Scope URI implementation.
  *
  * Simple way to represent configurable privileges in an OAuth
  * friendly way. For our case, they look like this:
@@ -15,36 +15,44 @@ namespace Twilio\Jwt\Client;
  * For example:
  * scope:client:incoming?name=jonas
  */
-class ScopeURI {
+class ScopeURI
+{
     public $service;
     public $privilege;
     public $params;
 
-    public function __construct(string $service, string $privilege, array $params = []) {
+    public function __construct(string $service, string $privilege, array $params = [])
+    {
         $this->service = $service;
         $this->privilege = $privilege;
         $this->params = $params;
     }
 
-    public function toString(): string {
+    public function toString(): string
+    {
         $uri = "scope:{$this->service}:{$this->privilege}";
         if (\count($this->params)) {
-            $uri .= '?' . \http_build_query($this->params, '', '&');
+            $uri .= '?'.\http_build_query($this->params, '', '&');
         }
+
         return $uri;
     }
 
     /**
-     * Parse a scope URI into a ScopeURI object
+     * Parse a scope URI into a ScopeURI object.
      *
      * @param string $uri The scope URI
-     * @return ScopeURI The parsed scope uri
+     *
      * @throws \UnexpectedValueException
+     *
+     * @return ScopeURI The parsed scope uri
      */
-    public static function parse(string $uri): ScopeURI {
-        if (\strpos($uri, 'scope:') !== 0) {
+    public static function parse(string $uri): ScopeURI
+    {
+        if (!\str_starts_with($uri, 'scope:')) {
             throw new \UnexpectedValueException(
-                'Not a scope URI according to scheme');
+                'Not a scope URI according to scheme'
+            );
         }
 
         $parts = \explode('?', $uri, 1);
@@ -56,12 +64,14 @@ class ScopeURI {
 
         $parts = \explode(':', $parts[0], 2);
 
-        if (\count($parts) !== 3) {
+        if (3 !== \count($parts)) {
             throw new \UnexpectedValueException(
-                'Not enough parts for scope URI');
+                'Not enough parts for scope URI'
+            );
         }
 
         [$scheme, $service, $privilege] = $parts;
+
         return new ScopeURI($service, $privilege, $params);
     }
 }

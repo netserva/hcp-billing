@@ -1,28 +1,45 @@
 <?php
 
+declare(strict_types=1);
 
 namespace Twilio\Http;
 
-
 use Twilio\Exceptions\EnvironmentException;
 
-class CurlClient implements Client {
+class CurlClient implements Client
+{
     public const DEFAULT_TIMEOUT = 60;
-    protected $curlOptions = [];
 
     public $lastRequest;
     public $lastResponse;
+    protected $curlOptions = [];
 
-    public function __construct(array $options = []) {
+    public function __construct(array $options = [])
+    {
         $this->curlOptions = $options;
     }
 
-    public function request(string $method, string $url,
-                            array $params = [], array $data = [], array $headers = [],
-                            string $user = null, string $password = null,
-                            int $timeout = null): Response {
-        $options = $this->options($method, $url, $params, $data, $headers,
-                                  $user, $password, $timeout);
+    public function request(
+        string $method,
+        string $url,
+        array $params = [],
+        array $data = [],
+        array $headers = [],
+        string $user = null,
+        string $password = null,
+        int $timeout = null
+    ): Response
+    {
+        $options = $this->options(
+            $method,
+            $url,
+            $params,
+            $data,
+            $headers,
+            $user,
+            $password,
+            $timeout
+        );
 
         $this->lastRequest = $options;
         $this->lastResponse = null;
@@ -42,13 +59,13 @@ class CurlClient implements Client {
 
             $parts = \explode("\r\n\r\n", $response, 3);
 
-            list($head, $body) = (
+            [$head, $body] = (
                 \preg_match('/\AHTTP\/1.\d 100 Continue\Z/', $parts[0])
                 || \preg_match('/\AHTTP\/1.\d 200 Connection established\Z/', $parts[0])
                 || \preg_match('/\AHTTP\/1.\d 200 Tunnel established\Z/', $parts[0])
             )
-                ? array($parts[1], $parts[2])
-                : array($parts[0], $parts[1]);
+                ? [$parts[1], $parts[2]]
+                : [$parts[0], $parts[1]];
 
             $statusCode = \curl_getinfo($curl, CURLINFO_HTTP_CODE);
 
@@ -56,7 +73,7 @@ class CurlClient implements Client {
             $headerLines = \explode("\r\n", $head);
             \array_shift($headerLines);
             foreach ($headerLines as $line) {
-                list($key, $value) = \explode(':', $line, 2);
+                [$key, $value] = \explode(':', $line, 2);
                 $responseHeaders[$key] = $value;
             }
 
@@ -82,42 +99,52 @@ class CurlClient implements Client {
         }
     }
 
-    public function options(string $method, string $url,
-                            array $params = [], array $data = [], array $headers = [],
-                            string $user = null, string $password = null,
-                            int $timeout = null): array {
-        $timeout = $timeout ?? self::DEFAULT_TIMEOUT;
+    public function options(
+        string $method,
+        string $url,
+        array $params = [],
+        array $data = [],
+        array $headers = [],
+        string $user = null,
+        string $password = null,
+        int $timeout = null
+    ): array
+    {
+        $timeout ??= self::DEFAULT_TIMEOUT;
         $options = $this->curlOptions + [
             CURLOPT_URL => $url,
             CURLOPT_HEADER => true,
             CURLOPT_RETURNTRANSFER => true,
-            CURLOPT_INFILESIZE => Null,
+            CURLOPT_INFILESIZE => null,
             CURLOPT_HTTPHEADER => [],
             CURLOPT_TIMEOUT => $timeout,
         ];
 
         foreach ($headers as $key => $value) {
-            $options[CURLOPT_HTTPHEADER][] = "$key: $value";
+            $options[CURLOPT_HTTPHEADER][] = "{$key}: {$value}";
         }
 
         if ($user && $password) {
-            $options[CURLOPT_HTTPHEADER][] = 'Authorization: Basic ' . \base64_encode("$user:$password");
+            $options[CURLOPT_HTTPHEADER][] = 'Authorization: Basic '.\base64_encode("{$user}:{$password}");
         }
 
         $body = $this->buildQuery($params);
         if ($body) {
-            $options[CURLOPT_URL] .= '?' . $body;
+            $options[CURLOPT_URL] .= '?'.$body;
         }
 
         switch (\strtolower(\trim($method))) {
             case 'get':
                 $options[CURLOPT_HTTPGET] = true;
+
                 break;
+
             case 'post':
                 $options[CURLOPT_POST] = true;
                 $options[CURLOPT_POSTFIELDS] = $this->buildQuery($data);
 
                 break;
+
             case 'put':
                 $options[CURLOPT_PUT] = true;
                 if ($data) {
@@ -131,10 +158,14 @@ class CurlClient implements Client {
                         throw new EnvironmentException('Unable to open a temporary file');
                     }
                 }
+
                 break;
+
             case 'head':
                 $options[CURLOPT_NOBODY] = true;
+
                 break;
+
             default:
                 $options[CURLOPT_CUSTOMREQUEST] = \strtoupper($method);
         }
@@ -142,17 +173,18 @@ class CurlClient implements Client {
         return $options;
     }
 
-    public function buildQuery(?array $params): string {
+    public function buildQuery(?array $params): string
+    {
         $parts = [];
         $params = $params ?: [];
 
         foreach ($params as $key => $value) {
             if (\is_array($value)) {
                 foreach ($value as $item) {
-                    $parts[] = \urlencode((string)$key) . '=' . \urlencode((string)$item);
+                    $parts[] = \urlencode((string) $key).'='.\urlencode((string) $item);
                 }
             } else {
-                $parts[] = \urlencode((string)$key) . '=' . \urlencode((string)$value);
+                $parts[] = \urlencode((string) $key).'='.\urlencode((string) $value);
             }
         }
 

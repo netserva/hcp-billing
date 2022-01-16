@@ -1,16 +1,17 @@
 <?php
+
+declare(strict_types=1);
 /**
- * InvalidUrlArrayException
+ * InvalidUrlArrayException.
  */
 
 namespace Resellerclub;
 
 /**
- * Class InvalidUrlArrayException
+ * Class InvalidUrlArrayException.
  *
  * Throws when URL array (internal term) is invalid.
- * @package Resellerclub
  */
-class InvalidUrlArrayException extends \Exception{
-
+class InvalidUrlArrayException extends \Exception
+{
 }

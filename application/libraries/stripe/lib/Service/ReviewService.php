@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 // File generated from our OpenAPI spec
 
 namespace Stripe\Service;
@@ -11,7 +13,7 @@ class ReviewService extends \Stripe\Service\AbstractService
      * <code>true</code>. The objects are sorted in descending order by creation date,
      * with the most recently created object appearing first.
      *
-     * @param null|array $params
+     * @param null|array                             $params
      * @param null|array|\Stripe\Util\RequestOptions $opts
      *
      * @throws \Stripe\Exception\ApiErrorException if the request fails
@@ -27,8 +29,8 @@ class ReviewService extends \Stripe\Service\AbstractService
      * Approves a <code>Review</code> object, closing it and removing it from the list
      * of reviews.
      *
-     * @param string $id
-     * @param null|array $params
+     * @param string                                 $id
+     * @param null|array                             $params
      * @param null|array|\Stripe\Util\RequestOptions $opts
      *
      * @throws \Stripe\Exception\ApiErrorException if the request fails
@@ -43,8 +45,8 @@ class ReviewService extends \Stripe\Service\AbstractService
     /**
      * Retrieves a <code>Review</code> object.
      *
-     * @param string $id
-     * @param null|array $params
+     * @param string                                 $id
+     * @param null|array                             $params
      * @param null|array|\Stripe\Util\RequestOptions $opts
      *
      * @throws \Stripe\Exception\ApiErrorException if the request fails

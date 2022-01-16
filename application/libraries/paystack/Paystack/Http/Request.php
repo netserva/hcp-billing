@@ -1,9 +1,11 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Yabacon\Paystack\Http;
 
-use \Yabacon\Paystack\Contracts\RouteInterface;
-use \Yabacon\Paystack;
+use Yabacon\Paystack;
+use Yabacon\Paystack\Contracts\RouteInterface;
 
 class Request
 {
@@ -34,8 +36,9 @@ class Request
     {
         $_ = [];
         foreach ($this->headers as $key => $value) {
-            $_[] = $key . ": " . $value;
+            $_[] = $key.': '.$value;
         }
+
         return $_;
     }
 
@@ -48,13 +51,15 @@ class Request
         if (!$this->response->okay) {
             $this->attemptFileGetContents();
         }
+
         return $this->response;
     }
 
-    public function attemptGuzzle()
+    public function attemptGuzzle(): void
     {
         if (isset($this->paystackObj) && !$this->paystackObj->use_guzzle) {
             $this->response->okay = false;
+
             return;
         }
         if (class_exists('\\GuzzleHttp\\Exception\\BadResponseException')
@@ -72,6 +77,7 @@ class Request
                 $this->body
             );
             $client = new \GuzzleHttp\Client();
+
             try {
                 $psr7response = $client->send($request);
                 $this->response->body = $psr7response->getBody()->getContents();
@@ -93,38 +99,38 @@ class Request
         }
     }
 
-    public function attemptFileGetContents()
+    public function attemptFileGetContents(): void
     {
         if (!Paystack::$fallback_to_file_get_contents) {
             return;
         }
         $context = stream_context_create(
             [
-                'http'=>array(
-                  'method'=>$this->method,
-                  'header'=>$this->flattenedHeaders(),
-                  'content'=>$this->body,
-                  'ignore_errors' => true
-                )
+                'http' => [
+                    'method' => $this->method,
+                    'header' => $this->flattenedHeaders(),
+                    'content' => $this->body,
+                    'ignore_errors' => true,
+                ],
             ]
         );
         $this->response->body = file_get_contents($this->endpoint, false, $context);
-        if ($this->response->body === false) {
-            $this->response->messages[] = 'file_get_contents failed with response: \'' . error_get_last() . '\'.';
+        if (false === $this->response->body) {
+            $this->response->messages[] = 'file_get_contents failed with response: \''.error_get_last().'\'.';
         } else {
             $this->response->okay = true;
         }
     }
 
-    public function attemptCurl()
+    public function attemptCurl(): void
     {
         //open connection
         $ch = \curl_init();
         \curl_setopt($ch, \CURLOPT_URL, $this->endpoint);
-        ($this->method === RouteInterface::POST_METHOD) && \curl_setopt($ch, \CURLOPT_POST, true);
-        ($this->method === RouteInterface::PUT_METHOD) && \curl_setopt($ch, \CURLOPT_CUSTOMREQUEST, 'PUT');
+        (RouteInterface::POST_METHOD === $this->method) && \curl_setopt($ch, \CURLOPT_POST, true);
+        (RouteInterface::PUT_METHOD === $this->method) && \curl_setopt($ch, \CURLOPT_CUSTOMREQUEST, 'PUT');
 
-        if ($this->method !== RouteInterface::GET_METHOD) {
+        if (RouteInterface::GET_METHOD !== $this->method) {
             \curl_setopt($ch, \CURLOPT_POSTFIELDS, $this->body);
         }
         \curl_setopt($ch, \CURLOPT_HTTPHEADER, $this->flattenedHeaders());
@@ -135,7 +141,7 @@ class Request
 
         if (\curl_errno($ch)) {
             $cerr = \curl_error($ch);
-            $this->response->messages[] = 'Curl failed with response: \'' . $cerr . '\'.';
+            $this->response->messages[] = 'Curl failed with response: \''.$cerr.'\'.';
         } else {
             $this->response->okay = true;
         }

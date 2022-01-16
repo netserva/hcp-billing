@@ -1,13 +1,19 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Stripe;
 
+/**
+ * @internal
+ * @coversNothing
+ */
 class OAuthTest extends TestCase
 {
     /**
      * @before
      */
-    public function setUpClientId()
+    public function setUpClientId(): void
     {
         Stripe::setClientId('ca_test');
     }
@@ -15,22 +21,22 @@ class OAuthTest extends TestCase
     /**
      * @after
      */
-    public function tearDownClientId()
+    public function tearDownClientId(): void
     {
         Stripe::setClientId(null);
     }
 
-    public function testAuthorizeUrl()
+    public function testAuthorizeUrl(): void
     {
-        $uriStr = OAuth::authorizeUrl(array(
+        $uriStr = OAuth::authorizeUrl([
             'scope' => 'read_write',
             'state' => 'csrf_token',
-            'stripe_user' => array(
+            'stripe_user' => [
                 'email' => 'test@example.com',
                 'url' => 'https://example.com/profile/test',
                 'country' => 'US',
-            ),
-        ));
+            ],
+        ]);
 
         $uri = parse_url($uriStr);
         parse_str($uri['query'], $params);
@@ -46,18 +52,18 @@ class OAuthTest extends TestCase
         $this->assertSame('US', $params['stripe_user']['country']);
     }
 
-    public function testToken()
+    public function testToken(): void
     {
         $this->stubRequest(
             'POST',
             '/oauth/token',
-            array(
+            [
                 'grant_type' => 'authorization_code',
                 'code' => 'this_is_an_authorization_code',
-            ),
+            ],
             null,
             false,
-            array(
+            [
                 'access_token' => 'sk_access_token',
                 'scope' => 'read_only',
                 'livemode' => false,
@@ -65,39 +71,39 @@ class OAuthTest extends TestCase
                 'refresh_token' => 'sk_refresh_token',
                 'stripe_user_id' => 'acct_test',
                 'stripe_publishable_key' => 'pk_test',
-            ),
+            ],
             200,
             Stripe::$connectBase
         );
 
-        $resp = OAuth::token(array(
+        $resp = OAuth::token([
             'grant_type' => 'authorization_code',
             'code' => 'this_is_an_authorization_code',
-        ));
+        ]);
         $this->assertSame('sk_access_token', $resp->access_token);
     }
 
-    public function testDeauthorize()
+    public function testDeauthorize(): void
     {
         $this->stubRequest(
             'POST',
             '/oauth/deauthorize',
-            array(
+            [
                 'stripe_user_id' => 'acct_test_deauth',
                 'client_id' => 'ca_test',
-            ),
+            ],
             null,
             false,
-            array(
+            [
                 'stripe_user_id' => 'acct_test_deauth',
-            ),
+            ],
             200,
             Stripe::$connectBase
         );
 
-        $resp = OAuth::deauthorize(array(
-                'stripe_user_id' => 'acct_test_deauth',
-        ));
+        $resp = OAuth::deauthorize([
+            'stripe_user_id' => 'acct_test_deauth',
+        ]);
         $this->assertSame('acct_test_deauth', $resp->stripe_user_id);
     }
 }

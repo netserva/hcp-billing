@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Stripe\Service;
 
 /**
@@ -32,13 +34,6 @@ abstract class AbstractServiceFactory
     /**
      * @param string $name
      *
-     * @return null|string
-     */
-    abstract protected function getServiceClass($name);
-
-    /**
-     * @param string $name
-     *
      * @return null|AbstractService|AbstractServiceFactory
      */
     public function __get($name)
@@ -52,8 +47,15 @@ abstract class AbstractServiceFactory
             return $this->services[$name];
         }
 
-        \trigger_error('Undefined property: ' . static::class . '::$' . $name);
+        \trigger_error('Undefined property: '.static::class.'::$'.$name);
 
         return null;
     }
+
+    /**
+     * @param string $name
+     *
+     * @return null|string
+     */
+    abstract protected function getServiceClass($name);
 }

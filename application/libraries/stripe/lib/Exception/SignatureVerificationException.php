@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Stripe\Exception;
 
 /**
@@ -14,8 +16,8 @@ class SignatureVerificationException extends \Exception implements ExceptionInte
     /**
      * Creates a new SignatureVerificationException exception.
      *
-     * @param string $message the exception message
-     * @param null|string $httpBody the HTTP body as a string
+     * @param string      $message   the exception message
+     * @param null|string $httpBody  the HTTP body as a string
      * @param null|string $sigHeader the `Stripe-Signature` HTTP header
      *
      * @return SignatureVerificationException
@@ -47,7 +49,7 @@ class SignatureVerificationException extends \Exception implements ExceptionInte
      *
      * @param null|string $httpBody
      */
-    public function setHttpBody($httpBody)
+    public function setHttpBody($httpBody): void
     {
         $this->httpBody = $httpBody;
     }
@@ -67,7 +69,7 @@ class SignatureVerificationException extends \Exception implements ExceptionInte
      *
      * @param null|string $sigHeader
      */
-    public function setSigHeader($sigHeader)
+    public function setSigHeader($sigHeader): void
     {
         $this->sigHeader = $sigHeader;
     }

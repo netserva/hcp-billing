@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Yabacon\Paystack\Routes;
 
 use Yabacon\Paystack\Contracts\RouteInterface;
@@ -44,7 +46,7 @@ class Invoice implements RouteInterface
     {
         return [
             RouteInterface::METHOD_KEY => RouteInterface::GET_METHOD,
-            RouteInterface::ENDPOINT_KEY => Invoice::root() . '/{invoice_id_or_code}',
+            RouteInterface::ENDPOINT_KEY => Invoice::root().'/{invoice_id_or_code}',
             RouteInterface::ARGS_KEY => ['invoice_id_or_code'],
             RouteInterface::REQUIRED_KEY => [RouteInterface::ARGS_KEY => ['invoice_id_or_code']],
         ];
@@ -66,7 +68,7 @@ class Invoice implements RouteInterface
     {
         return [
             RouteInterface::METHOD_KEY => RouteInterface::GET_METHOD,
-            RouteInterface::ENDPOINT_KEY => Invoice::root() . '/verify/{invoice_id_or_code}',
+            RouteInterface::ENDPOINT_KEY => Invoice::root().'/verify/{invoice_id_or_code}',
             RouteInterface::ARGS_KEY => ['invoice_id_or_code'],
             RouteInterface::REQUIRED_KEY => [RouteInterface::ARGS_KEY => ['invoice_id_or_code']],
         ];
@@ -76,7 +78,7 @@ class Invoice implements RouteInterface
     {
         return [
             RouteInterface::METHOD_KEY => RouteInterface::POST_METHOD,
-            RouteInterface::ENDPOINT_KEY => Invoice::root() . '/notify/{invoice_id_or_code}',
+            RouteInterface::ENDPOINT_KEY => Invoice::root().'/notify/{invoice_id_or_code}',
         ];
     }
 
@@ -84,7 +86,7 @@ class Invoice implements RouteInterface
     {
         return [
             RouteInterface::METHOD_KEY => RouteInterface::GET_METHOD,
-            RouteInterface::ENDPOINT_KEY => Invoice::root() . '/totals',
+            RouteInterface::ENDPOINT_KEY => Invoice::root().'/totals',
         ];
     }
 
@@ -92,7 +94,7 @@ class Invoice implements RouteInterface
     {
         return [
             RouteInterface::METHOD_KEY => RouteInterface::POST_METHOD,
-            RouteInterface::ENDPOINT_KEY => Invoice::root() . '/finalize/{invoice_id_or_code}',
+            RouteInterface::ENDPOINT_KEY => Invoice::root().'/finalize/{invoice_id_or_code}',
             RouteInterface::ARGS_KEY => ['invoice_id_or_code'],
             RouteInterface::REQUIRED_KEY => [RouteInterface::ARGS_KEY => ['invoice_id_or_code']],
         ];
@@ -102,7 +104,7 @@ class Invoice implements RouteInterface
     {
         return [
             RouteInterface::METHOD_KEY => RouteInterface::PUT_METHOD,
-            RouteInterface::ENDPOINT_KEY => Invoice::root() . '/update/{invoice_id_or_code}',
+            RouteInterface::ENDPOINT_KEY => Invoice::root().'/update/{invoice_id_or_code}',
             RouteInterface::PARAMS_KEY => [
                 'line_items',
                 'description',
@@ -121,7 +123,7 @@ class Invoice implements RouteInterface
     {
         return [
             RouteInterface::METHOD_KEY => RouteInterface::POST_METHOD,
-            RouteInterface::ENDPOINT_KEY => Invoice::root() . '/archive/{invoice_id_or_code}',
+            RouteInterface::ENDPOINT_KEY => Invoice::root().'/archive/{invoice_id_or_code}',
         ];
     }
 }

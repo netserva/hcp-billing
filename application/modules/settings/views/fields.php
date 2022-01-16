@@ -1,9 +1,9 @@
 		<?php
-		$attributes = array('class' => 'bs-example form-horizontal');
-		echo form_open(base_url() . 'settings/fields/module', $attributes);
-		?>
+        $attributes = ['class' => 'bs-example form-horizontal'];
+        echo form_open(base_url().'settings/fields/module', $attributes);
+        ?>
 			<div class="form-group">
-						<label class="col-lg-2 control-label"><?= lang('module') ?> <span class="text-danger">*</span> </label>
+						<label class="col-lg-2 control-label"><?php echo lang('module'); ?> <span class="text-danger">*</span> </label>
 						<div class="col-lg-3">
 							<div class="m-b">
 								<select name="module" class="form-control" required id="module">
@@ -16,14 +16,14 @@
 
 					<div class="select_department hidden">
 						<div class="form-group">
-							<label class="col-lg-2 control-label"><?= lang('department') ?> <span class="text-danger">*</span> </label>
+							<label class="col-lg-2 control-label"><?php echo lang('department'); ?> <span class="text-danger">*</span> </label>
 							<div class="col-lg-3">
 								<div class="m-b">
 									<select name="department" class="form-control">
 										<?php $dept = $this->db->get('departments')->result(); ?>
-										<?php foreach($dept as $d) : ?>
-											<option value="<?=$d->deptid?>"><?=$d->deptname?></option>
-										<?php endforeach; ?>
+										<?php foreach ($dept as $d) { ?>
+											<option value="<?php echo $d->deptid; ?>"><?php echo $d->deptname; ?></option>
+										<?php } ?>
 									</select>
 								</div>
 							</div>
@@ -32,7 +32,7 @@
 					</div>
 		 
 				<div class="text-center">
-					<button type="submit" class="btn btn-sm btn-<?=config_item('theme_color');?>"><?=lang('save_changes')?></button>
+					<button type="submit" class="btn btn-sm btn-<?php echo config_item('theme_color'); ?>"><?php echo lang('save_changes'); ?></button>
 				</div>
 		 
 		</form>

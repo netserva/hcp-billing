@@ -1,8 +1,9 @@
-<?php $info = Ticket::view_by_id($id); ?>
+<?php declare(strict_types=1);
+$info = Ticket::view_by_id($id); ?>
   <div class="box">
 		<div class="box-header b-b clearfix">
-		<?=lang('ticket_details')?> - <?=$info->ticket_code?>	 
-		<a href="<?=base_url()?>tickets/view/<?=$info->id?>" data-original-title="<?=lang('view_details')?>" data-toggle="tooltip" data-placement="bottom" class="btn btn-<?=config_item('theme_color');?> btn-sm pull-right"><i class="fa fa-info-circle"></i> <?=lang('ticket_details')?></a>
+		<?php echo lang('ticket_details'); ?> - <?php echo $info->ticket_code; ?>	 
+		<a href="<?php echo base_url(); ?>tickets/view/<?php echo $info->id; ?>" data-original-title="<?php echo lang('view_details'); ?>" data-toggle="tooltip" data-placement="bottom" class="btn btn-<?php echo config_item('theme_color'); ?> btn-sm pull-right"><i class="fa fa-info-circle"></i> <?php echo lang('ticket_details'); ?></a>
 
 	 </div> 
 	<div class="box-body">
@@ -10,24 +11,23 @@
 <!-- Start ticket form -->
 <?php echo $this->session->flashdata('form_error'); ?>
 
-	<?php 
-			 $attributes = array('class' => 'bs-example form-horizontal');
-          echo form_open_multipart(base_url().'tickets/edit/',$attributes);
+	<?php $attributes = ['class' => 'bs-example form-horizontal'];
+          echo form_open_multipart(base_url().'tickets/edit/', $attributes);
            ?>
 			 
-			 <input type="hidden" name="id" value="<?=$info->id?>">
+			 <input type="hidden" name="id" value="<?php echo $info->id; ?>">
 
 			    <div class="form-group">
-				<label class="col-lg-3 control-label"><?=lang('ticket_code')?> <span class="text-danger">*</span></label>
+				<label class="col-lg-3 control-label"><?php echo lang('ticket_code'); ?> <span class="text-danger">*</span></label>
 				<div class="col-lg-3">
-					<input type="text" class="form-control" value="<?=$info->ticket_code?>" name="ticket_code">
+					<input type="text" class="form-control" value="<?php echo $info->ticket_code; ?>" name="ticket_code">
 				</div>
 				</div>
 
 				<div class="form-group">
-				<label class="col-lg-3 control-label"><?=lang('subject')?> <span class="text-danger">*</span></label>
+				<label class="col-lg-3 control-label"><?php echo lang('subject'); ?> <span class="text-danger">*</span></label>
 				<div class="col-lg-7">
-					<input type="text" class="form-control" value="<?=$info->subject?>" name="subject">
+					<input type="text" class="form-control" value="<?php echo $info->subject; ?>" name="subject">
 				</div>
 				</div>
 
@@ -36,31 +36,29 @@
 			
 
 				<div class="form-group">
-				<label class="col-lg-3 control-label"><?=lang('priority')?> <span class="text-danger">*</span> </label>
+				<label class="col-lg-3 control-label"><?php echo lang('priority'); ?> <span class="text-danger">*</span> </label>
 				<div class="col-lg-6">
 					<div class="m-b"> 
 					<select name="priority" class="form-control" >
-					<option value="<?=$info->priority?>"><?=lang('use_current')?></option>
-					<?php 
-					$priorities = $this->db->get('priorities')->result();
-						foreach ($priorities as $p): ?>
-					<option value="<?=$p->priority?>"><?=lang(strtolower($p->priority))?></option>
-					<?php endforeach; ?>
+					<option value="<?php echo $info->priority; ?>"><?php echo lang('use_current'); ?></option>
+					<?php $priorities = $this->db->get('priorities')->result();
+                        foreach ($priorities as $p) { ?>
+					<option value="<?php echo $p->priority; ?>"><?php echo lang(strtolower($p->priority)); ?></option>
+					<?php } ?>
 					</select> 
 					</div> 
 				</div>
 			</div>
 
 			 <div class="form-group">
-				<label class="col-lg-3 control-label"><?=lang('department')?> </label>
+				<label class="col-lg-3 control-label"><?php echo lang('department'); ?> </label>
 				<div class="col-lg-6">
 					<div class="m-b"> 
 					<select name="department" class="form-control" >
-					<?php 
-					$departments = App::get_by_where('departments',array('deptid >'=>'0'));
-						foreach ($departments as $d): ?>
-					<option value="<?=$d->deptid?>"<?=($info->department == $d->deptid ? ' selected="selected"' : '')?>><?=strtoupper($d->deptname)?></option>
-					<?php endforeach;  ?>
+					<?php $departments = App::get_by_where('departments', ['deptid >' => '0']);
+                        foreach ($departments as $d) { ?>
+					<option value="<?php echo $d->deptid; ?>"<?php echo ($info->department == $d->deptid ? ' selected="selected"' : ''); ?>><?php echo strtoupper($d->deptname); ?></option>
+					<?php }  ?>
 					</select> 
 					</div> 
 				</div>
@@ -68,14 +66,14 @@
 
 
 			<div class="form-group">
-				<label class="col-lg-3 control-label"><?=lang('reporter')?> <span class="text-danger">*</span> </label>
+				<label class="col-lg-3 control-label"><?php echo lang('reporter'); ?> <span class="text-danger">*</span> </label>
 				<div class="col-lg-6">
 					<div class="m-b"> 
 					<select class="select2-option w_260" name="reporter" >
-					<optgroup label="<?=lang('users')?>"> 
-					<?php foreach (User::all_users() as $user): ?>
-					<option value="<?=$user->id?>"<?=($info->reporter == $user->id ? ' selected="selected"' : '')?>><?php echo User::displayName($user->id); ?></option>
-					<?php endforeach; ?>
+					<optgroup label="<?php echo lang('users'); ?>"> 
+					<?php foreach (User::all_users() as $user) { ?>
+					<option value="<?php echo $user->id; ?>"<?php echo ($info->reporter == $user->id ? ' selected="selected"' : ''); ?>><?php echo User::displayName($user->id); ?></option>
+					<?php } ?>
 					</optgroup> 
 					</select> 
 					</div> 
@@ -83,16 +81,16 @@
 			</div>
 
 			<div class="form-group">
-				<label class="col-lg-3 control-label"><?=lang('ticket_message')?> </label>
+				<label class="col-lg-3 control-label"><?php echo lang('ticket_message'); ?> </label>
 				<div class="col-lg-9">
-				<textarea name="body" class="form-control textarea"><?=$info->body?></textarea>
+				<textarea name="body" class="form-control textarea"><?php echo $info->body; ?></textarea>
 				
 				</div>
 				</div>
 
 			<div id="file_container">
 				<div class="form-group">
-				<label class="col-lg-3 control-label"><?=lang('attachment')?></label>
+				<label class="col-lg-3 control-label"><?php echo lang('attachment'); ?></label>
 				<div class="col-lg-6">
 					<input type="file" name="ticketfiles[]">
 				</div>
@@ -100,12 +98,12 @@
 
 			</div>
 
-<a href="#" class="btn btn-primary btn-xs" id="add-new-file"><?=lang('upload_another_file')?></a>
-<a href="#" class="btn btn-default btn-xs" id="clear-files"><?=lang('clear_files')?></a>
+<a href="#" class="btn btn-primary btn-xs" id="add-new-file"><?php echo lang('upload_another_file'); ?></a>
+<a href="#" class="btn btn-default btn-xs" id="clear-files"><?php echo lang('clear_files'); ?></a>
 
 <div class="line line-dashed line-lg pull-in"></div>
 
-	<button type="submit" class="btn btn-sm btn-<?=config_item('theme_color')?>"><i class="fa fa-ticket"></i> <?=lang('edit_ticket')?></button>
+	<button type="submit" class="btn btn-sm btn-<?php echo config_item('theme_color'); ?>"><i class="fa fa-ticket"></i> <?php echo lang('edit_ticket'); ?></button>
 
 				
 </form>
@@ -125,7 +123,7 @@
         $('#clear-files').on('click', function(){
             $('#file_container').html(
                 "<div class='form-group'>" +
-                    "<label class='col-lg-3 control-label'> <?=lang('attachment')?></label>" +
+                    "<label class='col-lg-3 control-label'> <?php echo lang('attachment'); ?></label>" +
                     "<div class='col-lg-6'>" +
                     "<input type='file' name='ticketfiles[]'>" +
                     "</div></div>"
@@ -135,7 +133,7 @@
         $('#add-new-file').on('click', function(){
             $('#file_container').append(
                 "<div class='form-group'>" +
-                    "<label class='col-lg-3 control-label'> <?=lang('attachment')?></label>" +
+                    "<label class='col-lg-3 control-label'> <?php echo lang('attachment'); ?></label>" +
                     "<div class='col-lg-6'>" +
                     "<input type='file' name='ticketfiles[]'>" +
                     "</div></div>"

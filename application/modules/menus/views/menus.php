@@ -1,15 +1,15 @@
 <div class="box" id="menus">
     <div class="box-header">
     <ul id="menu-group">
-            <?php foreach ($menu_groups as $menu) : ?>
+            <?php foreach ($menu_groups as $menu) { ?>
                 <li id="group-<?php echo $menu->id; ?>">
                     <a class="btn btn-info" href="<?php echo site_url('menus/menu'); ?>/<?php echo $menu->id; ?>">
                         <?php echo $menu->title; ?>
                     </a>
                 </li>
-            <?php endforeach; ?>
+            <?php } ?>
             <li id="add-group"><a href="<?php echo site_url('menus/add_menu'); ?>"
-                                    title="Add New Menu" class="btn btn-success"><?=lang('add_menu')?></a>
+                                    title="Add New Menu" class="btn btn-success"><?php echo lang('add_menu'); ?></a>
             </li>
         </ul>
 </div>
@@ -67,11 +67,11 @@
                             <span id="edit-group-input"><?php echo $group_title; ?></span>
                                 <input type="hidden" name="id" value="<?php echo $group_id; ?>">
                                 <div class="edit-group-buttons">
-                                <button id="submit_menu" class="btn btn-sm btn-success" type="submit"><?=lang('save')?></button>
+                                <button id="submit_menu" class="btn btn-sm btn-success" type="submit"><?php echo lang('save'); ?></button>
                                     <a id="edit-group" href="#" title="Edit Menu"><span class="btn btn-primary btn-sm">Edit</span></a>
-                                    <?php if ($group_id > 1) : ?>
+                                    <?php if ($group_id > 1) { ?>
                                         <a id="delete-group" href="#"><span class="btn btn-danger btn-sm">Delete</span></a>
-                                    <?php endif; ?>
+                                    <?php } ?>
                                 </div>
                                 </form>
                             </div>

@@ -1,10 +1,16 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Stripe;
 
+/**
+ * @internal
+ * @coversNothing
+ */
 class AttachedObjectTest extends TestCase
 {
-    public function testCount()
+    public function testCount(): void
     {
         $ao = new AttachedObject();
         $this->assertSame(0, count($ao));

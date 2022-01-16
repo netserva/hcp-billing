@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Stripe\Error\OAuth;
 
 class OAuthBase extends \Stripe\Error\Base

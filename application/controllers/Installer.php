@@ -1,21 +1,22 @@
 <?php
 
+declare(strict_types=1);
+
 if (!defined('BASEPATH')) {
     exit('No direct script access allowed');
 }
 
- 
 class Installer extends MX_Controller
 {
     private $update_url;
 
     public function __construct()
     {
-        parent::__construct(); 
-        $this->load->helper(array('file')); 
+        parent::__construct();
+        $this->load->helper(['file']);
     }
 
-    public function index()
+    public function index(): void
     {
         $this->load->view('install');
     }
@@ -25,23 +26,24 @@ class Installer extends MX_Controller
         if (is_file('./application/config/installed.txt')) {
             return true;
         }
+
         return false;
     }
 
-    public function _installed()
+    public function _installed(): void
     {
         $this->_enable_system_access();
         $this->_change_routing();
         redirect();
     }
 
-    public function start()
+    public function start(): void
     {
         $this->session->sess_destroy();
         redirect('installer/?step=2', 'refresh');
     }
 
-    public function db_setup()
+    public function db_setup(): void
     {
         $db_connect = $this->verify_db_connection();
 
@@ -57,22 +59,20 @@ class Installer extends MX_Controller
         }
     }
 
-
-    public function install()
-    {     
+    public function install(): void
+    {
         $this->session->set_userdata('lang', 'english');
-        
+
         if (!$this->_initialize_db(config_item('version'))) {
-            $this->session->set_flashdata('message', 'Database import failed. Check if the file exists: resource/tmp/hostingbilling_'. $version .'.sql');
+            $this->session->set_flashdata('message', 'Database import failed. Check if the file exists: resource/tmp/hostingbilling_'.$version.'.sql');
             redirect('installer/?step=3');
-        } 
+        }
 
         $this->_step_complete('verify_purchase', '4');
         redirect('installer/?step=4');
     }
 
-
-    public function complete()
+    public function complete(): void
     {
         $this->_enable_system_access();
 
@@ -87,22 +87,22 @@ class Installer extends MX_Controller
         redirect('installer/done');
     }
 
-    public function done()
+    public function done(): void
     {
         $this->load->view('installed');
     }
 
     public function _step_complete($setting, $next_step)
     {
-        $formdata = array(
+        $formdata = [
             $setting => 'complete',
             'next_step' => $next_step,
-        );
+        ];
 
         return $this->session->set_userdata($formdata);
     }
 
-    public function _create_db_config()
+    public function _create_db_config(): void
     {
         // Replace the database settings
         $dbdata = read_file('./application/config/database.php');
@@ -111,9 +111,7 @@ class Installer extends MX_Controller
         $dbdata = str_replace('db_pass', $this->input->post('set_db_pass'), $dbdata);
         $dbdata = str_replace('db_host', $this->input->post('set_hostname'), $dbdata);
         write_file('./application/config/database.php', $dbdata);
-    }    
-  
- 
+    }
 
     public function _create_admin_account()
     {
@@ -133,52 +131,52 @@ class Installer extends MX_Controller
         $base_url = $this->input->post('set_base_url');
         $purchase_code = $this->session->userdata('purchase_code');
 
-        $codata = array('value' => $company);
+        $codata = ['value' => $company];
         $this->db->where('config_key', 'company_name')->update('config', $codata);
 
-        $codata = array('value' => $company);
+        $codata = ['value' => $company];
         $this->db->where('config_key', 'company_legal_name')->update('config', $codata);
 
-        $codata = array('value' => $company.' Sales');
+        $codata = ['value' => $company.' Sales'];
         $this->db->where('config_key', 'billing_email_name')->update('config', $codata);
 
-        $codata = array('value' => $company.' Support');
+        $codata = ['value' => $company.' Support'];
         $this->db->where('config_key', 'support_email_name')->update('config', $codata);
 
-        $codata = array('value' => $company);
+        $codata = ['value' => $company];
         $this->db->where('config_key', 'website_name')->update('config', $codata);
 
-        $codata = array('value' => $fullname);
+        $codata = ['value' => $fullname];
         $this->db->where('config_key', 'contact_person')->update('config', $codata);
 
-        $codata = array('value' => $username);
+        $codata = ['value' => $username];
         $this->db->where('config_key', 'mail_username')->update('config', $codata);
 
-        $codata = array('value' => $purchase_code);
+        $codata = ['value' => $purchase_code];
         $this->db->where('config_key', 'purchase_code')->update('config', $codata);
 
-        $codata = array('value' => $company_email);
+        $codata = ['value' => $company_email];
         $this->db->where('config_key', 'smtp_user')->update('config', $codata);
 
-        $codata = array('value' => $company_email);
+        $codata = ['value' => $company_email];
         $this->db->where('config_key', 'postmark_from_address')->update('config', $codata);
 
-        $codata = array('value' => $company_email);
+        $codata = ['value' => $company_email];
         $this->db->where('config_key', 'support_email')->update('config', $codata);
 
-        $codata = array('value' => 'TRUE');
+        $codata = ['value' => 'TRUE'];
         $this->db->where('config_key', 'valid_license')->update('config', $codata);
 
-        $codata = array('value' => $company_email);
+        $codata = ['value' => $company_email];
         $this->db->where('config_key', 'company_email')->update('config', $codata);
 
-        $codata = array('value' => $company_email);
+        $codata = ['value' => $company_email];
         $this->db->where('config_key', 'paypal_email')->update('config', $codata);
 
-        $codata = array('value' => $company_email);
+        $codata = ['value' => $company_email];
         $this->db->where('config_key', 'billing_email')->update('config', $codata);
 
-        $codata = array('value' => $base_url);
+        $codata = ['value' => $base_url];
         $this->db->where('config_key', 'company_domain')->update('config', $codata);
 
         return $this->tank_auth->create_user(
@@ -200,17 +198,17 @@ class Installer extends MX_Controller
         // Run the installer sql schema
         $this->load->database();
 
-        $file = 'hostingbilling_'. $version .'.sql';
+        $file = 'hostingbilling_'.$version.'.sql';
 
         $templine = '';
         // Read in entire file
-        $lines = file('./resource/tmp/' . $file);
+        $lines = file('./resource/tmp/'.$file);
         foreach ($lines as $line) {
-            if (substr($line, 0, 2) == '--' || $line == '') {
+            if ('--' == substr($line, 0, 2) || '' == $line) {
                 continue;
             }
             $templine .= $line;
-            if (substr(trim($line), -1, 1) == ';') {
+            if (';' == substr(trim($line), -1, 1)) {
                 $this->db->query($templine) or print 'Error performing query \'<strong>'.$templine.'\': '.mysql_error().'<br /><br />';
                 $templine = '';
             }
@@ -219,17 +217,19 @@ class Installer extends MX_Controller
         return true;
     }
 
-    public function _enable_system_access()
+    public function _enable_system_access(): void
     {
         $confdata = read_file('./application/config/config.php');
         $confdata = str_replace(
             '$config[\'enable_hooks\'] = FALSE;',
             '$config[\'enable_hooks\'] = TRUE;',
-            $confdata);
+            $confdata
+        );
         $confdata = str_replace(
             '$config[\'index_page\'] = \'index.php\';',
             '$config[\'index_page\'] = \'\';',
-            $confdata);
+            $confdata
+        );
 
         write_file('./application/config/config.php', $confdata);
 
@@ -237,7 +237,8 @@ class Installer extends MX_Controller
         $libdata = str_replace(
             '$autoload[\'libraries\'] = array(\'session\');',
             '$autoload[\'libraries\'] = array(\'session\',\'database\',\'tank_auth\',\'applib\',\'module\');',
-            $libdata);
+            $libdata
+        );
         write_file('./application/config/autoload.php', $libdata);
     }
 
@@ -254,7 +255,7 @@ class Installer extends MX_Controller
         }
     }
 
-    public function _change_htaccess()
+    public function _change_htaccess(): void
     {
         $subfolder = str_replace(basename($_SERVER['SCRIPT_NAME']), '', $_SERVER['SCRIPT_NAME']);
         if (!empty($subfolder)) {
@@ -282,9 +283,7 @@ class Installer extends MX_Controller
 
     // -------------------------------------------------------------------------------------------------
 
-    /*
-     * Database validation check from user input settings
-     */
+    // Database validation check from user input settings
     public function verify_db_connection()
     {
         $link = @mysqli_connect(
@@ -306,9 +305,7 @@ class Installer extends MX_Controller
 
     // -------------------------------------------------------------------------------------------------
 
-    /*
-     * Database check connection
-     */
+    // Database check connection
     public function _verify_db_config($host, $user, $pass, $database)
     {
         $link = @mysqli_connect(
@@ -327,7 +324,6 @@ class Installer extends MX_Controller
 
         return true;
     }
- 
 }
 
-/* End of file installer.php */
+// End of file installer.php

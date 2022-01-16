@@ -1,17 +1,18 @@
 <?php
 
+declare(strict_types=1);
+
 /**
- * InvalidValidationException
+ * InvalidValidationException.
  */
 
 namespace Resellerclub;
 
 /**
- * Class InvalidValidationException
+ * Class InvalidValidationException.
  *
  * Throws when validation provided by a function is invalid.
- * @package Resellerclub
  */
-class InvalidValidationException extends \Exception{
-
+class InvalidValidationException extends \Exception
+{
 }

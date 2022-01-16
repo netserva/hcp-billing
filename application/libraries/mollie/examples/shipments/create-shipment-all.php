@@ -1,15 +1,13 @@
 <?php
 
+declare(strict_types=1);
+
 namespace _PhpScoper5ed105407e8f2;
 
-/*
- * Create a shipment for an entire order using the Mollie API.
- */
+// Create a shipment for an entire order using the Mollie API.
 try {
-    /*
-     * Initialize the Mollie API library with your API key or OAuth access token.
-     */
-    require "../initialize.php";
+    // Initialize the Mollie API library with your API key or OAuth access token.
+    require '../initialize.php';
     /*
      * Create a shipment for the entire order with ID "ord_8wmqcHMN4U"
      *
@@ -17,10 +15,10 @@ try {
      */
     $order = $mollie->orders->get('ord_8wmqcHMN4U');
     $shipment = $order->shipAll();
-    echo 'A shipment with ID ' . $shipment->id . ' has been created for your order with ID ' . $order->id . '.';
+    echo 'A shipment with ID '.$shipment->id.' has been created for your order with ID '.$order->id.'.';
     foreach ($shipment->lines as $line) {
-        echo $line->name . ' - status: <b>' . $line->status . '</b>.';
+        echo $line->name.' - status: <b>'.$line->status.'</b>.';
     }
 } catch (\Mollie\Api\Exceptions\ApiException $e) {
-    echo "API call failed: " . \htmlspecialchars($e->getMessage());
+    echo 'API call failed: '.\htmlspecialchars($e->getMessage());
 }

@@ -2,14 +2,14 @@
 <html lang="en" class="bg-dark">
 <head>
     <meta charset="utf-8" />
-    <link rel="icon" type="image/png" href="<?=base_url()?>resource/images/logo_favicon.png">
+    <link rel="icon" type="image/png" href="<?php echo base_url(); ?>resource/images/logo_favicon.png">
     <title>Hosting Billing Setup</title>
     <meta name="description" content="Hosting Billing is a Client Management and Invoicing System for Web Hosting businesses." />
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <link rel="stylesheet" href="<?=base_url()?>resource/css/install.css" type="text/css" />
-    <link rel="stylesheet" href="<?=base_url()?>resource/js/fuelux/fuelux.css" type="text/css" />
-    <link rel="stylesheet" href="<?=base_url()?>resource/css/font-awesome.min.css">
+    <link rel="stylesheet" href="<?php echo base_url(); ?>resource/css/install.css" type="text/css" />
+    <link rel="stylesheet" href="<?php echo base_url(); ?>resource/js/fuelux/fuelux.css" type="text/css" />
+    <link rel="stylesheet" href="<?php echo base_url(); ?>resource/css/font-awesome.min.css">
     <!--[if lt IE 9]>
     <script src="js/ie/html5shiv.js" cache="false">
     </script>
@@ -33,104 +33,177 @@
 
                 <?php
                 $step1 = $step2 = $step3 = $step4 = '';
-                $badge1 = $badge2 = $badge3 = $badge4 ='badge';
-                if(isset($_GET['step'])){
+                $badge1 = $badge2 = $badge3 = $badge4 = 'badge';
+                if (isset($_GET['step'])) {
                     switch ($_GET['step']) {
                         case '2':
-                            $step2 = 'active'; $badge2='badge badge-success';
+                            $step2 = 'active'; $badge2 = 'badge badge-success';
+
                             break;
+
                         case '3':
-                            $step3 = 'active'; $badge3='badge badge-success';
+                            $step3 = 'active'; $badge3 = 'badge badge-success';
+
                             break;
+
                         case '4':
-                            $step4 = 'active'; $badge4='badge badge-success';
+                            $step4 = 'active'; $badge4 = 'badge badge-success';
+
                             break;
 
                         default:
-                            $step1 = 'active'; $badge1='badge badge-success';
+                            $step1 = 'active'; $badge1 = 'badge badge-success';
+
                             break;
                     }
-                }else $step1 = 'active'; $badge1='badge';
+                } else {
+                    $step1 = 'active';
+                } $badge1 = 'badge';
                 ?>
 
 
                 <div class="panel panel-default wizard">
                     <div class="wizard-steps clearfix" id="form-wizard">
                         <ul class="steps">
-                            <li class="<?=$step1?>"><span class="<?=$badge1?>">1</span>System Check</li>
-                            <li class="<?=$step2?>"><span class="<?=$badge2?>">2</span>Database Settings</li>
-                            <li class="<?=$step3?>"><span class="<?=$badge3?>">3</span>Install</li>
-                            <li class="<?=$step4?>"><span class="<?=$badge4?>">4</span>Basic Settings</li>
+                            <li class="<?php echo $step1; ?>"><span class="<?php echo $badge1; ?>">1</span>System Check</li>
+                            <li class="<?php echo $step2; ?>"><span class="<?php echo $badge2; ?>">2</span>Database Settings</li>
+                            <li class="<?php echo $step3; ?>"><span class="<?php echo $badge3; ?>">3</span>Install</li>
+                            <li class="<?php echo $step4; ?>"><span class="<?php echo $badge4; ?>">4</span>Basic Settings</li>
                         </ul>
                     </div>
                     <div class="step-content clearfix" style="background-color: #fff;">
 
                         <?php
-                        if($this->session->flashdata('message')){ ?>
+                        if ($this->session->flashdata('message')) { ?>
                             <div class="alert alert-info">
                                 <button type="button" class="close" data-dismiss="alert">×</button>
-                                <i class="fa fa-info-sign"></i><?=$this->session->flashdata('message')?>
+                                <i class="fa fa-info-sign"></i><?php echo $this->session->flashdata('message'); ?>
                             </div>
                         <?php } ?>
 
-                        <div class="step-pane <?=$step1?>" id="step1">
+                        <div class="step-pane <?php echo $step1; ?>" id="step1">
 
 
                             <?php
-                            $config_file = "./application/config/config.php";
-                            $database_file = "./application/config/database.php";
-                            $autoload_file = "./application/config/autoload.php";
-                            $route_file = "./application/config/routes.php";
-                            $htaccess_file = ".htaccess";
-                            $error = FALSE;
+                            $config_file = './application/config/config.php';
+                            $database_file = './application/config/database.php';
+                            $autoload_file = './application/config/autoload.php';
+                            $route_file = './application/config/routes.php';
+                            $htaccess_file = '.htaccess';
+                            $error = false;
                             ?>
 
                             <div class="row">
                             <div class="col-lg-6">
                                 <?php
-                                    if(phpversion() < "5.3"){ $error = TRUE;
-                                        echo "<div class='alert alert-danger'>Your PHP version is ".phpversion()."! PHP 5.3 or higher required!</div>"; }else{
-                                        echo "<div class='alert alert-success'><i class='fa fa-check-circle'></i> You are running PHP ".phpversion()."</div>";
-                                    } 
+                                    if (phpversion() < '5.3') {
+                                        $error = true;
+                                        echo "<div class='alert alert-danger'>Your PHP version is ".phpversion().'! PHP 5.3 or higher required!</div>';
+                                    } else {
+                                        echo "<div class='alert alert-success'><i class='fa fa-check-circle'></i> You are running PHP ".phpversion().'</div>';
+                                    }
 
-                                 if(!extension_loaded('mysqli')){$error = TRUE; echo "<div class='alert alert-danger'>Mysqli PHP extension missing!</div>";}else{echo "<div class='alert alert-success'><i class='fa fa-check-circle'></i> Mysqli PHP extension loaded!</div>";}
+                                 if (!extension_loaded('mysqli')) {
+                                     $error = true;
+                                     echo "<div class='alert alert-danger'>Mysqli PHP extension missing!</div>";
+                                 } else {
+                                     echo "<div class='alert alert-success'><i class='fa fa-check-circle'></i> Mysqli PHP extension loaded!</div>";
+                                 }
 
-                                 if(!extension_loaded('imap')){$error = TRUE; echo "<div class='alert alert-danger'>IMAP PHP extension missing!</div>";}else{echo "<div class='alert alert-success'><i class='fa fa-check-circle'></i> IMAP PHP extension loaded!</div>";}
-     
-                                 if(!extension_loaded('mbstring')){$error = TRUE; echo "<div class='alert alert-danger'>MBString PHP extension missing!</div>";}else{echo "<div class='alert alert-success'><i class='fa fa-check-circle'></i> MBString PHP extension loaded!</div>";}
-     
-                                 if(!extension_loaded('zip')){$error = TRUE; echo "<div class='alert alert-danger'>ZIP PHP extension missing!</div>";}else{echo "<div class='alert alert-success'><i class='fa fa-check-circle'></i> ZIP PHP extension loaded!</div>";}
-     
-                                 if(!extension_loaded('gd')){echo "<div class='alert alert-danger'>GD PHP extension missing!</div>";}else{echo "<div class='alert alert-success'><i class='fa fa-check-circle'></i> GD PHP extension loaded!</div>";}
-                                 
-                                 if(!extension_loaded('pdo')){$error = TRUE; echo "<div class='alert alert-danger'>PDO PHP extension missing!</div>";}else{echo "<div class='alert alert-success'><i class='fa fa-check-circle'></i> PDO PHP extension loaded!</div>";}
-                                    
+                                 if (!extension_loaded('imap')) {
+                                     $error = true;
+                                     echo "<div class='alert alert-danger'>IMAP PHP extension missing!</div>";
+                                 } else {
+                                     echo "<div class='alert alert-success'><i class='fa fa-check-circle'></i> IMAP PHP extension loaded!</div>";
+                                 }
+
+                                 if (!extension_loaded('mbstring')) {
+                                     $error = true;
+                                     echo "<div class='alert alert-danger'>MBString PHP extension missing!</div>";
+                                 } else {
+                                     echo "<div class='alert alert-success'><i class='fa fa-check-circle'></i> MBString PHP extension loaded!</div>";
+                                 }
+
+                                 if (!extension_loaded('zip')) {
+                                     $error = true;
+                                     echo "<div class='alert alert-danger'>ZIP PHP extension missing!</div>";
+                                 } else {
+                                     echo "<div class='alert alert-success'><i class='fa fa-check-circle'></i> ZIP PHP extension loaded!</div>";
+                                 }
+
+                                 if (!extension_loaded('gd')) {
+                                     echo "<div class='alert alert-danger'>GD PHP extension missing!</div>";
+                                 } else {
+                                     echo "<div class='alert alert-success'><i class='fa fa-check-circle'></i> GD PHP extension loaded!</div>";
+                                 }
+
+                                 if (!extension_loaded('pdo')) {
+                                     $error = true;
+                                     echo "<div class='alert alert-danger'>PDO PHP extension missing!</div>";
+                                 } else {
+                                     echo "<div class='alert alert-success'><i class='fa fa-check-circle'></i> PDO PHP extension loaded!</div>";
+                                 }
+
                                  ?>
                             </div>
                             <div class="col-lg-6">
                                     <?php
-                                        if(!extension_loaded('curl')){$error = TRUE; echo "<div class='alert alert-danger'>CURL PHP extension missing!</div>";}else{echo "<div class='alert alert-success'><i class='fa fa-check-circle'></i> CURL PHP extension loaded!</div>";}
-                                        if(!is_writeable($database_file)){$error = TRUE; echo "<div class='alert alert-danger'>Database File (application/config/database.php) is not writeable!</div>";}else{echo "<div class='alert alert-success'><i class='fa fa-check-circle'></i> Database file is writeable!</div>";}
-                                        if(!is_writeable($config_file)){$error = TRUE; echo "<div class='alert alert-danger'>Config File (application/config/config.php) is not writeable!</div>";}else{echo "<div class='alert alert-success'><i class='fa fa-check-circle'></i> Config file is writeable!</div>";}
-                                        if(!is_writeable($route_file)){$error = TRUE; echo "<div class='alert alert-danger'>Route File (application/config/routes.php) is not writeable!</div>";}else{echo "<div class='alert alert-success'><i class='fa fa-check-circle'></i> Routes file is writeable!</div>";}
-                                        if(!is_writeable($autoload_file)){$error = TRUE; echo "<div class='alert alert-danger'>Autoload File (application/config/autoload.php) is not writeable!</div>";}else{echo "<div class='alert alert-success'><i class='fa fa-check-circle'></i> Autoload file is writeable!</div>";}
-                                        if(!is_writeable($htaccess_file)){$error = TRUE; echo "<div class='alert alert-danger'>HTACCESS File (.htaccess) is not writeable!</div>";}else{echo "<div class='alert alert-success'><i class='fa fa-check-circle'></i> HTACCESS file is writeable!</div>";}
-                                        if(!is_writeable("./resource/tmp")){echo "<div class='alert alert-danger'><i class='fa fa-times'></i> /resource/tmp folder is not writeable!</div>";}else{echo "<div class='alert alert-success'><i class='fa fa-check-circle'></i> /resource/tmp folder is writeable!</div>";}
+                                        if (!extension_loaded('curl')) {
+                                            $error = true;
+                                            echo "<div class='alert alert-danger'>CURL PHP extension missing!</div>";
+                                        } else {
+                                            echo "<div class='alert alert-success'><i class='fa fa-check-circle'></i> CURL PHP extension loaded!</div>";
+                                        }
+                                        if (!is_writable($database_file)) {
+                                            $error = true;
+                                            echo "<div class='alert alert-danger'>Database File (application/config/database.php) is not writeable!</div>";
+                                        } else {
+                                            echo "<div class='alert alert-success'><i class='fa fa-check-circle'></i> Database file is writeable!</div>";
+                                        }
+                                        if (!is_writable($config_file)) {
+                                            $error = true;
+                                            echo "<div class='alert alert-danger'>Config File (application/config/config.php) is not writeable!</div>";
+                                        } else {
+                                            echo "<div class='alert alert-success'><i class='fa fa-check-circle'></i> Config file is writeable!</div>";
+                                        }
+                                        if (!is_writable($route_file)) {
+                                            $error = true;
+                                            echo "<div class='alert alert-danger'>Route File (application/config/routes.php) is not writeable!</div>";
+                                        } else {
+                                            echo "<div class='alert alert-success'><i class='fa fa-check-circle'></i> Routes file is writeable!</div>";
+                                        }
+                                        if (!is_writable($autoload_file)) {
+                                            $error = true;
+                                            echo "<div class='alert alert-danger'>Autoload File (application/config/autoload.php) is not writeable!</div>";
+                                        } else {
+                                            echo "<div class='alert alert-success'><i class='fa fa-check-circle'></i> Autoload file is writeable!</div>";
+                                        }
+                                        if (!is_writable($htaccess_file)) {
+                                            $error = true;
+                                            echo "<div class='alert alert-danger'>HTACCESS File (.htaccess) is not writeable!</div>";
+                                        } else {
+                                            echo "<div class='alert alert-success'><i class='fa fa-check-circle'></i> HTACCESS file is writeable!</div>";
+                                        }
+                                        if (!is_writable('./resource/tmp')) {
+                                            echo "<div class='alert alert-danger'><i class='fa fa-times'></i> /resource/tmp folder is not writeable!</div>";
+                                        } else {
+                                            echo "<div class='alert alert-success'><i class='fa fa-check-circle'></i> /resource/tmp folder is writeable!</div>";
+                                        }
                                      ?>
                             </div>
 
                            </div>
 
                             <div class="actions pull-right">
-                                <a href="<?php echo base_url()?><?=config_item('index_page')?>/installer/start" class="btn btn-danger">Next</a>
+                                <a href="<?php echo base_url(); ?><?php echo config_item('index_page'); ?>/installer/start" class="btn btn-danger">Next</a>
                             </div>
 
                         </div>
 
-                        <div class="step-pane <?=$step2?>" id="step2">
+                        <div class="step-pane <?php echo $step2; ?>" id="step2">
         <?php
-             $attributes = array('class' => 'm-b-sm form-horizontal','id' => 'database','novalidate' => 'novalidate');
-          echo form_open(base_url().config_item('index_page').'/installer/db_setup',$attributes); ?>
+             $attributes = ['class' => 'm-b-sm form-horizontal', 'id' => 'database', 'novalidate' => 'novalidate'];
+          echo form_open(base_url().config_item('index_page').'/installer/db_setup', $attributes); ?>
 
                                 <div class="form-group">
                                     <label class="col-lg-3 control-label">Database Host</label>
@@ -161,7 +234,7 @@
  
 
                                 <div class="actions pull-left">
-                                    <a href="<?php echo base_url()?><?=config_item('index_page')?>/installer" class="btn btn-danger btn-sm">Previous</a>
+                                    <a href="<?php echo base_url(); ?><?php echo config_item('index_page'); ?>/installer" class="btn btn-danger btn-sm">Previous</a>
                                     <button type="submit" class="btn btn-danger btn-sm">Next</button>
                                 </div>
 
@@ -170,18 +243,18 @@
 
 
 
-                        <div class="step-pane <?=$step3?>" id="step3">
+                        <div class="step-pane <?php echo $step3; ?>" id="step3">
                         <h4>Ready to install</h4>
                         <hr>
                         <?php
-                        $attributes = array('class' => 'm-b-sm form-horizontal','id' => 'verify','novalidate'=>'novalidate');
-                        echo form_open(base_url().config_item('index_page').'/installer/install',$attributes); ?>
+                        $attributes = ['class' => 'm-b-sm form-horizontal', 'id' => 'verify', 'novalidate' => 'novalidate'];
+                        echo form_open(base_url().config_item('index_page').'/installer/install', $attributes); ?>
                    
                               <button type="submit" class="btn btn-success btn-lg btn-block">Install</button>
 
                             </form>
                             <div class="actions pull-left">
-                                    <a href="<?php echo base_url()?><?=config_item('index_page')?>/installer" class="btn btn-danger btn-sm">Previous</a>
+                                    <a href="<?php echo base_url(); ?><?php echo config_item('index_page'); ?>/installer" class="btn btn-danger btn-sm">Previous</a>
                             </div>
 
                         </div>
@@ -189,23 +262,23 @@
 
 
 
-                        <div class="step-pane <?=$step4?>" id="step4">
+                        <div class="step-pane <?php echo $step4; ?>" id="step4">
 
         <?php
-             $attributes = array('class' => 'm-b-sm form-horizontal','id' => 'complete','novalidate'=>'novalidate');
-          echo form_open(base_url().config_item('index_page').'/installer/complete',$attributes); ?>
+             $attributes = ['class' => 'm-b-sm form-horizontal', 'id' => 'complete', 'novalidate' => 'novalidate'];
+          echo form_open(base_url().config_item('index_page').'/installer/complete', $attributes); ?>
 
                                 <?php
-                                $base_url = ((isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] == "on") ? "https" : "http");
-                                $base_url .= "://".$_SERVER['HTTP_HOST'];
-                                $base_url .= str_replace(basename($_SERVER['SCRIPT_NAME']),"",$_SERVER['SCRIPT_NAME']);
+                                $base_url = ((isset($_SERVER['HTTPS']) && 'on' == $_SERVER['HTTPS']) ? 'https' : 'http');
+                                $base_url .= '://'.$_SERVER['HTTP_HOST'];
+                                $base_url .= str_replace(basename($_SERVER['SCRIPT_NAME']), '', $_SERVER['SCRIPT_NAME']);
 
                                 ?>
 
                                 <div class="form-group">
                                     <label class="col-lg-3 control-label">Company Domain</label>
                                     <div class="col-lg-7">
-                                        <input type="text" class="form-control" value="<?=$base_url?>" name="set_base_url">
+                                        <input type="text" class="form-control" value="<?php echo $base_url; ?>" name="set_base_url">
                                     </div>
                                 </div>
 
@@ -273,9 +346,9 @@
     </div>
 </section>
 <!--main content end-->
-<script src="<?=base_url()?>resource/js/jquery.min.js"></script>
-<script src="<?=base_url()?>resource/js/app.js"></script>
-<script src="<?=base_url()?>resource/js/jquery.validate.min.js"></script>
+<script src="<?php echo base_url(); ?>resource/js/jquery.min.js"></script>
+<script src="<?php echo base_url(); ?>resource/js/app.js"></script>
+<script src="<?php echo base_url(); ?>resource/js/jquery.validate.min.js"></script>
 
 <script>
     $(function() {

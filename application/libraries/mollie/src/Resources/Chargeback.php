@@ -1,12 +1,14 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Mollie\Api\Resources;
 
 /**
  * @method Refund[]|RefundCollection all($from = null, $limit = 50, array $filters = [])
- * @method Refund get($refundId, array $filters = [])
- * @method Refund create(array $data = [], array $filters = [])
- * @method Refund delete($refundId)
+ * @method Refund                    get($refundId, array $filters = [])
+ * @method Refund                    create(array $data = [], array $filters = [])
+ * @method Refund                    delete($refundId)
  */
 class Chargeback extends \Mollie\Api\Resources\BaseResource
 {
@@ -26,7 +28,8 @@ class Chargeback extends \Mollie\Api\Resources\BaseResource
      * UTC datetime the payment was created in ISO-8601 format.
      *
      * @example "2013-12-25T10:30:54+00:00"
-     * @var string|null
+     *
+     * @var null|string
      */
     public $createdAt;
     /**
@@ -36,7 +39,7 @@ class Chargeback extends \Mollie\Api\Resources\BaseResource
      */
     public $paymentId;
     /**
-     * The settlement amount
+     * The settlement amount.
      *
      * @var \stdClass
      */

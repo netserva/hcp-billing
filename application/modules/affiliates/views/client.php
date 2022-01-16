@@ -7,17 +7,17 @@
                 $comp = Client::view_by_id($profile->company);
             }
 
-            if($comp->affiliate < 1) { ?>
+            if ($comp->affiliate < 1) { ?>
 
             <div class="col-md-6 col-sm-6 col-12">
                 <div class="alert alert-info">
-                    <h2><?=lang('refer_get_paid')?></h2>
-                    <hr><?=lang('how_affiliates_work')?>
+                    <h2><?php echo lang('refer_get_paid'); ?></h2>
+                    <hr><?php echo lang('how_affiliates_work'); ?>
                     <hr>
                     <?php
-                    $attributes = array('class' => 'bs-example form-horizontal');
-                    echo form_open(uri_string().'/activate',$attributes); ?>
-                    <input type="hidden" value="<?=$profile->company?>" name="co_id">
+                    $attributes = ['class' => 'bs-example form-horizontal'];
+                    echo form_open(uri_string().'/activate', $attributes); ?>
+                    <input type="hidden" value="<?php echo $profile->company; ?>" name="co_id">
                     <input class="btn btn-primary" type="submit" value="Activate">
                     </form>
                 </div>
@@ -26,26 +26,26 @@
             <?php } else { ?>
             <div class="col-md-4 col-sm-4 col-12">
                 <div class="alert alert-warning center">
-                    <h2><?=lang('clicks')?></h2>
+                    <h2><?php echo lang('clicks'); ?></h2>
                     <hr>
-                    <h1 class="status_count"><?=$comp->affiliate_clicks?></h1>
+                    <h1 class="status_count"><?php echo $comp->affiliate_clicks; ?></h1>
                 </div>
             </div>
 
             <div class="col-md-4 col-sm-4 col-12">
                 <div class="alert alert-info center">
-                    <h2><?=lang('signups')?></h2>
+                    <h2><?php echo lang('signups'); ?></h2>
                     <hr>
-                    <h1 class="status_count"><?=$comp->affiliate_signups?></h1>
+                    <h1 class="status_count"><?php echo $comp->affiliate_signups; ?></h1>
                 </div>
             </div>
 
             <div class="col-md-4 col-sm-4 col-12">
                 <div class="alert alert-success center">
-                    <h2><?=lang('commission_balance')?></h2>
+                    <h2><?php echo lang('commission_balance'); ?></h2>
                     <hr>
                     <h1 class="status_count">
-                        <?=Applib::format_currency(config_item('default_currency'), $comp->affiliate_balance)?></h1>
+                        <?php echo Applib::format_currency(config_item('default_currency'), $comp->affiliate_balance); ?></h1>
                 </div>
             </div>
 
@@ -53,11 +53,11 @@
         <div class="row">
             <div class="col-md-12">
                 <div class="alert alert-info center">
-                    <?=lang('withdrawal_minimum_message')?>
-                    <?=Applib::format_currency(config_item('default_currency'), config_item('affiliates_payout'))?>.
-                    <?php if($comp->affiliate_balance > config_item('affiliates_payout')) { ?> <a
-                        href="<?=base_url()?>affiliates/withdraw" data-toggle="ajaxModal"
-                        class="btn btn-primary btn-sm"><?=lang('withdraw')?></a> <?php } ?>
+                    <?php echo lang('withdrawal_minimum_message'); ?>
+                    <?php echo Applib::format_currency(config_item('default_currency'), config_item('affiliates_payout')); ?>.
+                    <?php if ($comp->affiliate_balance > config_item('affiliates_payout')) { ?> <a
+                        href="<?php echo base_url(); ?>affiliates/withdraw" data-toggle="ajaxModal"
+                        class="btn btn-primary btn-sm"><?php echo lang('withdraw'); ?></a> <?php } ?>
                 </div>
             </div>
         </div>
@@ -67,10 +67,10 @@
 
                 <ul class="nav nav-tabs">
                     <li class="active"><a data-toggle="tab" href="#tab1">
-                            <h4><?=lang('signups')?></h4>
+                            <h4><?php echo lang('signups'); ?></h4>
                         </a></li>
                     <li><a data-toggle="tab" href="#tab2">
-                            <h4><?=lang('withdrawal_history')?></h4>
+                            <h4><?php echo lang('withdrawal_history'); ?></h4>
                         </a></li>
                 </ul>
 
@@ -81,12 +81,12 @@
                                 <thead>
                                     <tr>
                                         <th class="w_5 hidden"></th>
-                                        <th class="col-date"><?=lang('date')?></th>
-                                        <th class=""><?=lang('products_services')?></th>
-                                        <th class=""><?=lang('amount')?></th>
-                                        <th class=""><?=lang('commission')?></th>
-                                        <th class=""><?=lang('payout')?></th>
-                                        <th class=""><?=lang('status')?></th>
+                                        <th class="col-date"><?php echo lang('date'); ?></th>
+                                        <th class=""><?php echo lang('products_services'); ?></th>
+                                        <th class=""><?php echo lang('amount'); ?></th>
+                                        <th class=""><?php echo lang('commission'); ?></th>
+                                        <th class=""><?php echo lang('payout'); ?></th>
+                                        <th class=""><?php echo lang('status'); ?></th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -95,14 +95,14 @@
                                     <?php foreach (Affiliate::account($comp->affiliate_id) as $key => $aff) { ?>
                                     <tr>
                                         <td class="hidden"></td>
-                                        <td><?=$aff->date?></td>
-                                        <td><?=$aff->item_name?></td>
-                                        <td><?=Applib::format_currency(config_item('default_currency'), $aff->amount)?>
+                                        <td><?php echo $aff->date; ?></td>
+                                        <td><?php echo $aff->item_name; ?></td>
+                                        <td><?php echo Applib::format_currency(config_item('default_currency'), $aff->amount); ?>
                                         </td>
-                                        <td><?=Applib::format_currency(config_item('default_currency'), $aff->commission)?>
+                                        <td><?php echo Applib::format_currency(config_item('default_currency'), $aff->commission); ?>
                                         </td>
-                                        <td><?=$aff->type == 'once' ? lang('once') : lang('recurring')?></td>
-                                        <td><?=lang($aff->status)?></td>
+                                        <td><?php echo 'once' == $aff->type ? lang('once') : lang('recurring'); ?></td>
+                                        <td><?php echo lang($aff->status); ?></td>
                                     </tr>
                                     <?php }  ?>
                                 </tbody>
@@ -116,11 +116,11 @@
                                 <thead>
                                     <tr>
                                         <th class="w_5 hidden"></th>
-                                        <th class="col-date"><?=lang('request_date')?></th> 
-                                        <th><?=lang('payment_details')?></th>
-                                        <th><?=lang('amount')?></th>
-                                        <th class="col-date"><?=lang('payment_date')?></th>
-                                        <th><?=lang('notes')?></th>
+                                        <th class="col-date"><?php echo lang('request_date'); ?></th> 
+                                        <th><?php echo lang('payment_details'); ?></th>
+                                        <th><?php echo lang('amount'); ?></th>
+                                        <th class="col-date"><?php echo lang('payment_date'); ?></th>
+                                        <th><?php echo lang('notes'); ?></th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -129,11 +129,11 @@
                                     <?php foreach (Affiliate::withdrawals($comp->affiliate_id) as $key => $aff) { ?>
                                     <tr>
                                         <td class="hidden"></td>
-                                        <td><?=$aff->request_date?></td>
-                                        <td><?=$aff->payment_details?></td>
-                                        <td><?=Applib::format_currency(config_item('default_currency'), $aff->amount)?>
-                                        <td><?=$aff->payment_date?></td>
-                                        <td><?=$aff->notes?></td>
+                                        <td><?php echo $aff->request_date; ?></td>
+                                        <td><?php echo $aff->payment_details; ?></td>
+                                        <td><?php echo Applib::format_currency(config_item('default_currency'), $aff->amount); ?>
+                                        <td><?php echo $aff->payment_date; ?></td>
+                                        <td><?php echo $aff->notes; ?></td>
                                         </td>                                       
                                     </tr>
                                     <?php }  ?>
@@ -144,10 +144,10 @@
 
 
                 <hr>
-                <h2><?=lang('links')?></h2>
+                <h2><?php echo lang('links'); ?></h2>
                 <hr>
                 <?php
-                    $links = config_item('affiliates_links');                            
+                    $links = config_item('affiliates_links');
                     $links = str_replace('{AFFILIATE}', $comp->affiliate_id, $links);
                     $links = str_replace('[', '&lt;', $links);
                     $links = str_replace(']', '&gt;', $links);

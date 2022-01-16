@@ -1,13 +1,15 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Stripe\Util;
 
 use Stripe\StripeObject;
 
 abstract class Util
 {
-    private static $isMbstringAvailable = null;
-    private static $isHashEqualsAvailable = null;
+    private static $isMbstringAvailable;
+    private static $isHashEqualsAvailable;
 
     /**
      * Whether the provided array (or other) is a list rather than a dictionary.
@@ -23,7 +25,7 @@ abstract class Util
         if (!\is_array($array)) {
             return false;
         }
-        if ($array === []) {
+        if ([] === $array) {
             return true;
         }
         if (\array_keys($array) !== \range(0, \count($array) - 1)) {
@@ -69,7 +71,7 @@ abstract class Util
      * @param mixed|string $value a string to UTF8-encode
      *
      * @return mixed|string the UTF8-encoded string, or the object passed in if
-     *    it wasn't a string
+     *                      it wasn't a string
      */
     public static function utf8($value)
     {
@@ -77,9 +79,9 @@ abstract class Util
             self::$isMbstringAvailable = \function_exists('mb_detect_encoding');
 
             if (!self::$isMbstringAvailable) {
-                \trigger_error('It looks like the mbstring extension is not enabled. ' .
-                    'UTF-8 strings will not properly be encoded. Ask your system ' .
-                    'administrator to enable the mbstring extension, or write to ' .
+                \trigger_error('It looks like the mbstring extension is not enabled. '.
+                    'UTF-8 strings will not properly be encoded. Ask your system '.
+                    'administrator to enable the mbstring extension, or write to '.
                     'support@stripe.com if you have any questions.', \E_USER_WARNING);
             }
         }
@@ -168,15 +170,15 @@ abstract class Util
         $flattenedParams = self::flattenParams($params);
         $pieces = [];
         foreach ($flattenedParams as $param) {
-            list($k, $v) = $param;
-            \array_push($pieces, self::urlEncode($k) . '=' . self::urlEncode($v));
+            [$k, $v] = $param;
+            \array_push($pieces, self::urlEncode($k).'='.self::urlEncode($v));
         }
 
         return \implode('&', $pieces);
     }
 
     /**
-     * @param array $params
+     * @param array       $params
      * @param null|string $parentKey
      *
      * @return array
@@ -201,7 +203,7 @@ abstract class Util
     }
 
     /**
-     * @param array $value
+     * @param array  $value
      * @param string $calculatedKey
      *
      * @return array

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Stripe\Exception;
 
 /**
@@ -13,13 +15,13 @@ class InvalidRequestException extends ApiErrorException
     /**
      * Creates a new InvalidRequestException exception.
      *
-     * @param string $message the exception message
-     * @param null|int $httpStatus the HTTP status code
-     * @param null|string $httpBody the HTTP body as a string
-     * @param null|array $jsonBody the JSON deserialized body
+     * @param string                                       $message     the exception message
+     * @param null|int                                     $httpStatus  the HTTP status code
+     * @param null|string                                  $httpBody    the HTTP body as a string
+     * @param null|array                                   $jsonBody    the JSON deserialized body
      * @param null|array|\Stripe\Util\CaseInsensitiveArray $httpHeaders the HTTP headers array
-     * @param null|string $stripeCode the Stripe error code
-     * @param null|string $stripeParam the parameter related to the error
+     * @param null|string                                  $stripeCode  the Stripe error code
+     * @param null|string                                  $stripeParam the parameter related to the error
      *
      * @return InvalidRequestException
      */
@@ -53,7 +55,7 @@ class InvalidRequestException extends ApiErrorException
      *
      * @param null|string $stripeParam
      */
-    public function setStripeParam($stripeParam)
+    public function setStripeParam($stripeParam): void
     {
         $this->stripeParam = $stripeParam;
     }

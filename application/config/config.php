@@ -1,4 +1,9 @@
-<?php  if ( ! defined('BASEPATH')) exit('No direct script access allowed');
+<?php
+
+declare(strict_types=1);
+if (!defined('BASEPATH')) {
+    exit('No direct script access allowed');
+}
 
 /*
 |--------------------------------------------------------------------------
@@ -15,9 +20,9 @@
 |
 */
 
-$config['base_url'] = ((isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] == "on") ? "https" : "http");
-$config['base_url'] .= "://".$_SERVER['HTTP_HOST'];
-$config['base_url'] .= str_replace(basename($_SERVER['SCRIPT_NAME']),"",$_SERVER['SCRIPT_NAME']);
+$config['base_url'] = ((isset($_SERVER['HTTPS']) && 'on' == $_SERVER['HTTPS']) ? 'https' : 'http');
+$config['base_url'] .= '://'.$_SERVER['HTTP_HOST'];
+$config['base_url'] .= str_replace(basename($_SERVER['SCRIPT_NAME']), '', $_SERVER['SCRIPT_NAME']);
 
 // Force SSL here
 // $config['base_url'] = 'https://mysecuredomain.com/';
@@ -50,7 +55,7 @@ $config['index_page'] = '';
 | 'ORIG_PATH_INFO'	Uses the ORIG_PATH_INFO
 |
 */
-$config['uri_protocol']	= 'AUTO';
+$config['uri_protocol'] = 'AUTO';
 
 /*
 |--------------------------------------------------------------------------
@@ -75,7 +80,7 @@ $config['url_suffix'] = '';
 | than english.
 |
 */
-$config['language']	= 'english';
+$config['language'] = 'english';
 
 /*
 |--------------------------------------------------------------------------
@@ -98,8 +103,7 @@ $config['charset'] = 'UTF-8';
 |
 */
 
-$config['enable_hooks'] = TRUE;
-
+$config['enable_hooks'] = true;
 
 /*
 |--------------------------------------------------------------------------
@@ -135,10 +139,9 @@ $config['subclass_prefix'] = 'MY_';
 | Note: This will NOT disable or override the CodeIgniter-specific
 |	autoloading (application/config/autoload.php)
 */
-$config['composer_autoload'] = FALSE;
+$config['composer_autoload'] = false;
 
-$config['stricton'] = FALSE;
-
+$config['stricton'] = false;
 
 /*
 |--------------------------------------------------------------------------
@@ -158,7 +161,6 @@ $config['stricton'] = FALSE;
 |
 */
 $config['permitted_uri_chars'] = 'a-z 0-9~%.:_\-';
-
 
 /*
 |--------------------------------------------------------------------------
@@ -185,11 +187,11 @@ $config['permitted_uri_chars'] = 'a-z 0-9~%.:_\-';
 | use segment based URLs.
 |
 */
-$config['allow_get_array']		= TRUE;
-$config['enable_query_strings'] = FALSE;
-$config['controller_trigger']	= 'c';
-$config['function_trigger']		= 'm';
-$config['directory_trigger']	= 'd'; // experimental not currently in use
+$config['allow_get_array'] = true;
+$config['enable_query_strings'] = false;
+$config['controller_trigger'] = 'c';
+$config['function_trigger'] = 'm';
+$config['directory_trigger'] = 'd'; // experimental not currently in use
 
 /*
 |--------------------------------------------------------------------------
@@ -248,7 +250,7 @@ $config['log_file_extension'] = '';
 | IMPORTANT: This MUST be an integer (no quotes) and you MUST use octal
 |            integer notation (i.e. 0700, 0644, etc.)
 */
-$config['log_file_permissions'] = 0644;
+$config['log_file_permissions'] = 0o644;
 
 /*
 |--------------------------------------------------------------------------
@@ -298,7 +300,7 @@ $config['cache_path'] = '';
 |	             of query parameters.
 |
 */
-$config['cache_query_string'] = FALSE;
+$config['cache_query_string'] = false;
 
 /*
 |--------------------------------------------------------------------------
@@ -329,13 +331,13 @@ $config['encryption_key'] = '7Q1Vasdeo8k6T51rQn9w5DQrcGG06VMF';
 | 'sess_time_to_update'		= how many seconds between CI refreshing Session Information
 |
 */
-$config['sess_cookie_name']		= 'lite_sess';
-$config['sess_expiration']		= 7200;
-$config['sess_match_ip']		= FALSE;
+$config['sess_cookie_name'] = 'lite_sess';
+$config['sess_expiration'] = 7200;
+$config['sess_match_ip'] = false;
 $config['sess_driver'] = 'files';
 $config['sess_save_path'] = FCPATH.'resource/tmp/sessions/';
-$config['sess_time_to_update']	= 300;
-$config['sess_regenerate_destroy'] = FALSE;
+$config['sess_time_to_update'] = 300;
+$config['sess_regenerate_destroy'] = false;
 
 /*
 |--------------------------------------------------------------------------
@@ -352,11 +354,11 @@ $config['sess_regenerate_destroy'] = FALSE;
 |       'cookie_httponly') will also affect sessions.
 |
 */
-$config['cookie_prefix']	= '_fo_';
-$config['cookie_domain']	= '';
-$config['cookie_path']		= '/';
-$config['cookie_secure']	= FALSE;
-$config['cookie_httponly'] 	= FALSE;
+$config['cookie_prefix'] = '_fo_';
+$config['cookie_domain'] = '';
+$config['cookie_path'] = '/';
+$config['cookie_secure'] = false;
+$config['cookie_httponly'] = false;
 /*
 |--------------------------------------------------------------------------
 | Standardize newlines
@@ -369,7 +371,7 @@ $config['cookie_httponly'] 	= FALSE;
 | (usually \n) and Windows (\r\n).
 |
 */
-$config['standardize_newlines'] = TRUE;
+$config['standardize_newlines'] = true;
 /*
 |--------------------------------------------------------------------------
 | Global XSS Filtering
@@ -380,7 +382,7 @@ $config['standardize_newlines'] = TRUE;
 |
 */
 
-$config['global_xss_filtering'] = TRUE;
+$config['global_xss_filtering'] = true;
 
 /*
 |--------------------------------------------------------------------------
@@ -396,12 +398,12 @@ $config['global_xss_filtering'] = TRUE;
 | 'csrf_regenerate' = Regenerate token on every submission
 | 'csrf_exclude_uris' = Array of URIs which ignore CSRF checks
 */
-$config['csrf_protection'] = FALSE;
+$config['csrf_protection'] = false;
 $config['csrf_token_name'] = 'csrf_fo_name';
 $config['csrf_cookie_name'] = 'csrf_kb_name';
 $config['csrf_expire'] = 7200;
-$config['csrf_regenerate'] = TRUE;
-$config['csrf_exclude_uris'] = array();
+$config['csrf_regenerate'] = true;
+$config['csrf_exclude_uris'] = [];
 
 /*
 |--------------------------------------------------------------------------
@@ -435,7 +437,6 @@ $config['compress_output'] = 1;
 */
 $config['time_reference'] = 'local';
 
-
 /*
 |--------------------------------------------------------------------------
 | Rewrite PHP Short Tags
@@ -446,8 +447,7 @@ $config['time_reference'] = 'local';
 | in your view files.  Options are TRUE or FALSE (boolean)
 |
 */
-$config['rewrite_short_tags'] = TRUE;
-
+$config['rewrite_short_tags'] = true;
 
 /*
 |--------------------------------------------------------------------------
@@ -462,9 +462,5 @@ $config['rewrite_short_tags'] = TRUE;
 */
 $config['proxy_ips'] = '';
 
- 
-
-/* End of file config.php */
-/* Location: ./application/config/config.php */
-
-
+// End of file config.php
+// Location: ./application/config/config.php

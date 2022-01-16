@@ -3,14 +3,14 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <meta name="viewport" content="width=320, target-densitydpi=device-dpi">
     <p>Hello Project Manager</p>
-    <p>A new file has been uploaded by <?=$upload_user?> to project <?=$project_title?>. </p>
+    <p>A new file has been uploaded by <?php echo $upload_user; ?> to project <?php echo $project_title; ?>. </p>
     <p>You can view the Project using the link below.</p>
         --------------------------
         <br>
-        <a href="<?=base_url()?>">View Project</a>
+        <a href="<?php echo base_url(); ?>">View Project</a>
 <p>
 Regards<br>
-<?=config_item('company_name')?> Team
+<?php echo config_item('company_name'); ?> Team
 </p>
 </body>
 </html>

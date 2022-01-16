@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 // File generated from our OpenAPI spec
 
 namespace Stripe\Service;
@@ -10,7 +12,7 @@ class OrderService extends \Stripe\Service\AbstractService
      * Returns a list of your orders. The orders are returned sorted by creation date,
      * with the most recently created orders appearing first.
      *
-     * @param null|array $params
+     * @param null|array                             $params
      * @param null|array|\Stripe\Util\RequestOptions $opts
      *
      * @throws \Stripe\Exception\ApiErrorException if the request fails
@@ -25,7 +27,7 @@ class OrderService extends \Stripe\Service\AbstractService
     /**
      * Creates a new order object.
      *
-     * @param null|array $params
+     * @param null|array                             $params
      * @param null|array|\Stripe\Util\RequestOptions $opts
      *
      * @throws \Stripe\Exception\ApiErrorException if the request fails
@@ -40,8 +42,8 @@ class OrderService extends \Stripe\Service\AbstractService
     /**
      * Pay an order by providing a <code>source</code> to create a payment.
      *
-     * @param string $id
-     * @param null|array $params
+     * @param string                                 $id
+     * @param null|array                             $params
      * @param null|array|\Stripe\Util\RequestOptions $opts
      *
      * @throws \Stripe\Exception\ApiErrorException if the request fails
@@ -58,8 +60,8 @@ class OrderService extends \Stripe\Service\AbstractService
      * either an order creation request or the order list, and Stripe will return the
      * corresponding order information.
      *
-     * @param string $id
-     * @param null|array $params
+     * @param string                                 $id
+     * @param null|array                             $params
      * @param null|array|\Stripe\Util\RequestOptions $opts
      *
      * @throws \Stripe\Exception\ApiErrorException if the request fails
@@ -77,8 +79,8 @@ class OrderService extends \Stripe\Service\AbstractService
      * items have been returned, the order will become <code>canceled</code> or
      * <code>returned</code> depending on which status the order started in.
      *
-     * @param string $id
-     * @param null|array $params
+     * @param string                                 $id
+     * @param null|array                             $params
      * @param null|array|\Stripe\Util\RequestOptions $opts
      *
      * @throws \Stripe\Exception\ApiErrorException if the request fails
@@ -94,8 +96,8 @@ class OrderService extends \Stripe\Service\AbstractService
      * Updates the specific order by setting the values of the parameters passed. Any
      * parameters not provided will be left unchanged.
      *
-     * @param string $id
-     * @param null|array $params
+     * @param string                                 $id
+     * @param null|array                             $params
      * @param null|array|\Stripe\Util\RequestOptions $opts
      *
      * @throws \Stripe\Exception\ApiErrorException if the request fails

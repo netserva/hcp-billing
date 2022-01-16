@@ -1,16 +1,17 @@
 <?php
+
+declare(strict_types=1);
 /**
- * MissingParameterException
+ * MissingParameterException.
  */
 
 namespace Resellerclub;
 
 /**
- * Class MissingParameterException
+ * Class MissingParameterException.
  *
  * Throws when parameter is missing from an array.
- * @package Resellerclub
  */
-class MissingParameterException extends \Exception{
-
+class MissingParameterException extends \Exception
+{
 }

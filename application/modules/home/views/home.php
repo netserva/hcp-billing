@@ -1,4 +1,5 @@
-<?php $page = $this->template->content; ?>
+<?php declare(strict_types=1);
+$page = $this->template->content; ?>
 
 <div class="front-page">
 
@@ -14,7 +15,7 @@
         <div class="row">
 
             <!-- Sidebar -->
-            <?php if($page->sidebar_left == 1) { ?>
+            <?php if (1 == $page->sidebar_left) { ?>
             <aside class="col-sm-3 sidebar_left">
                 <?php blocks('sidebar_left', get_slug()); ?>
             </aside>
@@ -22,15 +23,18 @@
             <!-- /Sidebar -->
 
             <!-- main content -->
-            <section class="<?php 
-                if($page->sidebar_right == 1 && $page->sidebar_left == 1) { echo 'col-md-6'; }
-                else if($page->sidebar_right == 1 || $page->sidebar_left == 1) { echo 'col-md-9'; }
-                else { echo 'col-md-12 0'; } 
+            <section class="<?php if (1 == $page->sidebar_right && 1 == $page->sidebar_left) {
+    echo 'col-md-6';
+} elseif (1 == $page->sidebar_right || 1 == $page->sidebar_left) {
+                    echo 'col-md-9';
+                } else {
+                    echo 'col-md-12 0';
+                }
                 ?>">
 
                 <?php blocks('content_top', get_slug()); ?>
 
-                <?=$page->body; ?>
+                <?php echo $page->body; ?>
 
                 <div class="inner">
                     <?php blocks('content_bottom', get_slug()); ?>
@@ -40,7 +44,7 @@
             <!-- /main -->
 
             <!-- Sidebar -->
-            <?php if($page->sidebar_right == 1) { ?>
+            <?php if (1 == $page->sidebar_right) { ?>
             <aside class="col-sm-3 sidebar_right">
                 <?php blocks('sidebar_right', get_slug()); ?>
             </aside>

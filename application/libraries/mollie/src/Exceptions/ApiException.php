@@ -1,9 +1,12 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Mollie\Api\Exceptions;
 
 use _PhpScoper5ed105407e8f2\GuzzleHttp\Psr7\Response;
 use Throwable;
+
 class ApiException extends \Exception
 {
     /**
@@ -18,15 +21,16 @@ class ApiException extends \Exception
      * @var array
      */
     protected $links = [];
+
     /**
-     * @param string $message
-     * @param int $code
-     * @param string|null $field
-     * @param \GuzzleHttp\Psr7\Response|null $response
-     * @param \Throwable|null $previous
+     * @param string                         $message
+     * @param int                            $code
+     * @param null|string                    $field
+     * @param null|\GuzzleHttp\Psr7\Response $response
+     *
      * @throws \Mollie\Api\Exceptions\ApiException
      */
-    public function __construct($message = "", $code = 0, $field = null, \_PhpScoper5ed105407e8f2\GuzzleHttp\Psr7\Response $response = null, \Throwable $previous = null)
+    public function __construct($message = '', $code = 0, $field = null, Response $response = null, Throwable $previous = null)
     {
         if (!empty($field)) {
             $this->field = (string) $field;
@@ -46,13 +50,16 @@ class ApiException extends \Exception
         }
         parent::__construct($message, $code, $previous);
     }
+
     /**
      * @param \GuzzleHttp\Exception\RequestException $guzzleException
-     * @param \Throwable $previous
-     * @return \Mollie\Api\Exceptions\ApiException
+     * @param \Throwable                             $previous
+     *
      * @throws \Mollie\Api\Exceptions\ApiException
+     *
+     * @return \Mollie\Api\Exceptions\ApiException
      */
-    public static function createFromGuzzleException($guzzleException, \Throwable $previous = null)
+    public static function createFromGuzzleException($guzzleException, Throwable $previous = null)
     {
         // Not all Guzzle Exceptions implement hasResponse() / getResponse()
         if (\method_exists($guzzleException, 'hasResponse') && \method_exists($guzzleException, 'getResponse')) {
@@ -60,100 +67,119 @@ class ApiException extends \Exception
                 return static::createFromResponse($guzzleException->getResponse());
             }
         }
+
         return new static($guzzleException->getMessage(), $guzzleException->getCode(), null, $previous);
     }
+
     /**
      * @param \Psr\Http\Message\ResponseInterface $response
-     * @param \Throwable|null $previous
-     * @return \Mollie\Api\Exceptions\ApiException
+     *
      * @throws \Mollie\Api\Exceptions\ApiException
+     *
+     * @return \Mollie\Api\Exceptions\ApiException
      */
-    public static function createFromResponse($response, \Throwable $previous = null)
+    public static function createFromResponse($response, Throwable $previous = null)
     {
         $object = static::parseResponseBody($response);
         $field = null;
         if (!empty($object->field)) {
             $field = $object->field;
         }
+
         return new static("Error executing API call ({$object->status}: {$object->title}): {$object->detail}", $response->getStatusCode(), $field, $response, $previous);
     }
+
     /**
-     * @return string|null
+     * @return null|string
      */
     public function getField()
     {
         return $this->field;
     }
+
     /**
-     * @return string|null
+     * @return null|string
      */
     public function getDocumentationUrl()
     {
         return $this->getUrl('documentation');
     }
+
     /**
-     * @return string|null
+     * @return null|string
      */
     public function getDashboardUrl()
     {
         return $this->getUrl('dashboard');
     }
+
     /**
-     * @return Response|null
+     * @return null|Response
      */
     public function getResponse()
     {
         return $this->response;
     }
+
     /**
      * @return bool
      */
     public function hasResponse()
     {
-        return $this->response !== null;
+        return null !== $this->response;
     }
+
     /**
      * @param $key
+     *
      * @return bool
      */
     public function hasLink($key)
     {
         return \array_key_exists($key, $this->links);
     }
+
     /**
      * @param $key
-     * @return mixed|null
+     *
+     * @return null|mixed
      */
     public function getLink($key)
     {
         if ($this->hasLink($key)) {
             return $this->links[$key];
         }
+
         return null;
     }
+
     /**
      * @param $key
-     * @return null
      */
     public function getUrl($key)
     {
         if ($this->hasLink($key)) {
             return $this->getLink($key)->href;
         }
+
         return null;
     }
+
     /**
      * @param $response
-     * @return mixed
+     *
      * @throws \Mollie\Api\Exceptions\ApiException
+     *
+     * @return mixed
      */
     protected static function parseResponseBody($response)
     {
         $body = (string) $response->getBody();
         $object = @\json_decode($body);
-        if (\json_last_error() !== \JSON_ERROR_NONE) {
+        if (\JSON_ERROR_NONE !== \json_last_error()) {
             throw new static("Unable to decode Mollie response: '{$body}'.");
         }
+
         return $object;
     }
 }

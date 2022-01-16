@@ -1,17 +1,19 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Stripe;
 
 class BaseStripeClient implements StripeClientInterface
 {
     /** @var string default base URL for Stripe's API */
-    const DEFAULT_API_BASE = 'https://api.stripe.com';
+    public const DEFAULT_API_BASE = 'https://api.stripe.com';
 
     /** @var string default base URL for Stripe's OAuth API */
-    const DEFAULT_CONNECT_BASE = 'https://connect.stripe.com';
+    public const DEFAULT_CONNECT_BASE = 'https://connect.stripe.com';
 
     /** @var string default base URL for Stripe's Files API */
-    const DEFAULT_FILES_BASE = 'https://files.stripe.com';
+    public const DEFAULT_FILES_BASE = 'https://files.stripe.com';
 
     /** @var array<string, mixed> */
     private $config;
@@ -45,7 +47,7 @@ class BaseStripeClient implements StripeClientInterface
      *   {@link DEFAULT_FILES_BASE}.
      *
      * @param array<string, mixed>|string $config the API key as a string, or an array containing
-     *   the client configuration settings
+     *                                            the client configuration settings
      */
     public function __construct($config = [])
     {
@@ -119,10 +121,10 @@ class BaseStripeClient implements StripeClientInterface
     /**
      * Sends a request to Stripe's API.
      *
-     * @param string $method the HTTP method
-     * @param string $path the path of the request
-     * @param array $params the parameters of the request
-     * @param array|\Stripe\Util\RequestOptions $opts the special modifiers of the request
+     * @param string                            $method the HTTP method
+     * @param string                            $path   the path of the request
+     * @param array                             $params the parameters of the request
+     * @param array|\Stripe\Util\RequestOptions $opts   the special modifiers of the request
      *
      * @return \Stripe\StripeObject the object returned by Stripe's API
      */
@@ -131,7 +133,7 @@ class BaseStripeClient implements StripeClientInterface
         $opts = $this->defaultOpts->merge($opts, true);
         $baseUrl = $opts->apiBase ?: $this->getApiBase();
         $requestor = new \Stripe\ApiRequestor($this->apiKeyForRequest($opts), $baseUrl);
-        list($response, $opts->apiKey) = $requestor->request($method, $path, $params, $opts->headers);
+        [$response, $opts->apiKey] = $requestor->request($method, $path, $params, $opts->headers);
         $opts->discardNonPersistentHeaders();
         $obj = \Stripe\Util\Util::convertToStripeObject($response->json, $opts);
         $obj->setLastResponse($response);
@@ -142,10 +144,10 @@ class BaseStripeClient implements StripeClientInterface
     /**
      * Sends a request to Stripe's API.
      *
-     * @param string $method the HTTP method
-     * @param string $path the path of the request
-     * @param array $params the parameters of the request
-     * @param array|\Stripe\Util\RequestOptions $opts the special modifiers of the request
+     * @param string                            $method the HTTP method
+     * @param string                            $path   the path of the request
+     * @param array                             $params the parameters of the request
+     * @param array|\Stripe\Util\RequestOptions $opts   the special modifiers of the request
      *
      * @return \Stripe\Collection of ApiResources
      */
@@ -176,8 +178,8 @@ class BaseStripeClient implements StripeClientInterface
 
         if (null === $apiKey) {
             $msg = 'No API key provided. Set your API key when constructing the '
-                . 'StripeClient instance, or provide it on a per-request basis '
-                . 'using the `api_key` key in the $opts argument.';
+                .'StripeClient instance, or provide it on a per-request basis '
+                .'using the `api_key` key in the $opts argument.';
 
             throw new \Stripe\Exception\AuthenticationException($msg);
         }
@@ -208,7 +210,7 @@ class BaseStripeClient implements StripeClientInterface
      *
      * @throws \Stripe\Exception\InvalidArgumentException
      */
-    private function validateConfig($config)
+    private function validateConfig($config): void
     {
         // api_key
         if (null !== $config['api_key'] && !\is_string($config['api_key'])) {
@@ -260,7 +262,7 @@ class BaseStripeClient implements StripeClientInterface
         // check absence of extra keys
         $extraConfigKeys = \array_diff(\array_keys($config), \array_keys($this->getDefaultConfig()));
         if (!empty($extraConfigKeys)) {
-            throw new \Stripe\Exception\InvalidArgumentException('Found unknown key(s) in configuration array: ' . \implode(',', $extraConfigKeys));
+            throw new \Stripe\Exception\InvalidArgumentException('Found unknown key(s) in configuration array: '.\implode(',', $extraConfigKeys));
         }
     }
 }

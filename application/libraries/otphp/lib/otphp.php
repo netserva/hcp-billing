@@ -1,6 +1,8 @@
 <?php
+
+declare(strict_types=1);
 /*
- * Copyright (c) 2011 Le Lag 
+ * Copyright (c) 2011 Le Lag
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
  * in the Software without restriction, including without limitation the rights
@@ -21,7 +23,9 @@
  */
 
 require_once dirname(__FILE__).'/../vendor/libs.php';
-require_once dirname(__FILE__).'/otp.php';
-require_once dirname(__FILE__).'/hotp.php';
-require_once dirname(__FILE__).'/totp.php';
 
+require_once dirname(__FILE__).'/otp.php';
+
+require_once dirname(__FILE__).'/hotp.php';
+
+require_once dirname(__FILE__).'/totp.php';

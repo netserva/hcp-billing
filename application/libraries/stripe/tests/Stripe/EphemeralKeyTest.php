@@ -1,43 +1,49 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Stripe;
 
+/**
+ * @internal
+ * @coversNothing
+ */
 class EphemeralKeyTest extends TestCase
 {
-    public function testIsCreatable()
+    public function testIsCreatable(): void
     {
         $this->expectsRequest(
             'post',
             '/v1/ephemeral_keys',
             null,
-            array("Stripe-Version: 2017-05-25")
+            ['Stripe-Version: 2017-05-25']
         );
-        $resource = EphemeralKey::create(array(
-            "customer" => "cus_123",
-        ), array("stripe_version" => "2017-05-25"));
-        $this->assertInstanceOf("Stripe\\EphemeralKey", $resource);
+        $resource = EphemeralKey::create([
+            'customer' => 'cus_123',
+        ], ['stripe_version' => '2017-05-25']);
+        $this->assertInstanceOf('Stripe\\EphemeralKey', $resource);
     }
 
     /**
      * @expectedException \InvalidArgumentException
      */
-    public function testIsNotCreatableWithoutAnExplicitApiVersion()
+    public function testIsNotCreatableWithoutAnExplicitApiVersion(): void
     {
-        $resource = EphemeralKey::create(array(
-            "customer" => "cus_123",
-        ));
+        $resource = EphemeralKey::create([
+            'customer' => 'cus_123',
+        ]);
     }
 
-    public function testIsDeletable()
+    public function testIsDeletable(): void
     {
-        $key = EphemeralKey::create(array(
-            "customer" => "cus_123",
-        ), array("stripe_version" => "2017-05-25"));
+        $key = EphemeralKey::create([
+            'customer' => 'cus_123',
+        ], ['stripe_version' => '2017-05-25']);
         $this->expectsRequest(
             'delete',
-            '/v1/ephemeral_keys/' . $key->id
+            '/v1/ephemeral_keys/'.$key->id
         );
         $resource = $key->delete();
-        $this->assertInstanceOf("Stripe\\EphemeralKey", $resource);
+        $this->assertInstanceOf('Stripe\\EphemeralKey', $resource);
     }
 }

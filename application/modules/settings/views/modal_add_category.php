@@ -1,39 +1,39 @@
-<?php
+<?php declare(strict_types=1);
 $modules = $this->db->select('*')->where('parent', 0)->get('categories')->result();
 ?>
 <div class="modal-dialog">
     <div class="modal-content">
         <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal">&times;</button>
-            <h4 class="modal-title"><?=lang('add_category')?></h4>
+            <h4 class="modal-title"><?php echo lang('add_category'); ?></h4>
         </div>
             <input type="hidden" name="module" value="items">
                 <?php
-                $attributes = array('class' => 'bs-example form-horizontal');
-                echo form_open(base_url().'settings/add_category',$attributes); ?>
+                $attributes = ['class' => 'bs-example form-horizontal'];
+                echo form_open(base_url().'settings/add_category', $attributes); ?>
                     <div class="modal-body">
 
                         <div class="form-group">
-                            <label class="col-lg-4 control-label"><?=lang('cat_name')?> <span class="text-danger">*</span></label>
+                            <label class="col-lg-4 control-label"><?php echo lang('cat_name'); ?> <span class="text-danger">*</span></label>
                             <div class="col-lg-8">
                                 <input type="text" class="form-control" name="cat_name">
                             </div>
                         </div>
 
                         <div class="form-group">
-                        <label class="col-lg-4 control-label"><?=lang('type')?></label>
+                        <label class="col-lg-4 control-label"><?php echo lang('type'); ?></label>
                         <div class="col-lg-8">
                             <select class="select2-option form-control" name="parent" required>
-                                <?php foreach ($modules as $m) : ?>
-                                    <option value="<?=$m->id?>"><?=ucfirst($m->cat_name)?></option>
-                                <?php endforeach; ?>
+                                <?php foreach ($modules as $m) { ?>
+                                    <option value="<?php echo $m->id; ?>"><?php echo ucfirst($m->cat_name); ?></option>
+                                <?php } ?>
                             </select>
                         </div>
                     </div>
 
                     </div>
-                    <div class="modal-footer"> <a href="#" class="btn btn-default" data-dismiss="modal"><?=lang('close')?></a>
-                        <button type="submit" class="btn btn-success"><?=lang('save_changes')?></button>
+                    <div class="modal-footer"> <a href="#" class="btn btn-default" data-dismiss="modal"><?php echo lang('close'); ?></a>
+                        <button type="submit" class="btn btn-success"><?php echo lang('save_changes'); ?></button>
                     </div>
                 </form>
     </div>

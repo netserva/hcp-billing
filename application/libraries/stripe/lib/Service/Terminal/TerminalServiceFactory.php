@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 // File generated from our OpenAPI spec
 
 namespace Stripe\Service\Terminal;
@@ -8,8 +10,8 @@ namespace Stripe\Service\Terminal;
  * Service factory class for API resources in the Terminal namespace.
  *
  * @property ConnectionTokenService $connectionTokens
- * @property LocationService $locations
- * @property ReaderService $readers
+ * @property LocationService        $locations
+ * @property ReaderService          $readers
  */
 class TerminalServiceFactory extends \Stripe\Service\AbstractServiceFactory
 {

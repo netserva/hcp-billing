@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Mollie\Api\Resources;
 
 class Method extends \Mollie\Api\Resources\BaseResource
@@ -60,8 +62,9 @@ class Method extends \Mollie\Api\Resources\BaseResource
      * @var \stdClass
      */
     public $_links;
+
     /**
-     * Get the issuer value objects
+     * Get the issuer value objects.
      *
      * @return IssuerCollection
      */
@@ -69,6 +72,7 @@ class Method extends \Mollie\Api\Resources\BaseResource
     {
         return \Mollie\Api\Resources\ResourceFactory::createBaseResourceCollection($this->client, \Mollie\Api\Resources\Issuer::class, $this->issuers);
     }
+
     /**
      * Get the method price value objects.
      *

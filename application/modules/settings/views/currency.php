@@ -3,24 +3,24 @@
 <div class="col-lg-12">
 
 <?php
-        $attributes = array('class' => 'bs-example form-horizontal');
+        $attributes = ['class' => 'bs-example form-horizontal'];
         echo form_open_multipart('settings/xrates', $attributes); ?>
 
     <div class="form-group">
-        <label class="col-lg-4 control-label"><?=lang('xrates_app_id')?></label>
+        <label class="col-lg-4 control-label"><?php echo lang('xrates_app_id'); ?></label>
         <div class="col-lg-5">                                   
-            <input type="text" name="xrates_app_id" class="form-control" value="<?=config_item('xrates_app_id')?>">            
+            <input type="text" name="xrates_app_id" class="form-control" value="<?php echo config_item('xrates_app_id'); ?>">            
         </div>
 
         <div class="col-lg-3">                                   
-        <small><a target="_blank" class="" href="https://openexchangerates.org/signup/free"><?=lang('get_api_key')?></a></small>
+        <small><a target="_blank" class="" href="https://openexchangerates.org/signup/free"><?php echo lang('get_api_key'); ?></a></small>
         </div>
  
 
     </div> 
 
     <div class="text-center">
-                            <button type="submit" class="btn btn-sm btn-<?=config_item('theme_color');?>"><?=lang('save_changes')?></button>
+                            <button type="submit" class="btn btn-sm btn-<?php echo config_item('theme_color'); ?>"><?php echo lang('save_changes'); ?></button>
                         </div>
                     
     </form>
@@ -30,7 +30,7 @@
 
 <div class="table-responsive"> 
 
-<a href="<?=base_url()?>settings/add_currency" data-toggle="ajaxModal" title="<?=lang('add_currency')?>" class="btn btn-twitter btn-sm"><?=lang('add_currency')?></a>
+<a href="<?php echo base_url(); ?>settings/add_currency" data-toggle="ajaxModal" title="<?php echo lang('add_currency'); ?>" class="btn btn-twitter btn-sm"><?php echo lang('add_currency'); ?></a>
 <hr>
 
  <div class="alert alert-info small">
@@ -53,12 +53,12 @@
 <?php $currencies = $this->db->get('currencies')->result();
 foreach ($currencies as $key => $cur) { ?>
 <tr> 
-<td><?=$cur->code?></td> 
-<td><?=$cur->name?></td> 
-<td><?=$cur->symbol?></td> 
-<td><?=$cur->xrate?></td> 
+<td><?php echo $cur->code; ?></td> 
+<td><?php echo $cur->name; ?></td> 
+<td><?php echo $cur->symbol; ?></td> 
+<td><?php echo $cur->xrate; ?></td> 
 <td> 
-<a href="<?=base_url()?>settings/edit_currency/<?=$cur->code?>" data-toggle="ajaxModal" data-placement="left" title="<?=lang('edit_currency')?>">
+<a href="<?php echo base_url(); ?>settings/edit_currency/<?php echo $cur->code; ?>" data-toggle="ajaxModal" data-placement="left" title="<?php echo lang('edit_currency'); ?>">
 <i class="fa fa-edit text-success"></i>
 </a> 
 </td> 

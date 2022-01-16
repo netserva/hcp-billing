@@ -1,15 +1,13 @@
 <?php
 
+declare(strict_types=1);
+
 namespace _PhpScoper5ed105407e8f2;
 
-/*
- * Retrieve a payment capture using the Mollie API.
- */
+// Retrieve a payment capture using the Mollie API.
 try {
-    /*
-     * Initialize the Mollie API library with your API key or OAuth access token.
-     */
-    require "../initialize.php";
+    // Initialize the Mollie API library with your API key or OAuth access token.
+    require '../initialize.php';
     /*
      * Retrieve a capture with ID 'cpt_4qqhO89gsT' for payment with
      * ID 'tr_WDqYK6vllg'.
@@ -18,8 +16,8 @@ try {
      */
     $payment = $mollie->payments->get('tr_WDqYK6vllg');
     $capture = $payment->getCapture('cpt_4qqhO89gsT');
-    $amount = $capture->amount->currency . ' ' . $capture->amount->value;
-    echo 'Captured ' . $amount;
+    $amount = $capture->amount->currency.' '.$capture->amount->value;
+    echo 'Captured '.$amount;
 } catch (\Mollie\Api\Exceptions\ApiException $e) {
-    echo "API call failed: " . \htmlspecialchars($e->getMessage());
+    echo 'API call failed: '.\htmlspecialchars($e->getMessage());
 }

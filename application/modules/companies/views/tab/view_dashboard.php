@@ -4,25 +4,25 @@
                             <div class="row proj-summary-band">
 
                                 <div class="col-md-3 text-center">
-                                    <label class="text-muted"><?=lang('this_month')?></label>
-                                    <h4 class="cursor-pointer text-open small"><?=lang('payments')?></h4>
+                                    <label class="text-muted"><?php echo lang('this_month'); ?></label>
+                                    <h4 class="cursor-pointer text-open small"><?php echo lang('payments'); ?></h4>
                                     <h4><strong>
-                            <?=Applib::format_currency($cur->code, Client::month_amount(date('Y'),date('m'),$i->co_id));?>
+                            <?php echo Applib::format_currency($cur->code, Client::month_amount(date('Y'), date('m'), $i->co_id)); ?>
                         </strong>
                     </h4>
                                 </div>
 
                                 <div class="col-md-3 text-center">
-                                <label class="text-muted"><?=lang('balance_due')?></label>
-                                    <h4 class="cursor-pointer text-open small">- <?=lang('total')?></h4>
-                                    <h4><strong><?=Applib::format_currency($cur->code, $due);?></strong></h4>
+                                <label class="text-muted"><?php echo lang('balance_due'); ?></label>
+                                    <h4 class="cursor-pointer text-open small">- <?php echo lang('total'); ?></h4>
+                                    <h4><strong><?php echo Applib::format_currency($cur->code, $due); ?></strong></h4>
                                 </div>
  
 
                                 <div class="col-md-3 text-center">
-                                <label class="text-muted"><?=lang('received_amount')?></label>
-                                    <h4 class="cursor-pointer text-success small"><?=lang('total_receipts')?></h4>
-                                    <h4><strong><?=Applib::format_currency($cur->code, Client::amount_paid($i->co_id))?></strong></h4>
+                                <label class="text-muted"><?php echo lang('received_amount'); ?></label>
+                                    <h4 class="cursor-pointer text-success small"><?php echo lang('total_receipts'); ?></h4>
+                                    <h4><strong><?php echo Applib::format_currency($cur->code, Client::amount_paid($i->co_id)); ?></strong></h4>
                                 </div>
 
                             </div>
@@ -33,106 +33,106 @@
                                 <div class="col-lg-6">
 
                                     <section class="panel panel-default">
-                                        <header class="panel-heading"><?=$i->company_name?> - <?=lang('details')?></header>
+                                        <header class="panel-heading"><?php echo $i->company_name; ?> - <?php echo lang('details'); ?></header>
 
 
 
                                         <ul class="list-group no-radius">
                                             <li class="list-group-item">
-                                                <span class="pull-right text"><?=$i->company_name?></span>
+                                                <span class="pull-right text"><?php echo $i->company_name; ?></span>
                                                 <span class="text-muted">
-                                                    <?php echo ($i->individual == 0) ? lang('company_name') : lang('full_name');  ?>
+                                                    <?php echo (0 == $i->individual) ? lang('company_name') : lang('full_name'); ?>
                                                 </span>
                                             </li>
 
-                                            <?php if ($i->individual == 0) { ?>
+                                            <?php if (0 == $i->individual) { ?>
                                                 <li class="list-group-item">
                                                     <span class="pull-right">
-                                                    <?=($i->primary_contact) ? User::displayName($i->primary_contact) : ''; ?>
+                                                    <?php echo ($i->primary_contact) ? User::displayName($i->primary_contact) : ''; ?>
                                                     </span>
                                                     <span class="text-muted">
-                                                        <?=lang('contact_person')?>
+                                                        <?php echo lang('contact_person'); ?>
                                                     </span>
                                             </li>
                                             <?php } ?>
 
                                             <li class="list-group-item">
                                                 <span class="pull-right">
-                                        <a href="mailto:<?=$i->company_email?>"><?=$i->company_email?></a>
+                                        <a href="mailto:<?php echo $i->company_email; ?>"><?php echo $i->company_email; ?></a>
                                                 </span>
-                                                <span class="text-muted"><?=lang('email')?></span>
+                                                <span class="text-muted"><?php echo lang('email'); ?></span>
 
                                             </li>
 
 
                                             <li class="list-group-item">
                                                 <span class="pull-right">
-                                        <a href="tel:<?=$i->company_phone?>"><?=$i->company_phone?></a>
+                                        <a href="tel:<?php echo $i->company_phone; ?>"><?php echo $i->company_phone; ?></a>
                                                 </span>
-                                                <span class="text-muted"><?=lang('phone')?></span>
+                                                <span class="text-muted"><?php echo lang('phone'); ?></span>
 
                                             </li>
                                             <li class="list-group-item">
                                                 <span class="pull-right">
-                                        <a href="tel:<?=$i->company_mobile?>"><?=$i->company_mobile?></a>
+                                        <a href="tel:<?php echo $i->company_mobile; ?>"><?php echo $i->company_mobile; ?></a>
                                                 </span>
-                                                <span class="text-muted"><?=lang('mobile_phone')?></span>
-
-                                            </li>
-
-                                            <li class="list-group-item">
-                                                <span class="pull-right">
-                                        <a href="tel:<?=$i->company_fax?>"><?=$i->company_fax?></a>
-                                                </span>
-                                                <span class="text-muted"><?=lang('fax')?></span>
+                                                <span class="text-muted"><?php echo lang('mobile_phone'); ?></span>
 
                                             </li>
 
                                             <li class="list-group-item">
                                                 <span class="pull-right">
-                                        <?=$i->VAT?>
+                                        <a href="tel:<?php echo $i->company_fax; ?>"><?php echo $i->company_fax; ?></a>
                                                 </span>
-                                                <span class="text-muted"><?=lang('tax')?> <sup>No</sup></span>
+                                                <span class="text-muted"><?php echo lang('fax'); ?></span>
 
                                             </li>
 
                                             <li class="list-group-item">
                                                 <span class="pull-right">
-                                        <?=nl2br($i->company_address)?>
+                                        <?php echo $i->VAT; ?>
                                                 </span>
-                                                <span class="text-muted"><?=lang('address')?></span>
+                                                <span class="text-muted"><?php echo lang('tax'); ?> <sup>No</sup></span>
 
                                             </li>
 
                                             <li class="list-group-item">
                                                 <span class="pull-right">
-                                        <?=$i->city?>
+                                        <?php echo nl2br($i->company_address); ?>
                                                 </span>
-                                                <span class="text-muted"><?=lang('city')?></span>
+                                                <span class="text-muted"><?php echo lang('address'); ?></span>
 
                                             </li>
 
                                             <li class="list-group-item">
                                                 <span class="pull-right">
-                                        <?=$i->zip?>
+                                        <?php echo $i->city; ?>
                                                 </span>
-                                                <span class="text-muted"><?=lang('zip_code')?></span>
+                                                <span class="text-muted"><?php echo lang('city'); ?></span>
 
                                             </li>
 
                                             <li class="list-group-item">
                                                 <span class="pull-right">
-                                        <?=$i->state?>
+                                        <?php echo $i->zip; ?>
                                                 </span>
-                                                <span class="text-muted"><?=lang('state_province')?></span>
+                                                <span class="text-muted"><?php echo lang('zip_code'); ?></span>
 
                                             </li>
 
                                             <li class="list-group-item">
                                                 <span class="pull-right">
-                                        <?=$i->country?>
+                                        <?php echo $i->state; ?>
                                                 </span>
-                                                <span class="text-muted"><?=lang('country')?></span>
+                                                <span class="text-muted"><?php echo lang('state_province'); ?></span>
+
+                                            </li>
+
+                                            <li class="list-group-item">
+                                                <span class="pull-right">
+                                        <?php echo $i->country; ?>
+                                                </span>
+                                                <span class="text-muted"><?php echo lang('country'); ?></span>
 
                                             </li>
 
@@ -149,22 +149,22 @@
 
                                 <div class="col-sm-6">
                                     <section class="panel panel-default">
-                                        <header class="panel-heading"><?=lang('additional_fields')?></header>
+                                        <header class="panel-heading"><?php echo lang('additional_fields'); ?></header>
 
 
                                         <ul class="list-group no-radius">                                           
 
                                         <?php $custom_fields = Client::custom_fields($i->co_id); ?>
-                                        <?php foreach ($custom_fields as $key => $f) : ?>
-                                            <?php if($this->db->where('name',$f->meta_key)->get('fields')->num_rows() > 0): ?>
+                                        <?php foreach ($custom_fields as $key => $f) { ?>
+                                            <?php if ($this->db->where('name', $f->meta_key)->get('fields')->num_rows() > 0) { ?>
                                             <li class="list-group-item">
                                                     <span class="pull-right">
-                                                        <?=is_json($f->meta_value) ? implode( ',',json_decode($f->meta_value)) : $f->meta_value ;?></span>
-                                                    <span class="text-muted"><?=ucfirst(humanize($f->meta_key,'-'))?></span>
+                                                        <?php echo is_json($f->meta_value) ? implode(',', json_decode($f->meta_value)) : $f->meta_value; ?></span>
+                                                    <span class="text-muted"><?php echo ucfirst(humanize($f->meta_key, '-')); ?></span>
 
                                             </li>
-                                        <?php endif; ?>
-                                        <?php endforeach; ?>
+                                        <?php } ?>
+                                        <?php } ?>
 
 
 
@@ -181,5 +181,5 @@
                             <div class="line line-dashed line-lg pull-in"></div>
 
                             <div class="small text-muted panel-body m-sm">
-                                <p><?=($i->notes == '') ? 'No Notes' : nl2br_except_pre($i->notes);?></p>
+                                <p><?php echo ('' == $i->notes) ? 'No Notes' : nl2br_except_pre($i->notes); ?></p>
                             </div>

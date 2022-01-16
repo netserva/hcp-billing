@@ -1,19 +1,21 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Mollie\Api\Types;
 
 class OnboardingStatus
 {
     /**
-     * The onboarding is not completed and the merchant needs to provide (more) information
+     * The onboarding is not completed and the merchant needs to provide (more) information.
      */
-    const NEEDS_DATA = 'needs-data';
+    public const NEEDS_DATA = 'needs-data';
     /**
-     * The merchant provided all information and Mollie needs to check this
+     * The merchant provided all information and Mollie needs to check this.
      */
-    const IN_REVIEW = 'in-review';
+    public const IN_REVIEW = 'in-review';
     /**
-     * The onboarding is completed
+     * The onboarding is completed.
      */
-    const COMPLETED = 'completed';
+    public const COMPLETED = 'completed';
 }

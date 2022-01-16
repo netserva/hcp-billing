@@ -1,47 +1,47 @@
-<?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
+<?php
 
-
-
-class Sidebar extends Hosting_Billing 
-{
-
-	function __construct()
-	{
-		parent::__construct();
-	 }
-
-	public function admin_menu()
-	{
- 
-        $this->load->view('admin_menu',isset($data) ? $data : NULL);
-	}
-
-	public function staff_menu()
-	{
- 
-		$this->load->view('staff_menu',isset($data) ? $data : NULL);
-	}
-
-	public function client_menu()	{
- 
-        $this->load->view('user_menu',isset($data) ? $data : NULL);
-	}
-
-	public function top_header()
-	{ 
-                $data['updates'] = array();
-
-                $this->load->view('top_header',isset($data) ? $data : NULL);
-	}
-	
-	public function scripts()
-	{
-		$this->load->view('scripts/app_scripts',isset($data) ? $data : NULL);
-	}
-	
-	public function flash_msg()
-	{
-		$this->load->view('flash_msg',isset($data) ? $data : NULL);
-	}
+declare(strict_types=1);
+if (!defined('BASEPATH')) {
+    exit('No direct script access allowed');
 }
-/* End of file sidebar.php */
+
+class Sidebar extends Hosting_Billing
+{
+    public function __construct()
+    {
+        parent::__construct();
+    }
+
+    public function admin_menu(): void
+    {
+        $this->load->view('admin_menu', $data ?? null);
+    }
+
+    public function staff_menu(): void
+    {
+        $this->load->view('staff_menu', $data ?? null);
+    }
+
+    public function client_menu(): void
+    {
+        $this->load->view('user_menu', $data ?? null);
+    }
+
+    public function top_header(): void
+    {
+        $data['updates'] = [];
+
+        $this->load->view('top_header', $data ?? null);
+    }
+
+    public function scripts(): void
+    {
+        $this->load->view('scripts/app_scripts', $data ?? null);
+    }
+
+    public function flash_msg(): void
+    {
+        $this->load->view('flash_msg', $data ?? null);
+    }
+}
+// End of file sidebar.php

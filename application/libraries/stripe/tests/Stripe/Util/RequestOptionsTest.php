@@ -1,68 +1,74 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Stripe;
 
+/**
+ * @internal
+ * @coversNothing
+ */
 class RequestOptionsTest extends TestCase
 {
-    public function testStringAPIKey()
+    public function testStringAPIKey(): void
     {
-        $opts = Util\RequestOptions::parse("foo");
-        $this->assertSame("foo", $opts->apiKey);
-        $this->assertSame(array(), $opts->headers);
+        $opts = Util\RequestOptions::parse('foo');
+        $this->assertSame('foo', $opts->apiKey);
+        $this->assertSame([], $opts->headers);
     }
 
-    public function testNull()
+    public function testNull(): void
     {
         $opts = Util\RequestOptions::parse(null);
         $this->assertSame(null, $opts->apiKey);
-        $this->assertSame(array(), $opts->headers);
+        $this->assertSame([], $opts->headers);
     }
 
-    public function testEmptyArray()
+    public function testEmptyArray(): void
     {
-        $opts = Util\RequestOptions::parse(array());
+        $opts = Util\RequestOptions::parse([]);
         $this->assertSame(null, $opts->apiKey);
-        $this->assertSame(array(), $opts->headers);
+        $this->assertSame([], $opts->headers);
     }
 
-    public function testAPIKeyArray()
+    public function testAPIKeyArray(): void
     {
         $opts = Util\RequestOptions::parse(
-            array(
+            [
                 'api_key' => 'foo',
-            )
+            ]
         );
         $this->assertSame('foo', $opts->apiKey);
-        $this->assertSame(array(), $opts->headers);
+        $this->assertSame([], $opts->headers);
     }
 
-    public function testIdempotentKeyArray()
+    public function testIdempotentKeyArray(): void
     {
         $opts = Util\RequestOptions::parse(
-            array(
+            [
                 'idempotency_key' => 'foo',
-            )
+            ]
         );
         $this->assertSame(null, $opts->apiKey);
-        $this->assertSame(array('Idempotency-Key' => 'foo'), $opts->headers);
+        $this->assertSame(['Idempotency-Key' => 'foo'], $opts->headers);
     }
 
-    public function testKeyArray()
+    public function testKeyArray(): void
     {
         $opts = Util\RequestOptions::parse(
-            array(
+            [
                 'idempotency_key' => 'foo',
-                'api_key' => 'foo'
-            )
+                'api_key' => 'foo',
+            ]
         );
         $this->assertSame('foo', $opts->apiKey);
-        $this->assertSame(array('Idempotency-Key' => 'foo'), $opts->headers);
+        $this->assertSame(['Idempotency-Key' => 'foo'], $opts->headers);
     }
 
     /**
-     * @expectedException Stripe\Error\Api
+     * @expectedException \Stripe\Error\Api
      */
-    public function testWrongType()
+    public function testWrongType(): void
     {
         $opts = Util\RequestOptions::parse(5);
     }

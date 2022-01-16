@@ -1,6 +1,8 @@
 <?php
+
+declare(strict_types=1);
 /**
- * PHPExcel
+ * PHPExcel.
  *
  * Copyright (c) 2006 - 2014 PHPExcel
  *
@@ -19,94 +21,100 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  *
  * @category   PHPExcel
- * @package    PHPExcel_CachedObjectStorage
+ *
  * @copyright  Copyright (c) 2006 - 2014 PHPExcel (http://www.codeplex.com/PHPExcel)
  * @license    http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt	LGPL
+ *
  * @version    ##VERSION##, ##DATE##
  */
 
-
 /**
- * PHPExcel_CachedObjectStorage_ICache
+ * PHPExcel_CachedObjectStorage_ICache.
  *
  * @category   PHPExcel
- * @package    PHPExcel_CachedObjectStorage
+ *
  * @copyright  Copyright (c) 2006 - 2014 PHPExcel (http://www.codeplex.com/PHPExcel)
  */
 interface PHPExcel_CachedObjectStorage_ICache
 {
     /**
-     * Add or Update a cell in cache identified by coordinate address
+     * Add or Update a cell in cache identified by coordinate address.
      *
-     * @param	string			$pCoord		Coordinate address of the cell to update
-     * @param	PHPExcel_Cell	$cell		Cell to update
-	 * @return	PHPExcel_Cell
-     * @throws	PHPExcel_Exception
+     * @param string        $pCoord Coordinate address of the cell to update
+     * @param PHPExcel_Cell $cell   Cell to update
+     *
+     * @throws PHPExcel_Exception
+     *
+     * @return PHPExcel_Cell
      */
-	public function addCacheData($pCoord, PHPExcel_Cell $cell);
+    public function addCacheData($pCoord, PHPExcel_Cell $cell);
 
     /**
-     * Add or Update a cell in cache
+     * Add or Update a cell in cache.
      *
-     * @param	PHPExcel_Cell	$cell		Cell to update
-	 * @return	PHPExcel_Cell
-     * @throws	PHPExcel_Exception
+     * @param PHPExcel_Cell $cell Cell to update
+     *
+     * @throws PHPExcel_Exception
+     *
+     * @return PHPExcel_Cell
      */
-	public function updateCacheData(PHPExcel_Cell $cell);
+    public function updateCacheData(PHPExcel_Cell $cell);
 
     /**
-     * Fetch a cell from cache identified by coordinate address
+     * Fetch a cell from cache identified by coordinate address.
      *
-     * @param	string			$pCoord		Coordinate address of the cell to retrieve
-     * @return PHPExcel_Cell 	Cell that was found, or null if not found
-     * @throws	PHPExcel_Exception
+     * @param string $pCoord Coordinate address of the cell to retrieve
+     *
+     * @throws PHPExcel_Exception
+     *
+     * @return PHPExcel_Cell Cell that was found, or null if not found
      */
-	public function getCacheData($pCoord);
+    public function getCacheData($pCoord);
 
     /**
-     * Delete a cell in cache identified by coordinate address
+     * Delete a cell in cache identified by coordinate address.
      *
-     * @param	string			$pCoord		Coordinate address of the cell to delete
-     * @throws	PHPExcel_Exception
+     * @param string $pCoord Coordinate address of the cell to delete
+     *
+     * @throws PHPExcel_Exception
      */
-	public function deleteCacheData($pCoord);
+    public function deleteCacheData($pCoord);
 
-	/**
-	 * Is a value set in the current PHPExcel_CachedObjectStorage_ICache for an indexed cell?
-	 *
-	 * @param	string		$pCoord		Coordinate address of the cell to check
-	 * @return	boolean
-	 */
-	public function isDataSet($pCoord);
+    /**
+     * Is a value set in the current PHPExcel_CachedObjectStorage_ICache for an indexed cell?
+     *
+     * @param string $pCoord Coordinate address of the cell to check
+     *
+     * @return bool
+     */
+    public function isDataSet($pCoord);
 
-	/**
-	 * Get a list of all cell addresses currently held in cache
-	 *
-	 * @return	string[]
-	 */
-	public function getCellList();
+    /**
+     * Get a list of all cell addresses currently held in cache.
+     *
+     * @return string[]
+     */
+    public function getCellList();
 
-	/**
-	 * Get the list of all cell addresses currently held in cache sorted by column and row
-	 *
-	 * @return	string[]
-	 */
-	public function getSortedCellList();
+    /**
+     * Get the list of all cell addresses currently held in cache sorted by column and row.
+     *
+     * @return string[]
+     */
+    public function getSortedCellList();
 
-	/**
-	 * Clone the cell collection
-	 *
-	 * @param	PHPExcel_Worksheet	$parent		The new worksheet
-	 * @return	void
-	 */
-	public function copyCellCollection(PHPExcel_Worksheet $parent);
+    /**
+     * Clone the cell collection.
+     *
+     * @param PHPExcel_Worksheet $parent The new worksheet
+     */
+    public function copyCellCollection(PHPExcel_Worksheet $parent): void;
 
-	/**
-	 * Identify whether the caching method is currently available
-	 * Some methods are dependent on the availability of certain extensions being enabled in the PHP build
-	 *
-	 * @return	boolean
-	 */
-	public static function cacheMethodIsAvailable();
-
+    /**
+     * Identify whether the caching method is currently available
+     * Some methods are dependent on the availability of certain extensions being enabled in the PHP build.
+     *
+     * @return bool
+     */
+    public static function cacheMethodIsAvailable();
 }

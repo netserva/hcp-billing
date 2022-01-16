@@ -1,9 +1,12 @@
-<?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
+<?php
 
+declare(strict_types=1);
+if (!defined('BASEPATH')) {
+    exit('No direct script access allowed');
+}
 
-
-class Inithook extends CI_Model {
-
+class Inithook extends CI_Model
+{
     public function __construct()
     {
         parent::__construct();
@@ -18,13 +21,12 @@ class Inithook extends CI_Model {
     {
         if ($this->session->userdata('lang')) {
             return $this->session->userdata('lang');
-        }else{
-            $query = $this->db->select('language')->where('user_id',$this->session->userdata('user_id'))->get('account_details');
-            if ($query->num_rows() > 0)
-            {
-                $row = $query->row();
-                return $row->language;
-            }
+        }
+        $query = $this->db->select('language')->where('user_id', $this->session->userdata('user_id'))->get('account_details');
+        if ($query->num_rows() > 0) {
+            $row = $query->row();
+
+            return $row->language;
         }
     }
 }

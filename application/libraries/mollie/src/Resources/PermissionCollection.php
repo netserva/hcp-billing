@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Mollie\Api\Resources;
 
 class PermissionCollection extends \Mollie\Api\Resources\BaseCollection
@@ -9,6 +11,6 @@ class PermissionCollection extends \Mollie\Api\Resources\BaseCollection
      */
     public function getCollectionResourceName()
     {
-        return "permissions";
+        return 'permissions';
     }
 }

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Stripe;
 
 /**
@@ -8,11 +10,11 @@ namespace Stripe;
  * @property string $object
  * @property Coupon $coupon
  * @property string $customer
- * @property int $end
- * @property int $start
+ * @property int    $end
+ * @property int    $start
  * @property string $subscription
  */
 class Discount extends StripeObject
 {
-    const OBJECT_NAME = 'discount';
+    public const OBJECT_NAME = 'discount';
 }

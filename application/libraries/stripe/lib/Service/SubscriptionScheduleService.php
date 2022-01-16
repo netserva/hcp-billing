@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 // File generated from our OpenAPI spec
 
 namespace Stripe\Service;
@@ -9,7 +11,7 @@ class SubscriptionScheduleService extends \Stripe\Service\AbstractService
     /**
      * Retrieves the list of your subscription schedules.
      *
-     * @param null|array $params
+     * @param null|array                             $params
      * @param null|array|\Stripe\Util\RequestOptions $opts
      *
      * @throws \Stripe\Exception\ApiErrorException if the request fails
@@ -27,8 +29,8 @@ class SubscriptionScheduleService extends \Stripe\Service\AbstractService
      * can only be canceled if its status is <code>not_started</code> or
      * <code>active</code>.
      *
-     * @param string $id
-     * @param null|array $params
+     * @param string                                 $id
+     * @param null|array                             $params
      * @param null|array|\Stripe\Util\RequestOptions $opts
      *
      * @throws \Stripe\Exception\ApiErrorException if the request fails
@@ -44,7 +46,7 @@ class SubscriptionScheduleService extends \Stripe\Service\AbstractService
      * Creates a new subscription schedule object. Each customer can have up to 500
      * active or scheduled subscriptions.
      *
-     * @param null|array $params
+     * @param null|array                             $params
      * @param null|array|\Stripe\Util\RequestOptions $opts
      *
      * @throws \Stripe\Exception\ApiErrorException if the request fails
@@ -64,8 +66,8 @@ class SubscriptionScheduleService extends \Stripe\Service\AbstractService
      * it will remove its <code>subscription</code> property and set the subscription’s
      * ID to the <code>released_subscription</code> property.
      *
-     * @param string $id
-     * @param null|array $params
+     * @param string                                 $id
+     * @param null|array                             $params
      * @param null|array|\Stripe\Util\RequestOptions $opts
      *
      * @throws \Stripe\Exception\ApiErrorException if the request fails
@@ -82,8 +84,8 @@ class SubscriptionScheduleService extends \Stripe\Service\AbstractService
      * supply the unique subscription schedule identifier that was returned upon
      * subscription schedule creation.
      *
-     * @param string $id
-     * @param null|array $params
+     * @param string                                 $id
+     * @param null|array                             $params
      * @param null|array|\Stripe\Util\RequestOptions $opts
      *
      * @throws \Stripe\Exception\ApiErrorException if the request fails
@@ -98,8 +100,8 @@ class SubscriptionScheduleService extends \Stripe\Service\AbstractService
     /**
      * Updates an existing subscription schedule.
      *
-     * @param string $id
-     * @param null|array $params
+     * @param string                                 $id
+     * @param null|array                             $params
      * @param null|array|\Stripe\Util\RequestOptions $opts
      *
      * @throws \Stripe\Exception\ApiErrorException if the request fails

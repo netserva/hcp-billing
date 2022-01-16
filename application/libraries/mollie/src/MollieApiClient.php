@@ -1,11 +1,13 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Mollie\Api;
 
 use _PhpScoper5ed105407e8f2\GuzzleHttp\Client;
 use _PhpScoper5ed105407e8f2\GuzzleHttp\ClientInterface;
-use _PhpScoper5ed105407e8f2\GuzzleHttp\Exception\GuzzleException;
-use _PhpScoper5ed105407e8f2\GuzzleHttp\Psr7\Request;
+use _PhpScoper5ed105407e8f2\Psr\Http\Message\ResponseInterface;
+use _PhpScoper5ed105407e8f2\Psr\Http\Message\StreamInterface;
 use Mollie\Api\Endpoints\ChargebackEndpoint;
 use Mollie\Api\Endpoints\CustomerEndpoint;
 use Mollie\Api\Endpoints\CustomerPaymentsEndpoint;
@@ -17,8 +19,8 @@ use Mollie\Api\Endpoints\OrderEndpoint;
 use Mollie\Api\Endpoints\OrderLineEndpoint;
 use Mollie\Api\Endpoints\OrderPaymentEndpoint;
 use Mollie\Api\Endpoints\OrderRefundEndpoint;
-use Mollie\Api\Endpoints\PaymentCaptureEndpoint;
 use Mollie\Api\Endpoints\OrganizationEndpoint;
+use Mollie\Api\Endpoints\PaymentCaptureEndpoint;
 use Mollie\Api\Endpoints\PaymentChargebackEndpoint;
 use Mollie\Api\Endpoints\PaymentEndpoint;
 use Mollie\Api\Endpoints\PaymentRefundEndpoint;
@@ -32,45 +34,36 @@ use Mollie\Api\Endpoints\SubscriptionEndpoint;
 use Mollie\Api\Endpoints\WalletEndpoint;
 use Mollie\Api\Exceptions\ApiException;
 use Mollie\Api\Exceptions\IncompatiblePlatform;
-use _PhpScoper5ed105407e8f2\Psr\Http\Message\ResponseInterface;
-use _PhpScoper5ed105407e8f2\Psr\Http\Message\StreamInterface;
+
 class MollieApiClient
 {
     /**
      * Version of our client.
      */
-    const CLIENT_VERSION = '2.18.0';
+    public const CLIENT_VERSION = '2.18.0';
     /**
      * Endpoint of the remote API.
      */
-    const API_ENDPOINT = "https://api.mollie.com";
+    public const API_ENDPOINT = 'https://api.mollie.com';
     /**
      * Version of the remote API.
      */
-    const API_VERSION = "v2";
+    public const API_VERSION = 'v2';
     /**
-     * HTTP Methods
+     * HTTP Methods.
      */
-    const HTTP_GET = "GET";
-    const HTTP_POST = "POST";
-    const HTTP_DELETE = "DELETE";
-    const HTTP_PATCH = "PATCH";
+    public const HTTP_GET = 'GET';
+    public const HTTP_POST = 'POST';
+    public const HTTP_DELETE = 'DELETE';
+    public const HTTP_PATCH = 'PATCH';
     /**
-     * HTTP status codes
+     * HTTP status codes.
      */
-    const HTTP_NO_CONTENT = 204;
+    public const HTTP_NO_CONTENT = 204;
     /**
      * Default response timeout (in seconds).
      */
-    const TIMEOUT = 10;
-    /**
-     * @var ClientInterface
-     */
-    protected $httpClient;
-    /**
-     * @var string
-     */
-    protected $apiEndpoint = self::API_ENDPOINT;
+    public const TIMEOUT = 10;
     /**
      * RESTful Payments resource.
      *
@@ -204,11 +197,19 @@ class MollieApiClient
      */
     public $orderRefunds;
     /**
-     * Manages Wallet requests
+     * Manages Wallet requests.
      *
      * @var WalletEndpoint
      */
     public $wallets;
+    /**
+     * @var ClientInterface
+     */
+    protected $httpClient;
+    /**
+     * @var string
+     */
+    protected $apiEndpoint = self::API_ENDPOINT;
     /**
      * @var string
      */
@@ -227,22 +228,56 @@ class MollieApiClient
      * @var int
      */
     protected $lastHttpResponseStatusCode;
+
     /**
      * @param ClientInterface $httpClient
      *
      * @throws IncompatiblePlatform
      */
-    public function __construct(\_PhpScoper5ed105407e8f2\GuzzleHttp\ClientInterface $httpClient = null)
+    public function __construct(ClientInterface $httpClient = null)
     {
         $this->httpClient = $httpClient ? $httpClient : new \_PhpScoper5ed105407e8f2\GuzzleHttp\Client([\_PhpScoper5ed105407e8f2\GuzzleHttp\RequestOptions::VERIFY => \_PhpScoper5ed105407e8f2\Composer\CaBundle\CaBundle::getBundledCaBundlePath(), \_PhpScoper5ed105407e8f2\GuzzleHttp\RequestOptions::TIMEOUT => self::TIMEOUT]);
         $compatibilityChecker = new \Mollie\Api\CompatibilityChecker();
         $compatibilityChecker->checkCompatibility();
         $this->initializeEndpoints();
-        $this->addVersionString("Mollie/" . self::CLIENT_VERSION);
-        $this->addVersionString("PHP/" . \phpversion());
-        $this->addVersionString("Guzzle/" . \_PhpScoper5ed105407e8f2\GuzzleHttp\ClientInterface::VERSION);
+        $this->addVersionString('Mollie/'.self::CLIENT_VERSION);
+        $this->addVersionString('PHP/'.\phpversion());
+        $this->addVersionString('Guzzle/'.\_PhpScoper5ed105407e8f2\GuzzleHttp\ClientInterface::VERSION);
     }
-    public function initializeEndpoints()
+
+    /**
+     * Serialization can be used for caching. Of course doing so can be dangerous but some like to live dangerously.
+     *
+     * \serialize() should be called on the collections or object you want to cache.
+     *
+     * We don't need any property that can be set by the constructor, only properties that are set by setters.
+     *
+     * Note that the API key is not serialized, so you need to set the key again after unserializing if you want to do
+     * more API calls.
+     *
+     * @deprecated
+     *
+     * @return string[]
+     */
+    public function __sleep()
+    {
+        return ['apiEndpoint'];
+    }
+
+    /**
+     * When unserializing a collection or a resource, this class should restore itself.
+     *
+     * Note that if you use a custom GuzzleClient, this client is lost. You can't re set the Client, so you should
+     * probably not use this feature.
+     *
+     * @throws IncompatiblePlatform if suddenly unserialized on an incompatible platform
+     */
+    public function __wakeup(): void
+    {
+        $this->__construct();
+    }
+
+    public function initializeEndpoints(): void
     {
         $this->payments = new \Mollie\Api\Endpoints\PaymentEndpoint($this);
         $this->methods = new \Mollie\Api\Endpoints\MethodEndpoint($this);
@@ -269,6 +304,7 @@ class MollieApiClient
         $this->paymentChargebacks = new \Mollie\Api\Endpoints\PaymentChargebackEndpoint($this);
         $this->wallets = new \Mollie\Api\Endpoints\WalletEndpoint($this);
     }
+
     /**
      * @param string $url
      *
@@ -277,8 +313,10 @@ class MollieApiClient
     public function setApiEndpoint($url)
     {
         $this->apiEndpoint = \rtrim(\trim($url), '/');
+
         return $this;
     }
+
     /**
      * @return string
      */
@@ -286,11 +324,13 @@ class MollieApiClient
     {
         return $this->apiEndpoint;
     }
+
     /**
      * @param string $apiKey The Mollie API key, starting with 'test_' or 'live_'
      *
-     * @return MollieApiClient
      * @throws ApiException
+     *
+     * @return MollieApiClient
      */
     public function setApiKey($apiKey)
     {
@@ -300,13 +340,16 @@ class MollieApiClient
         }
         $this->apiKey = $apiKey;
         $this->oauthAccess = \false;
+
         return $this;
     }
+
     /**
      * @param string $accessToken OAuth access token, starting with 'access_'
      *
-     * @return MollieApiClient
      * @throws ApiException
+     *
+     * @return MollieApiClient
      */
     public function setAccessToken($accessToken)
     {
@@ -316,17 +359,20 @@ class MollieApiClient
         }
         $this->apiKey = $accessToken;
         $this->oauthAccess = \true;
+
         return $this;
     }
+
     /**
      * Returns null if no API key has been set yet.
      *
-     * @return bool|null
+     * @return null|bool
      */
     public function usesOAuth()
     {
         return $this->oauthAccess;
     }
+
     /**
      * @param string $versionString
      *
@@ -334,118 +380,100 @@ class MollieApiClient
      */
     public function addVersionString($versionString)
     {
-        $this->versionStrings[] = \str_replace([" ", "\t", "\n", "\r"], '-', $versionString);
+        $this->versionStrings[] = \str_replace([' ', "\t", "\n", "\r"], '-', $versionString);
+
         return $this;
     }
+
     /**
      * Perform an http call. This method is used by the resource specific classes. Please use the $payments property to
      * perform operations on payments.
      *
-     * @param string $httpMethod
-     * @param string $apiMethod
-     * @param string|null|resource|StreamInterface $httpBody
+     * @param string                               $httpMethod
+     * @param string                               $apiMethod
+     * @param null|resource|StreamInterface|string $httpBody
+     *
+     * @throws ApiException
      *
      * @return \stdClass
-     * @throws ApiException
      *
      * @codeCoverageIgnore
      */
     public function performHttpCall($httpMethod, $apiMethod, $httpBody = null)
     {
-        $url = $this->apiEndpoint . "/" . self::API_VERSION . "/" . $apiMethod;
+        $url = $this->apiEndpoint.'/'.self::API_VERSION.'/'.$apiMethod;
+
         return $this->performHttpCallToFullUrl($httpMethod, $url, $httpBody);
     }
+
     /**
      * Perform an http call to a full url. This method is used by the resource specific classes.
      *
      * @see $payments
      * @see $isuers
      *
-     * @param string $httpMethod
-     * @param string $url
-     * @param string|null|resource|StreamInterface $httpBody
+     * @param string                               $httpMethod
+     * @param string                               $url
+     * @param null|resource|StreamInterface|string $httpBody
      *
-     * @return \stdClass|null
      * @throws ApiException
+     *
+     * @return null|\stdClass
      *
      * @codeCoverageIgnore
      */
     public function performHttpCallToFullUrl($httpMethod, $url, $httpBody = null)
     {
         if (empty($this->apiKey)) {
-            throw new \Mollie\Api\Exceptions\ApiException("You have not set an API key or OAuth access token. Please use setApiKey() to set the API key.");
+            throw new \Mollie\Api\Exceptions\ApiException('You have not set an API key or OAuth access token. Please use setApiKey() to set the API key.');
         }
         $userAgent = \implode(' ', $this->versionStrings);
         if ($this->usesOAuth()) {
-            $userAgent .= " OAuth/2.0";
+            $userAgent .= ' OAuth/2.0';
         }
-        $headers = ['Accept' => "application/json", 'Authorization' => "Bearer {$this->apiKey}", 'User-Agent' => $userAgent];
-        if (\function_exists("php_uname")) {
+        $headers = ['Accept' => 'application/json', 'Authorization' => "Bearer {$this->apiKey}", 'User-Agent' => $userAgent];
+        if (\function_exists('php_uname')) {
             $headers['X-Mollie-Client-Info'] = \php_uname();
         }
         $request = new \_PhpScoper5ed105407e8f2\GuzzleHttp\Psr7\Request($httpMethod, $url, $headers, $httpBody);
+
         try {
             $response = $this->httpClient->send($request, ['http_errors' => \false]);
         } catch (\_PhpScoper5ed105407e8f2\GuzzleHttp\Exception\GuzzleException $e) {
             throw \Mollie\Api\Exceptions\ApiException::createFromGuzzleException($e);
         }
         if (!$response) {
-            throw new \Mollie\Api\Exceptions\ApiException("Did not receive API response.");
+            throw new \Mollie\Api\Exceptions\ApiException('Did not receive API response.');
         }
+
         return $this->parseResponseBody($response);
     }
+
     /**
-     * Parse the PSR-7 Response body
+     * Parse the PSR-7 Response body.
      *
-     * @param ResponseInterface $response
-     * @return \stdClass|null   
      * @throws ApiException
+     *
+     * @return null|\stdClass
      */
-    private function parseResponseBody(\_PhpScoper5ed105407e8f2\Psr\Http\Message\ResponseInterface $response)
+    private function parseResponseBody(ResponseInterface $response)
     {
         $body = (string) $response->getBody();
         if (empty($body)) {
-            if ($response->getStatusCode() === self::HTTP_NO_CONTENT) {
+            if (self::HTTP_NO_CONTENT === $response->getStatusCode()) {
                 return null;
             }
-            throw new \Mollie\Api\Exceptions\ApiException("No response body found.");
+
+            throw new \Mollie\Api\Exceptions\ApiException('No response body found.');
         }
         $object = @\json_decode($body);
-        if (\json_last_error() !== \JSON_ERROR_NONE) {
+        if (\JSON_ERROR_NONE !== \json_last_error()) {
             throw new \Mollie\Api\Exceptions\ApiException("Unable to decode Mollie response: '{$body}'.");
         }
         if ($response->getStatusCode() >= 400) {
             throw \Mollie\Api\Exceptions\ApiException::createFromResponse($response);
         }
+
         return $object;
-    }
-    /**
-     * Serialization can be used for caching. Of course doing so can be dangerous but some like to live dangerously.
-     *
-     * \serialize() should be called on the collections or object you want to cache.
-     *
-     * We don't need any property that can be set by the constructor, only properties that are set by setters.
-     *
-     * Note that the API key is not serialized, so you need to set the key again after unserializing if you want to do
-     * more API calls.
-     *
-     * @deprecated
-     * @return string[]
-     */
-    public function __sleep()
-    {
-        return ["apiEndpoint"];
-    }
-    /**
-     * When unserializing a collection or a resource, this class should restore itself.
-     *
-     * Note that if you use a custom GuzzleClient, this client is lost. You can't re set the Client, so you should
-     * probably not use this feature.
-     *
-     * @throws IncompatiblePlatform If suddenly unserialized on an incompatible platform.
-     */
-    public function __wakeup()
-    {
-        $this->__construct();
     }
 }

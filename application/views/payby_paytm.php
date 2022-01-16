@@ -1,6 +1,4 @@
-<?php 
-
-
+<?php declare(strict_types=1);
 ?>
 <html>
     <head>
@@ -10,8 +8,8 @@
         <center><h1>Please do not refresh this page...</h1></center>
         <form method='post' action='<?php echo $transactionURL; ?>' name='f1'>
             <?php
-                foreach($paytmParams as $name => $value) {
-                    echo '<input type="hidden" name="' . $name .'" value="' . $value . '">';
+                foreach ($paytmParams as $name => $value) {
+                    echo '<input type="hidden" name="'.$name.'" value="'.$value.'">';
                 }
             ?>
         </form>

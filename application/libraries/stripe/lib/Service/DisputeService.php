@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 // File generated from our OpenAPI spec
 
 namespace Stripe\Service;
@@ -9,7 +11,7 @@ class DisputeService extends \Stripe\Service\AbstractService
     /**
      * Returns a list of your disputes.
      *
-     * @param null|array $params
+     * @param null|array                             $params
      * @param null|array|\Stripe\Util\RequestOptions $opts
      *
      * @throws \Stripe\Exception\ApiErrorException if the request fails
@@ -28,8 +30,8 @@ class DisputeService extends \Stripe\Service\AbstractService
      * The status of the dispute will change from <code>needs_response</code> to
      * <code>lost</code>. <em>Closing a dispute is irreversible</em>.
      *
-     * @param string $id
-     * @param null|array $params
+     * @param string                                 $id
+     * @param null|array                             $params
      * @param null|array|\Stripe\Util\RequestOptions $opts
      *
      * @throws \Stripe\Exception\ApiErrorException if the request fails
@@ -44,8 +46,8 @@ class DisputeService extends \Stripe\Service\AbstractService
     /**
      * Retrieves the dispute with the given ID.
      *
-     * @param string $id
-     * @param null|array $params
+     * @param string                                 $id
+     * @param null|array                             $params
      * @param null|array|\Stripe\Util\RequestOptions $opts
      *
      * @throws \Stripe\Exception\ApiErrorException if the request fails
@@ -68,8 +70,8 @@ class DisputeService extends \Stripe\Service\AbstractService
      * chance of winning your dispute. To figure out which evidence fields to provide,
      * see our <a href="/docs/disputes/categories">guide to dispute types</a>.
      *
-     * @param string $id
-     * @param null|array $params
+     * @param string                                 $id
+     * @param null|array                             $params
      * @param null|array|\Stripe\Util\RequestOptions $opts
      *
      * @throws \Stripe\Exception\ApiErrorException if the request fails

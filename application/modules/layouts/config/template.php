@@ -1,4 +1,7 @@
-<?php defined('BASEPATH') OR exit('No direct script access allowed');
+<?php
+
+declare(strict_types=1);
+defined('BASEPATH') or exit('No direct script access allowed');
 
 /*
 |--------------------------------------------------------------------------
@@ -13,7 +16,7 @@
 |
 */
 
-$config['parser_enabled'] = TRUE;
+$config['parser_enabled'] = true;
 
 /*
 |--------------------------------------------------------------------------
@@ -28,7 +31,7 @@ $config['parser_enabled'] = TRUE;
 |
 */
 
-$config['parser_body_enabled'] = TRUE;
+$config['parser_body_enabled'] = true;
 
 /*
 |--------------------------------------------------------------------------
@@ -56,7 +59,7 @@ $config['title_separator'] = ' | ';
 |
 */
 
-$config['layout'] = FALSE;
+$config['layout'] = false;
 
 /*
 |--------------------------------------------------------------------------
@@ -84,6 +87,6 @@ $config['theme'] = '';
 |
 */
 
-$config['theme_locations'] = array(
-	FCPATH.'themes/'
-);
+$config['theme_locations'] = [
+    FCPATH.'themes/',
+];

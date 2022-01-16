@@ -1,17 +1,17 @@
 <?php
+
+declare(strict_types=1);
 /**
- * InvalidArrayException
+ * InvalidArrayException.
  */
 
 namespace Resellerclub;
 
 /**
- * Class InvalidArrayException
+ * Class InvalidArrayException.
  *
  * Throws when a generic array is invalid.
- * 
- * @package Resellerclub
  */
-class InvalidArrayException extends \Exception{
-
+class InvalidArrayException extends \Exception
+{
 }

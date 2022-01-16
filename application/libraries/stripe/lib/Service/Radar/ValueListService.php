@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 // File generated from our OpenAPI spec
 
 namespace Stripe\Service\Radar;
@@ -11,7 +13,7 @@ class ValueListService extends \Stripe\Service\AbstractService
      * descending order by creation date, with the most recently created object
      * appearing first.
      *
-     * @param null|array $params
+     * @param null|array                             $params
      * @param null|array|\Stripe\Util\RequestOptions $opts
      *
      * @throws \Stripe\Exception\ApiErrorException if the request fails
@@ -27,7 +29,7 @@ class ValueListService extends \Stripe\Service\AbstractService
      * Creates a new <code>ValueList</code> object, which can then be referenced in
      * rules.
      *
-     * @param null|array $params
+     * @param null|array                             $params
      * @param null|array|\Stripe\Util\RequestOptions $opts
      *
      * @throws \Stripe\Exception\ApiErrorException if the request fails
@@ -44,8 +46,8 @@ class ValueListService extends \Stripe\Service\AbstractService
      * within the value list. To be deleted, a value list must not be referenced in any
      * rules.
      *
-     * @param string $id
-     * @param null|array $params
+     * @param string                                 $id
+     * @param null|array                             $params
      * @param null|array|\Stripe\Util\RequestOptions $opts
      *
      * @throws \Stripe\Exception\ApiErrorException if the request fails
@@ -60,8 +62,8 @@ class ValueListService extends \Stripe\Service\AbstractService
     /**
      * Retrieves a <code>ValueList</code> object.
      *
-     * @param string $id
-     * @param null|array $params
+     * @param string                                 $id
+     * @param null|array                             $params
      * @param null|array|\Stripe\Util\RequestOptions $opts
      *
      * @throws \Stripe\Exception\ApiErrorException if the request fails
@@ -78,8 +80,8 @@ class ValueListService extends \Stripe\Service\AbstractService
      * passed. Any parameters not provided will be left unchanged. Note that
      * <code>item_type</code> is immutable.
      *
-     * @param string $id
-     * @param null|array $params
+     * @param string                                 $id
+     * @param null|array                             $params
      * @param null|array|\Stripe\Util\RequestOptions $opts
      *
      * @throws \Stripe\Exception\ApiErrorException if the request fails

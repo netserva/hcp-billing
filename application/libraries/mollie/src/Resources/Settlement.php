@@ -1,10 +1,11 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Mollie\Api\Resources;
 
 use Mollie\Api\Exceptions\ApiException;
-use Mollie\Api\MollieApiClient;
-use Mollie\Api\Types\SettlementStatus;
+
 class Settlement extends \Mollie\Api\Resources\BaseResource
 {
     /**
@@ -27,6 +28,7 @@ class Settlement extends \Mollie\Api\Resources\BaseResource
      * UTC datetime the payment was created in ISO-8601 format.
      *
      * @example "2013-12-25T10:30:54+00:00"
+     *
      * @var string
      */
     public $createdAt;
@@ -34,7 +36,8 @@ class Settlement extends \Mollie\Api\Resources\BaseResource
      * The date on which the settlement was settled, in ISO 8601 format. When requesting the open settlement or next settlement the return value is null.
      *
      * @example "2013-12-25T10:30:54+00:00"
-     * @var string|null
+     *
+     * @var null|string
      */
     public $settledAt;
     /**
@@ -58,13 +61,14 @@ class Settlement extends \Mollie\Api\Resources\BaseResource
     /**
      * The ID of the invoice on which this settlement is invoiced, if it has been invoiced.
      *
-     * @var string|null
+     * @var null|string
      */
     public $invoiceId;
     /**
      * @var \stdClass
      */
     public $_links;
+
     /**
      * Is this settlement still open?
      *
@@ -72,8 +76,9 @@ class Settlement extends \Mollie\Api\Resources\BaseResource
      */
     public function isOpen()
     {
-        return $this->status === \Mollie\Api\Types\SettlementStatus::STATUS_OPEN;
+        return \Mollie\Api\Types\SettlementStatus::STATUS_OPEN === $this->status;
     }
+
     /**
      * Is this settlement pending?
      *
@@ -81,8 +86,9 @@ class Settlement extends \Mollie\Api\Resources\BaseResource
      */
     public function isPending()
     {
-        return $this->status === \Mollie\Api\Types\SettlementStatus::STATUS_PENDING;
+        return \Mollie\Api\Types\SettlementStatus::STATUS_PENDING === $this->status;
     }
+
     /**
      * Is this settlement paidout?
      *
@@ -90,8 +96,9 @@ class Settlement extends \Mollie\Api\Resources\BaseResource
      */
     public function isPaidout()
     {
-        return $this->status === \Mollie\Api\Types\SettlementStatus::STATUS_PAIDOUT;
+        return \Mollie\Api\Types\SettlementStatus::STATUS_PAIDOUT === $this->status;
     }
+
     /**
      * Is this settlement failed?
      *
@@ -99,13 +106,15 @@ class Settlement extends \Mollie\Api\Resources\BaseResource
      */
     public function isFailed()
     {
-        return $this->status === \Mollie\Api\Types\SettlementStatus::STATUS_FAILED;
+        return \Mollie\Api\Types\SettlementStatus::STATUS_FAILED === $this->status;
     }
+
     /**
-     * Retrieves all payments associated with this settlement
+     * Retrieves all payments associated with this settlement.
+     *
+     * @throws ApiException
      *
      * @return PaymentCollection
-     * @throws ApiException
      */
     public function payments()
     {
@@ -113,13 +122,16 @@ class Settlement extends \Mollie\Api\Resources\BaseResource
             return new \Mollie\Api\Resources\PaymentCollection($this->client, 0, null);
         }
         $result = $this->client->performHttpCallToFullUrl(\Mollie\Api\MollieApiClient::HTTP_GET, $this->_links->payments->href);
+
         return \Mollie\Api\Resources\ResourceFactory::createCursorResourceCollection($this->client, $result->_embedded->payments, \Mollie\Api\Resources\Payment::class, $result->_links);
     }
+
     /**
-     * Retrieves all refunds associated with this settlement
+     * Retrieves all refunds associated with this settlement.
+     *
+     * @throws ApiException
      *
      * @return RefundCollection
-     * @throws ApiException
      */
     public function refunds()
     {
@@ -127,13 +139,16 @@ class Settlement extends \Mollie\Api\Resources\BaseResource
             return new \Mollie\Api\Resources\RefundCollection($this->client, 0, null);
         }
         $result = $this->client->performHttpCallToFullUrl(\Mollie\Api\MollieApiClient::HTTP_GET, $this->_links->refunds->href);
+
         return \Mollie\Api\Resources\ResourceFactory::createCursorResourceCollection($this->client, $result->_embedded->refunds, \Mollie\Api\Resources\Refund::class, $result->_links);
     }
+
     /**
-     * Retrieves all chargebacks associated with this settlement
+     * Retrieves all chargebacks associated with this settlement.
+     *
+     * @throws ApiException
      *
      * @return ChargebackCollection
-     * @throws ApiException
      */
     public function chargebacks()
     {
@@ -141,13 +156,16 @@ class Settlement extends \Mollie\Api\Resources\BaseResource
             return new \Mollie\Api\Resources\ChargebackCollection($this->client, 0, null);
         }
         $result = $this->client->performHttpCallToFullUrl(\Mollie\Api\MollieApiClient::HTTP_GET, $this->_links->chargebacks->href);
+
         return \Mollie\Api\Resources\ResourceFactory::createCursorResourceCollection($this->client, $result->_embedded->chargebacks, \Mollie\Api\Resources\Chargeback::class, $result->_links);
     }
+
     /**
-     * Retrieves all captures associated with this settlement
+     * Retrieves all captures associated with this settlement.
+     *
+     * @throws ApiException
      *
      * @return CaptureCollection
-     * @throws ApiException
      */
     public function captures()
     {
@@ -155,6 +173,7 @@ class Settlement extends \Mollie\Api\Resources\BaseResource
             return new \Mollie\Api\Resources\CaptureCollection($this->client, 0, null);
         }
         $result = $this->client->performHttpCallToFullUrl(\Mollie\Api\MollieApiClient::HTTP_GET, $this->_links->captures->href);
+
         return \Mollie\Api\Resources\ResourceFactory::createCursorResourceCollection($this->client, $result->_embedded->captures, \Mollie\Api\Resources\Capture::class, $result->_links);
     }
 }

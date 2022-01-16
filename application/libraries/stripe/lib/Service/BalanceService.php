@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 // File generated from our OpenAPI spec
 
 namespace Stripe\Service;
@@ -12,7 +14,7 @@ class BalanceService extends \Stripe\Service\AbstractService
      * href="/docs/connect/account-balances#accounting-for-negative-balances">Accounting
      * for negative balances</a>.
      *
-     * @param null|array $params
+     * @param null|array                             $params
      * @param null|array|\Stripe\Util\RequestOptions $opts
      *
      * @throws \Stripe\Exception\ApiErrorException if the request fails

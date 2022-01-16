@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 // File generated from our OpenAPI spec
 
 namespace Stripe\Service;
@@ -7,56 +9,56 @@ namespace Stripe\Service;
 /**
  * Service factory class for API resources in the root namespace.
  *
- * @property AccountLinkService $accountLinks
- * @property AccountService $accounts
- * @property ApplePayDomainService $applePayDomains
- * @property ApplicationFeeService $applicationFees
- * @property BalanceService $balance
- * @property BalanceTransactionService $balanceTransactions
+ * @property AccountLinkService                        $accountLinks
+ * @property AccountService                            $accounts
+ * @property ApplePayDomainService                     $applePayDomains
+ * @property ApplicationFeeService                     $applicationFees
+ * @property BalanceService                            $balance
+ * @property BalanceTransactionService                 $balanceTransactions
  * @property BillingPortal\BillingPortalServiceFactory $billingPortal
- * @property ChargeService $charges
- * @property Checkout\CheckoutServiceFactory $checkout
- * @property CountrySpecService $countrySpecs
- * @property CouponService $coupons
- * @property CreditNoteService $creditNotes
- * @property CustomerService $customers
- * @property DisputeService $disputes
- * @property EphemeralKeyService $ephemeralKeys
- * @property EventService $events
- * @property ExchangeRateService $exchangeRates
- * @property FileLinkService $fileLinks
- * @property FileService $files
- * @property InvoiceItemService $invoiceItems
- * @property InvoiceService $invoices
- * @property Issuing\IssuingServiceFactory $issuing
- * @property MandateService $mandates
- * @property OAuthService $oauth
- * @property OrderReturnService $orderReturns
- * @property OrderService $orders
- * @property PaymentIntentService $paymentIntents
- * @property PaymentMethodService $paymentMethods
- * @property PayoutService $payouts
- * @property PlanService $plans
- * @property PriceService $prices
- * @property ProductService $products
- * @property PromotionCodeService $promotionCodes
- * @property Radar\RadarServiceFactory $radar
- * @property RefundService $refunds
- * @property Reporting\ReportingServiceFactory $reporting
- * @property ReviewService $reviews
- * @property SetupIntentService $setupIntents
- * @property Sigma\SigmaServiceFactory $sigma
- * @property SkuService $skus
- * @property SourceService $sources
- * @property SubscriptionItemService $subscriptionItems
- * @property SubscriptionService $subscriptions
- * @property SubscriptionScheduleService $subscriptionSchedules
- * @property TaxRateService $taxRates
- * @property Terminal\TerminalServiceFactory $terminal
- * @property TokenService $tokens
- * @property TopupService $topups
- * @property TransferService $transfers
- * @property WebhookEndpointService $webhookEndpoints
+ * @property ChargeService                             $charges
+ * @property Checkout\CheckoutServiceFactory           $checkout
+ * @property CountrySpecService                        $countrySpecs
+ * @property CouponService                             $coupons
+ * @property CreditNoteService                         $creditNotes
+ * @property CustomerService                           $customers
+ * @property DisputeService                            $disputes
+ * @property EphemeralKeyService                       $ephemeralKeys
+ * @property EventService                              $events
+ * @property ExchangeRateService                       $exchangeRates
+ * @property FileLinkService                           $fileLinks
+ * @property FileService                               $files
+ * @property InvoiceItemService                        $invoiceItems
+ * @property InvoiceService                            $invoices
+ * @property Issuing\IssuingServiceFactory             $issuing
+ * @property MandateService                            $mandates
+ * @property OAuthService                              $oauth
+ * @property OrderReturnService                        $orderReturns
+ * @property OrderService                              $orders
+ * @property PaymentIntentService                      $paymentIntents
+ * @property PaymentMethodService                      $paymentMethods
+ * @property PayoutService                             $payouts
+ * @property PlanService                               $plans
+ * @property PriceService                              $prices
+ * @property ProductService                            $products
+ * @property PromotionCodeService                      $promotionCodes
+ * @property Radar\RadarServiceFactory                 $radar
+ * @property RefundService                             $refunds
+ * @property Reporting\ReportingServiceFactory         $reporting
+ * @property ReviewService                             $reviews
+ * @property SetupIntentService                        $setupIntents
+ * @property Sigma\SigmaServiceFactory                 $sigma
+ * @property SkuService                                $skus
+ * @property SourceService                             $sources
+ * @property SubscriptionItemService                   $subscriptionItems
+ * @property SubscriptionService                       $subscriptions
+ * @property SubscriptionScheduleService               $subscriptionSchedules
+ * @property TaxRateService                            $taxRates
+ * @property Terminal\TerminalServiceFactory           $terminal
+ * @property TokenService                              $tokens
+ * @property TopupService                              $topups
+ * @property TransferService                           $transfers
+ * @property WebhookEndpointService                    $webhookEndpoints
  */
 class CoreServiceFactory extends \Stripe\Service\AbstractServiceFactory
 {

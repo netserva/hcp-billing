@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 // File generated from our OpenAPI spec
 
 namespace Stripe\Service;
@@ -9,7 +11,7 @@ class CreditNoteService extends \Stripe\Service\AbstractService
     /**
      * Returns a list of credit notes.
      *
-     * @param null|array $params
+     * @param null|array                             $params
      * @param null|array|\Stripe\Util\RequestOptions $opts
      *
      * @throws \Stripe\Exception\ApiErrorException if the request fails
@@ -26,8 +28,8 @@ class CreditNoteService extends \Stripe\Service\AbstractService
      * containing the the first handful of those items. There is also a URL where you
      * can retrieve the full (paginated) list of line items.
      *
-     * @param string $parentId
-     * @param null|array $params
+     * @param string                                 $parentId
+     * @param null|array                             $params
      * @param null|array|\Stripe\Util\RequestOptions $opts
      *
      * @throws \Stripe\Exception\ApiErrorException if the request fails
@@ -61,7 +63,7 @@ class CreditNoteService extends \Stripe\Service\AbstractService
      * <code>post_payment_credit_notes_amount</code> depending on its
      * <code>status</code> at the time of credit note creation.
      *
-     * @param null|array $params
+     * @param null|array                             $params
      * @param null|array|\Stripe\Util\RequestOptions $opts
      *
      * @throws \Stripe\Exception\ApiErrorException if the request fails
@@ -76,7 +78,7 @@ class CreditNoteService extends \Stripe\Service\AbstractService
     /**
      * Get a preview of a credit note without creating it.
      *
-     * @param null|array $params
+     * @param null|array                             $params
      * @param null|array|\Stripe\Util\RequestOptions $opts
      *
      * @throws \Stripe\Exception\ApiErrorException if the request fails
@@ -93,7 +95,7 @@ class CreditNoteService extends \Stripe\Service\AbstractService
      * property containing the first handful of those items. This URL you can retrieve
      * the full (paginated) list of line items.
      *
-     * @param null|array $params
+     * @param null|array                             $params
      * @param null|array|\Stripe\Util\RequestOptions $opts
      *
      * @throws \Stripe\Exception\ApiErrorException if the request fails
@@ -108,8 +110,8 @@ class CreditNoteService extends \Stripe\Service\AbstractService
     /**
      * Retrieves the credit note object with the given identifier.
      *
-     * @param string $id
-     * @param null|array $params
+     * @param string                                 $id
+     * @param null|array                             $params
      * @param null|array|\Stripe\Util\RequestOptions $opts
      *
      * @throws \Stripe\Exception\ApiErrorException if the request fails
@@ -124,8 +126,8 @@ class CreditNoteService extends \Stripe\Service\AbstractService
     /**
      * Updates an existing credit note.
      *
-     * @param string $id
-     * @param null|array $params
+     * @param string                                 $id
+     * @param null|array                             $params
      * @param null|array|\Stripe\Util\RequestOptions $opts
      *
      * @throws \Stripe\Exception\ApiErrorException if the request fails
@@ -141,8 +143,8 @@ class CreditNoteService extends \Stripe\Service\AbstractService
      * Marks a credit note as void. Learn more about <a
      * href="/docs/billing/invoices/credit-notes#voiding">voiding credit notes</a>.
      *
-     * @param string $id
-     * @param null|array $params
+     * @param string                                 $id
+     * @param null|array                             $params
      * @param null|array|\Stripe\Util\RequestOptions $opts
      *
      * @throws \Stripe\Exception\ApiErrorException if the request fails

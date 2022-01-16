@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Stripe;
 
 /**
@@ -10,14 +12,13 @@ namespace Stripe;
  */
 class AlipayAccount extends ApiResource
 {
-    const OBJECT_NAME = 'alipay_account';
-
     use ApiOperations\Delete;
     use ApiOperations\Update;
+    public const OBJECT_NAME = 'alipay_account';
 
     /**
      * @return string The instance URL for this resource. It needs to be special
-     *    cased because it doesn't fit into the standard resource pattern.
+     *                cased because it doesn't fit into the standard resource pattern.
      */
     public function instanceUrl()
     {
@@ -37,7 +38,7 @@ class AlipayAccount extends ApiResource
     }
 
     /**
-     * @param array|string $_id
+     * @param array|string      $_id
      * @param null|array|string $_opts
      *
      * @throws \Stripe\Exception\BadMethodCallException
@@ -45,18 +46,18 @@ class AlipayAccount extends ApiResource
      * @deprecated Alipay accounts are deprecated. Please use the sources API instead.
      * @see https://stripe.com/docs/sources/alipay
      */
-    public static function retrieve($_id, $_opts = null)
+    public static function retrieve($_id, $_opts = null): void
     {
-        $msg = 'Alipay accounts cannot be retrieved without a customer ID. ' .
-               'Retrieve an Alipay account using `Customer::retrieveSource(' .
+        $msg = 'Alipay accounts cannot be retrieved without a customer ID. '.
+               'Retrieve an Alipay account using `Customer::retrieveSource('.
                "'customer_id', 'alipay_account_id')`.";
 
         throw new Exception\BadMethodCallException($msg);
     }
 
     /**
-     * @param string $_id
-     * @param null|array $_params
+     * @param string            $_id
+     * @param null|array        $_params
      * @param null|array|string $_options
      *
      * @throws \Stripe\Exception\BadMethodCallException
@@ -64,10 +65,10 @@ class AlipayAccount extends ApiResource
      * @deprecated Alipay accounts are deprecated. Please use the sources API instead.
      * @see https://stripe.com/docs/sources/alipay
      */
-    public static function update($_id, $_params = null, $_options = null)
+    public static function update($_id, $_params = null, $_options = null): void
     {
-        $msg = 'Alipay accounts cannot be updated without a customer ID. ' .
-               'Update an Alipay account using `Customer::updateSource(' .
+        $msg = 'Alipay accounts cannot be updated without a customer ID. '.
+               'Update an Alipay account using `Customer::updateSource('.
                "'customer_id', 'alipay_account_id', \$updateParams)`.";
 
         throw new Exception\BadMethodCallException($msg);

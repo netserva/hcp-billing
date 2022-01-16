@@ -1,17 +1,15 @@
 <?php
 
+declare(strict_types=1);
+
 namespace _PhpScoper5ed105407e8f2;
 
-/*
- * Delete a customer from the Mollie API.
- */
+// Delete a customer from the Mollie API.
 try {
-    /*
-     * Initialize the Mollie API library with your API key or OAuth access token.
-     */
-    require "../initialize.php";
-    $mollie->customers->delete("cst_fE3F6nvX");
-    echo "<p>Customer deleted!</p>";
+    // Initialize the Mollie API library with your API key or OAuth access token.
+    require '../initialize.php';
+    $mollie->customers->delete('cst_fE3F6nvX');
+    echo '<p>Customer deleted!</p>';
 } catch (\Mollie\Api\Exceptions\ApiException $e) {
-    echo "API call failed: " . \htmlspecialchars($e->getMessage());
+    echo 'API call failed: '.\htmlspecialchars($e->getMessage());
 }

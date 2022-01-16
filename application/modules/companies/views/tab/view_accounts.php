@@ -1,38 +1,38 @@
-   <?php if($this->session->flashdata('message')): ?>
+   <?php if ($this->session->flashdata('message')) { ?>
            <div class="alert alert-info" role="alert">
-                <?php echo $this->session->flashdata('message') ?>
+                <?php echo $this->session->flashdata('message'); ?>
            </div>
-     <?php endif ?>
+     <?php } ?>
 
     <div class="table-responsive">
     <table id="table-templates-2" class="table table-striped b-t b-light text-sm AppendDataTables">
 			<thead>
 				<tr>
-                    <th><?=lang('package')?></th>
-                    <th><?=lang('invoice')?></th>
-                    <th><?=lang('status')?></th>
-                    <th><?=lang('domain')?></th>
-					<th><?=lang('service')?></th>
-                    <?php if(User::is_admin() || User::perm_allowed(User::get_id(),'manage_accounts')) { ?>			
-					<th class="col-options no-sort"><?=lang('action')?></th>
+                    <th><?php echo lang('package'); ?></th>
+                    <th><?php echo lang('invoice'); ?></th>
+                    <th><?php echo lang('status'); ?></th>
+                    <th><?php echo lang('domain'); ?></th>
+					<th><?php echo lang('service'); ?></th>
+                    <?php if (User::is_admin() || User::perm_allowed(User::get_id(), 'manage_accounts')) { ?>			
+					<th class="col-options no-sort"><?php echo lang('action'); ?></th>
                     <?php } ?>
 				    </tr>
                     </thead> <tbody>
-				<?php foreach(Domain::by_client($company, "(type ='hosting')") AS $order) {  ?>
+				<?php foreach (Domain::by_client($company, "(type ='hosting')") as $order) {  ?>
 				    <tr>	
-                    <td><?=$order->item_name?></td>	
-                    <td><?=$order->reference_no?></td>
-                    <td><?=$order->status?></td>
-                    <td><?=$order->domain?></td>
-					<td><?=ucfirst($order->order_status)?></td>
-	                 <?php if(User::is_admin() || User::perm_allowed(User::get_id(),'manage_accounts')) { ?>
+                    <td><?php echo $order->item_name; ?></td>	
+                    <td><?php echo $order->reference_no; ?></td>
+                    <td><?php echo $order->status; ?></td>
+                    <td><?php echo $order->domain; ?></td>
+					<td><?php echo ucfirst($order->order_status); ?></td>
+	                 <?php if (User::is_admin() || User::perm_allowed(User::get_id(), 'manage_accounts')) { ?>
                     <td>
-                      <a href="<?=base_url()?>accounts/account/<?=$order->id?>" class="btn btn-sm btn-success"><?=lang('view')?> </a>
-                      <a href="<?=base_url()?>accounts/manage/<?=$order->id?>" class="btn btn-sm btn-warning"><?=lang('manage')?> </a>
+                      <a href="<?php echo base_url(); ?>accounts/account/<?php echo $order->id; ?>" class="btn btn-sm btn-success"><?php echo lang('view'); ?> </a>
+                      <a href="<?php echo base_url(); ?>accounts/manage/<?php echo $order->id; ?>" class="btn btn-sm btn-warning"><?php echo lang('manage'); ?> </a>
 					</td>
                   <?php } ?>
 				</tr>
-				<?php  } ?>
+				<?php } ?>
 				
 				
 				

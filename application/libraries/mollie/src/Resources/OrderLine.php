@@ -1,14 +1,13 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Mollie\Api\Resources;
 
-use Mollie\Api\MollieApiClient;
-use Mollie\Api\Types\OrderLineStatus;
-use Mollie\Api\Types\OrderLineType;
 class OrderLine extends \Mollie\Api\Resources\BaseResource
 {
     /**
-     * Always 'orderline'
+     * Always 'orderline'.
      *
      * @var string
      */
@@ -23,6 +22,7 @@ class OrderLine extends \Mollie\Api\Resources\BaseResource
      * The ID of the order this line belongs to.
      *
      * @example ord_kEn1PlbGa
+     *
      * @var string
      */
     public $orderId;
@@ -30,6 +30,7 @@ class OrderLine extends \Mollie\Api\Resources\BaseResource
      * The type of product bought.
      *
      * @example physical
+     *
      * @var string
      */
     public $type;
@@ -37,6 +38,7 @@ class OrderLine extends \Mollie\Api\Resources\BaseResource
      * A description of the order line.
      *
      * @example LEGO 4440 Forest Police Station
+     *
      * @var string
      */
     public $name;
@@ -67,7 +69,7 @@ class OrderLine extends \Mollie\Api\Resources\BaseResource
     /**
      * Any discounts applied to the order line.
      *
-     * @var \stdClass|null
+     * @var null|\stdClass
      */
     public $discountAmount;
     /**
@@ -82,6 +84,7 @@ class OrderLine extends \Mollie\Api\Resources\BaseResource
      * passed.
      *
      * @example "21.00"
+     *
      * @var string
      */
     public $vatRate;
@@ -94,32 +97,33 @@ class OrderLine extends \Mollie\Api\Resources\BaseResource
     /**
      * The SKU, EAN, ISBN or UPC of the product sold.
      *
-     * @var string|null
+     * @var null|string
      */
     public $sku;
     /**
      * A link pointing to an image of the product sold.
      *
-     * @var string|null
+     * @var null|string
      */
     public $imageUrl;
     /**
      * A link pointing to the product page in your web shop of the product sold.
      *
-     * @var string|null
+     * @var null|string
      */
     public $productUrl;
     /**
      * During creation of the order you can set custom metadata on order lines that is stored with
      * the order, and given back whenever you retrieve that order line.
      *
-     * @var \stdClass|mixed|null
+     * @var null|mixed|\stdClass
      */
     public $metadata;
     /**
      * The order line's date and time of creation, in ISO 8601 format.
      *
      * @example 2018-08-02T09:29:56+00:00
+     *
      * @var string
      */
     public $createdAt;
@@ -127,6 +131,7 @@ class OrderLine extends \Mollie\Api\Resources\BaseResource
      * @var \stdClass
      */
     public $_links;
+
     /**
      * Is this order line created?
      *
@@ -134,8 +139,9 @@ class OrderLine extends \Mollie\Api\Resources\BaseResource
      */
     public function isCreated()
     {
-        return $this->status === \Mollie\Api\Types\OrderLineStatus::STATUS_CREATED;
+        return \Mollie\Api\Types\OrderLineStatus::STATUS_CREATED === $this->status;
     }
+
     /**
      * Is this order line paid for?
      *
@@ -143,8 +149,9 @@ class OrderLine extends \Mollie\Api\Resources\BaseResource
      */
     public function isPaid()
     {
-        return $this->status === \Mollie\Api\Types\OrderLineStatus::STATUS_PAID;
+        return \Mollie\Api\Types\OrderLineStatus::STATUS_PAID === $this->status;
     }
+
     /**
      * Is this order line authorized?
      *
@@ -152,8 +159,9 @@ class OrderLine extends \Mollie\Api\Resources\BaseResource
      */
     public function isAuthorized()
     {
-        return $this->status === \Mollie\Api\Types\OrderLineStatus::STATUS_AUTHORIZED;
+        return \Mollie\Api\Types\OrderLineStatus::STATUS_AUTHORIZED === $this->status;
     }
+
     /**
      * Is this order line canceled?
      *
@@ -161,18 +169,21 @@ class OrderLine extends \Mollie\Api\Resources\BaseResource
      */
     public function isCanceled()
     {
-        return $this->status === \Mollie\Api\Types\OrderLineStatus::STATUS_CANCELED;
+        return \Mollie\Api\Types\OrderLineStatus::STATUS_CANCELED === $this->status;
     }
+
     /**
      * (Deprecated) Is this order line refunded?
+     *
      * @deprecated 2018-11-27
      *
      * @return bool
      */
     public function isRefunded()
     {
-        return $this->status === \Mollie\Api\Types\OrderLineStatus::STATUS_REFUNDED;
+        return \Mollie\Api\Types\OrderLineStatus::STATUS_REFUNDED === $this->status;
     }
+
     /**
      * Is this order line shipping?
      *
@@ -180,8 +191,9 @@ class OrderLine extends \Mollie\Api\Resources\BaseResource
      */
     public function isShipping()
     {
-        return $this->status === \Mollie\Api\Types\OrderLineStatus::STATUS_SHIPPING;
+        return \Mollie\Api\Types\OrderLineStatus::STATUS_SHIPPING === $this->status;
     }
+
     /**
      * Is this order line completed?
      *
@@ -189,8 +201,9 @@ class OrderLine extends \Mollie\Api\Resources\BaseResource
      */
     public function isCompleted()
     {
-        return $this->status === \Mollie\Api\Types\OrderLineStatus::STATUS_COMPLETED;
+        return \Mollie\Api\Types\OrderLineStatus::STATUS_COMPLETED === $this->status;
     }
+
     /**
      * Is this order line for a physical product?
      *
@@ -198,8 +211,9 @@ class OrderLine extends \Mollie\Api\Resources\BaseResource
      */
     public function isPhysical()
     {
-        return $this->type === \Mollie\Api\Types\OrderLineType::TYPE_PHYSICAL;
+        return \Mollie\Api\Types\OrderLineType::TYPE_PHYSICAL === $this->type;
     }
+
     /**
      * Is this order line for applying a discount?
      *
@@ -207,8 +221,9 @@ class OrderLine extends \Mollie\Api\Resources\BaseResource
      */
     public function isDiscount()
     {
-        return $this->type === \Mollie\Api\Types\OrderLineType::TYPE_DISCOUNT;
+        return \Mollie\Api\Types\OrderLineType::TYPE_DISCOUNT === $this->type;
     }
+
     /**
      * Is this order line for a digital product?
      *
@@ -216,8 +231,9 @@ class OrderLine extends \Mollie\Api\Resources\BaseResource
      */
     public function isDigital()
     {
-        return $this->type === \Mollie\Api\Types\OrderLineType::TYPE_DIGITAL;
+        return \Mollie\Api\Types\OrderLineType::TYPE_DIGITAL === $this->type;
     }
+
     /**
      * Is this order line for applying a shipping fee?
      *
@@ -225,8 +241,9 @@ class OrderLine extends \Mollie\Api\Resources\BaseResource
      */
     public function isShippingFee()
     {
-        return $this->type === \Mollie\Api\Types\OrderLineType::TYPE_SHIPPING_FEE;
+        return \Mollie\Api\Types\OrderLineType::TYPE_SHIPPING_FEE === $this->type;
     }
+
     /**
      * Is this order line for store credit?
      *
@@ -234,8 +251,9 @@ class OrderLine extends \Mollie\Api\Resources\BaseResource
      */
     public function isStoreCredit()
     {
-        return $this->type === \Mollie\Api\Types\OrderLineType::TYPE_STORE_CREDIT;
+        return \Mollie\Api\Types\OrderLineType::TYPE_STORE_CREDIT === $this->type;
     }
+
     /**
      * Is this order line for a gift card?
      *
@@ -243,8 +261,9 @@ class OrderLine extends \Mollie\Api\Resources\BaseResource
      */
     public function isGiftCard()
     {
-        return $this->type === \Mollie\Api\Types\OrderLineType::TYPE_GIFT_CARD;
+        return \Mollie\Api\Types\OrderLineType::TYPE_GIFT_CARD === $this->type;
     }
+
     /**
      * Is this order line for a surcharge?
      *
@@ -252,13 +271,15 @@ class OrderLine extends \Mollie\Api\Resources\BaseResource
      */
     public function isSurcharge()
     {
-        return $this->type === \Mollie\Api\Types\OrderLineType::TYPE_SURCHARGE;
+        return \Mollie\Api\Types\OrderLineType::TYPE_SURCHARGE === $this->type;
     }
+
     public function update()
     {
-        $body = \json_encode(array("name" => $this->name, 'imageUrl' => $this->imageUrl, 'productUrl' => $this->productUrl, 'quantity' => $this->quantity, 'unitPrice' => $this->unitPrice, 'discountAmount' => $this->discountAmount, 'totalAmount' => $this->totalAmount, 'vatAmount' => $this->vatAmount, 'vatRate' => $this->vatRate));
+        $body = \json_encode(['name' => $this->name, 'imageUrl' => $this->imageUrl, 'productUrl' => $this->productUrl, 'quantity' => $this->quantity, 'unitPrice' => $this->unitPrice, 'discountAmount' => $this->discountAmount, 'totalAmount' => $this->totalAmount, 'vatAmount' => $this->vatAmount, 'vatRate' => $this->vatRate]);
         $url = "orders/{$this->orderId}/lines/{$this->id}";
         $result = $this->client->performHttpCall(\Mollie\Api\MollieApiClient::HTTP_PATCH, $url, $body);
+
         return \Mollie\Api\Resources\ResourceFactory::createFromApiResult($result, new \Mollie\Api\Resources\Order($this->client));
     }
 }

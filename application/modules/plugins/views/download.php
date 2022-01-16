@@ -10,12 +10,13 @@
                       <tbody>
                           <?php
 
-                          if(isset($version_notifications_array['notification_data'])) { 
-                              foreach ($version_notifications_array['notification_data'] as $key => $install) { 
-                              if($install['product_id'] > 1) 
-                              { ?>
-                                <tr><td><?=$install['product_title']?></td><td><?=$install['version_number']?></td><td><?=$install['version_date']?></td> <td><a class="btn btn-default btn-sm" href="<?=base_url()?>plugins/version/<?=$install['product_id'] ."_". $install['version_number']?>">View Information</a></td> <td><a class="btn btn-warning btn-sm" href="<?=base_url()?>plugins/install/<?=$install['product_id'] ."_". $install['version_number']?>">Install</a></td></tr>
-                          <?php } } }?>
+                          if (isset($version_notifications_array['notification_data'])) {
+                              foreach ($version_notifications_array['notification_data'] as $key => $install) {
+                                  if ($install['product_id'] > 1) { ?>
+                                <tr><td><?php echo $install['product_title']; ?></td><td><?php echo $install['version_number']; ?></td><td><?php echo $install['version_date']; ?></td> <td><a class="btn btn-default btn-sm" href="<?php echo base_url(); ?>plugins/version/<?php echo $install['product_id'].'_'.$install['version_number']; ?>">View Information</a></td> <td><a class="btn btn-warning btn-sm" href="<?php echo base_url(); ?>plugins/install/<?php echo $install['product_id'].'_'.$install['version_number']; ?>">Install</a></td></tr>
+                          <?php }
+                              }
+                          }?>
                       </tbody>
                    </table>
 

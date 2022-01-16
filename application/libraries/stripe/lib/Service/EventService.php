@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 // File generated from our OpenAPI spec
 
 namespace Stripe\Service;
@@ -13,7 +15,7 @@ class EventService extends \Stripe\Service\AbstractService
      * attribute (not according to your current Stripe API version or
      * <code>Stripe-Version</code> header).
      *
-     * @param null|array $params
+     * @param null|array                             $params
      * @param null|array|\Stripe\Util\RequestOptions $opts
      *
      * @throws \Stripe\Exception\ApiErrorException if the request fails
@@ -29,8 +31,8 @@ class EventService extends \Stripe\Service\AbstractService
      * Retrieves the details of an event. Supply the unique identifier of the event,
      * which you might have received in a webhook.
      *
-     * @param string $id
-     * @param null|array $params
+     * @param string                                 $id
+     * @param null|array                             $params
      * @param null|array|\Stripe\Util\RequestOptions $opts
      *
      * @throws \Stripe\Exception\ApiErrorException if the request fails

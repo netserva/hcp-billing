@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 // File generated from our OpenAPI spec
 
 namespace Stripe\Service;
@@ -9,8 +11,8 @@ class EphemeralKeyService extends \Stripe\Service\AbstractService
     /**
      * Invalidates a short-lived API key for a given resource.
      *
-     * @param string $id
-     * @param null|array $params
+     * @param string                                 $id
+     * @param null|array                             $params
      * @param null|array|\Stripe\Util\RequestOptions $opts
      *
      * @throws \Stripe\Exception\ApiErrorException if the request fails
@@ -25,7 +27,7 @@ class EphemeralKeyService extends \Stripe\Service\AbstractService
     /**
      * Creates a short-lived API key for a given resource.
      *
-     * @param null|array $params
+     * @param null|array                             $params
      * @param null|array|\Stripe\Util\RequestOptions $opts
      *
      * @throws \Stripe\Exception\ApiErrorException if the request fails

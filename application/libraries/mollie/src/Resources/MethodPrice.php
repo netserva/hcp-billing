@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Mollie\Api\Resources;
 
 class MethodPrice extends \Mollie\Api\Resources\BaseResource
@@ -8,6 +10,7 @@ class MethodPrice extends \Mollie\Api\Resources\BaseResource
      * The area or product-type where the pricing is applied for, translated in the optional locale passed.
      *
      * @example "The Netherlands"
+     *
      * @var string
      */
     public $description;

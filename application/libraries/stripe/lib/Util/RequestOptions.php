@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Stripe\Util;
 
 class RequestOptions
@@ -22,9 +24,9 @@ class RequestOptions
     public $apiBase;
 
     /**
-     * @param null|string $key
+     * @param null|string           $key
      * @param array<string, string> $headers
-     * @param null|string $base
+     * @param null|string           $base
      */
     public function __construct($key = null, $headers = [], $base = null)
     {
@@ -50,7 +52,7 @@ class RequestOptions
      * object.
      *
      * @param null|array|RequestOptions|string $options a key => value array
-     * @param bool $strict when true, forbid string form and arbitrary keys in array form
+     * @param bool                             $strict  when true, forbid string form and arbitrary keys in array form
      *
      * @return RequestOptions
      */
@@ -71,7 +73,7 @@ class RequestOptions
     /**
      * Discards all headers that we don't want to persist across requests.
      */
-    public function discardNonPersistentHeaders()
+    public function discardNonPersistentHeaders(): void
     {
         foreach ($this->headers as $k => $v) {
             if (!\in_array($k, self::$HEADERS_TO_PERSIST, true)) {
@@ -84,7 +86,7 @@ class RequestOptions
      * Unpacks an options array into an RequestOptions object.
      *
      * @param null|array|RequestOptions|string $options a key => value array
-     * @param bool $strict when true, forbid string form and arbitrary keys in array form
+     * @param bool                             $strict  when true, forbid string form and arbitrary keys in array form
      *
      * @throws \Stripe\Exception\InvalidArgumentException
      *
@@ -103,7 +105,7 @@ class RequestOptions
         if (\is_string($options)) {
             if ($strict) {
                 $message = 'Do not pass a string for request options. If you want to set the '
-                    . 'API key, pass an array like ["api_key" => <apiKey>] instead.';
+                    .'API key, pass an array like ["api_key" => <apiKey>] instead.';
 
                 throw new \Stripe\Exception\InvalidArgumentException($message);
             }
@@ -138,7 +140,7 @@ class RequestOptions
             }
 
             if ($strict && !empty($options)) {
-                $message = 'Got unexpected keys in options array: ' . \implode(', ', \array_keys($options));
+                $message = 'Got unexpected keys in options array: '.\implode(', ', \array_keys($options));
 
                 throw new \Stripe\Exception\InvalidArgumentException($message);
             }
@@ -147,9 +149,9 @@ class RequestOptions
         }
 
         $message = 'The second argument to Stripe API method calls is an '
-           . 'optional per-request apiKey, which must be a string, or '
-           . 'per-request options, which must be an array. (HINT: you can set '
-           . 'a global apiKey by "Stripe::setApiKey(<apiKey>)")';
+           .'optional per-request apiKey, which must be a string, or '
+           .'per-request options, which must be an array. (HINT: you can set '
+           .'a global apiKey by "Stripe::setApiKey(<apiKey>)")';
 
         throw new \Stripe\Exception\InvalidArgumentException($message);
     }
@@ -159,7 +161,7 @@ class RequestOptions
         $pieces = \explode('_', $this->apiKey, 3);
         $last = \array_pop($pieces);
         $redactedLast = \strlen($last) > 4
-            ? (\str_repeat('*', \strlen($last) - 4) . \substr($last, -4))
+            ? (\str_repeat('*', \strlen($last) - 4).\substr($last, -4))
             : $last;
         \array_push($pieces, $redactedLast);
 

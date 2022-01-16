@@ -1,6 +1,8 @@
 <?php
 
-defined('BASEPATH') OR exit('No direct script access allowed');
+declare(strict_types=1);
+
+defined('BASEPATH') or exit('No direct script access allowed');
 
 /*
 |--------------------------------------------------------------------------
@@ -10,7 +12,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 | Set to force the use of HTTPS for REST API calls
 |
 */
-$config['force_https'] = FALSE;
+$config['force_https'] = false;
 
 /*
 |--------------------------------------------------------------------------
@@ -43,7 +45,7 @@ $config['rest_default_format'] = 'json';
 | REST_Controller initialization.
 |
 */
-$config['rest_supported_formats'] = array(
+$config['rest_supported_formats'] = [
     'json',
     'array',
     'csv',
@@ -52,7 +54,7 @@ $config['rest_supported_formats'] = array(
     'php',
     'serialized',
     'xml',
-);
+];
 
 /*
 |--------------------------------------------------------------------------
@@ -82,7 +84,7 @@ $config['rest_message_field_name'] = 'error';
 | Should we enable emulation of the request (e.g. used in Mootools request)
 |
 */
-$config['enable_emulate_request'] = TRUE;
+$config['enable_emulate_request'] = true;
 
 /*
 |--------------------------------------------------------------------------
@@ -110,7 +112,7 @@ $config['rest_realm'] = 'REST API';
 |           authorization key
 |
 */
-$config['rest_auth'] = FALSE;
+$config['rest_auth'] = false;
 
 /*
 |--------------------------------------------------------------------------
@@ -137,7 +139,7 @@ $config['auth_source'] = 'ldap';
 | requests etc), set to TRUE;
 |
 */
-$config['allow_auth_and_keys'] = TRUE;
+$config['allow_auth_and_keys'] = true;
 
 /*
 |--------------------------------------------------------------------------
@@ -183,7 +185,6 @@ $config['auth_library_function'] = '';
 // $config['auth_override_class_method']['accounts']['user'] = 'basic';
 // $config['auth_override_class_method']['dashboard']['*'] = 'basic';
 
-
 // ---Uncomment list line for the wildard unit test
 // $config['auth_override_class_method']['wildcard_test_cases']['*'] = 'basic';
 
@@ -210,7 +211,7 @@ $config['auth_library_function'] = '';
 | Array of usernames and passwords for login, if ldap is configured this is ignored
 |
 */
-$config['rest_valid_logins'] = array('admin' => '1234');
+$config['rest_valid_logins'] = ['admin' => '1234'];
 
 /*
 |--------------------------------------------------------------------------
@@ -227,7 +228,7 @@ $config['rest_valid_logins'] = array('admin' => '1234');
 |    restrict certain methods to IPs in your whitelist
 |
 */
-$config['rest_ip_whitelist_enabled'] = FALSE;
+$config['rest_ip_whitelist_enabled'] = false;
 
 /*
 |--------------------------------------------------------------------------
@@ -255,7 +256,7 @@ $config['rest_ip_whitelist'] = '';
 | 1. Set to TRUE and add any IP address to 'rest_ip_blacklist'
 |
 */
-$config['rest_ip_blacklist_enabled'] = FALSE;
+$config['rest_ip_blacklist_enabled'] = false;
 
 /*
 |--------------------------------------------------------------------------
@@ -313,7 +314,7 @@ $config['rest_keys_table'] = 'api_keys';
 |   ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 |
 */
-$config['rest_enable_keys'] = TRUE;
+$config['rest_enable_keys'] = true;
 
 /*
 |--------------------------------------------------------------------------
@@ -392,7 +393,7 @@ $config['rest_key_name'] = 'X-API-KEY';
 |   ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 |
 */
-$config['rest_enable_logging'] = TRUE;
+$config['rest_enable_logging'] = true;
 
 /*
 |--------------------------------------------------------------------------
@@ -424,7 +425,7 @@ $config['rest_logs_table'] = 'api_logs';
 |    ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 |
 */
-$config['rest_enable_access'] = FALSE;
+$config['rest_enable_access'] = false;
 
 /*
 |--------------------------------------------------------------------------
@@ -446,7 +447,7 @@ $config['rest_access_table'] = 'access';
 | Set to FALSE to log as serialized PHP
 |
 */
-$config['rest_logs_json_params'] = TRUE;
+$config['rest_logs_json_params'] = true;
 
 /*
 |--------------------------------------------------------------------------
@@ -474,7 +475,7 @@ $config['rest_logs_json_params'] = TRUE;
 |
 | See application/controllers/api/example.php for examples
 */
-$config['rest_enable_limits'] = TRUE;
+$config['rest_enable_limits'] = true;
 
 /*
 |--------------------------------------------------------------------------
@@ -496,7 +497,7 @@ $config['rest_limits_table'] = 'api_limits';
 | Only do this if you are using the $this->rest_format or /format/xml in URLs
 |
 */
-$config['rest_ignore_http_accept'] = FALSE;
+$config['rest_ignore_http_accept'] = false;
 
 /*
 |--------------------------------------------------------------------------
@@ -511,7 +512,7 @@ $config['rest_ignore_http_accept'] = FALSE;
 | Hint: This is good for production environments
 |
 */
-$config['rest_ajax_only'] = FALSE;
+$config['rest_ajax_only'] = false;
 
 /*
 |--------------------------------------------------------------------------
@@ -533,7 +534,7 @@ $config['rest_language'] = 'english';
 | will access it through a browser
 |
 */
-$config['check_cors'] = FALSE;
+$config['check_cors'] = false;
 
 /*
 |--------------------------------------------------------------------------
@@ -543,13 +544,13 @@ $config['check_cors'] = FALSE;
 | If using CORS checks, set the allowable headers here
 |
 */
-$config['allowed_cors_headers'] = array(
-  'Origin',
-  'X-Requested-With',
-  'Content-Type',
-  'Accept',
-  'Access-Control-Request-Method'
-);
+$config['allowed_cors_headers'] = [
+    'Origin',
+    'X-Requested-With',
+    'Content-Type',
+    'Accept',
+    'Access-Control-Request-Method',
+];
 
 /*
 |--------------------------------------------------------------------------
@@ -559,14 +560,14 @@ $config['allowed_cors_headers'] = array(
 | If using CORS checks, you can set the methods you want to be allowed
 |
 */
-$config['allowed_cors_methods'] = array(
-  'GET',
-  'POST',
-  'OPTIONS',
-  'PUT',
-  'PATCH',
-  'DELETE'
-);
+$config['allowed_cors_methods'] = [
+    'GET',
+    'POST',
+    'OPTIONS',
+    'PUT',
+    'PATCH',
+    'DELETE',
+];
 
 /*
 |--------------------------------------------------------------------------
@@ -577,7 +578,7 @@ $config['allowed_cors_methods'] = array(
 | source domain
 |
 */
-$config['allow_any_cors_domain'] = FALSE;
+$config['allow_any_cors_domain'] = false;
 
 /*
 |--------------------------------------------------------------------------
@@ -590,4 +591,4 @@ $config['allow_any_cors_domain'] = FALSE;
 | e.g. $config['allowed_origins'] = ['http://www.example.com', 'https://spa.example.com']
 |
 */
-$config['allowed_cors_origins'] = array(); 
+$config['allowed_cors_origins'] = [];

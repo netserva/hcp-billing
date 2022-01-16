@@ -1,8 +1,9 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Mollie\Api\Resources;
 
-use Mollie\Api\Types\OnboardingStatus;
 class Onboarding extends \Mollie\Api\Resources\BaseResource
 {
     /**
@@ -36,25 +37,28 @@ class Onboarding extends \Mollie\Api\Resources\BaseResource
      * @var \stdClass
      */
     public $_links;
+
     /**
      * @return bool
      */
     public function needsData()
     {
-        return $this->status === \Mollie\Api\Types\OnboardingStatus::NEEDS_DATA;
+        return \Mollie\Api\Types\OnboardingStatus::NEEDS_DATA === $this->status;
     }
+
     /**
      * @return bool
      */
     public function isInReview()
     {
-        return $this->status === \Mollie\Api\Types\OnboardingStatus::IN_REVIEW;
+        return \Mollie\Api\Types\OnboardingStatus::IN_REVIEW === $this->status;
     }
+
     /**
      * @return bool
      */
     public function isCompleted()
     {
-        return $this->status === \Mollie\Api\Types\OnboardingStatus::COMPLETED;
+        return \Mollie\Api\Types\OnboardingStatus::COMPLETED === $this->status;
     }
 }

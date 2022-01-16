@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 // File generated from our OpenAPI spec
 
 namespace Stripe\Service;
@@ -11,7 +13,7 @@ class InvoiceService extends \Stripe\Service\AbstractService
      * invoices are returned sorted by creation date, with the most recently created
      * invoices appearing first.
      *
-     * @param null|array $params
+     * @param null|array                             $params
      * @param null|array|\Stripe\Util\RequestOptions $opts
      *
      * @throws \Stripe\Exception\ApiErrorException if the request fails
@@ -29,8 +31,8 @@ class InvoiceService extends \Stripe\Service\AbstractService
      * There is also a URL where you can retrieve the full (paginated) list of line
      * items.
      *
-     * @param string $parentId
-     * @param null|array $params
+     * @param string                                 $parentId
+     * @param null|array                             $params
      * @param null|array|\Stripe\Util\RequestOptions $opts
      *
      * @throws \Stripe\Exception\ApiErrorException if the request fails
@@ -47,7 +49,7 @@ class InvoiceService extends \Stripe\Service\AbstractService
      * created pulls in all pending invoice items on that customer, including
      * prorations.
      *
-     * @param null|array $params
+     * @param null|array                             $params
      * @param null|array|\Stripe\Util\RequestOptions $opts
      *
      * @throws \Stripe\Exception\ApiErrorException if the request fails
@@ -65,8 +67,8 @@ class InvoiceService extends \Stripe\Service\AbstractService
      * has been finalized or if an invoice is for a subscription, it must be <a
      * href="#void_invoice">voided</a>.
      *
-     * @param string $id
-     * @param null|array $params
+     * @param string                                 $id
+     * @param null|array                             $params
      * @param null|array|\Stripe\Util\RequestOptions $opts
      *
      * @throws \Stripe\Exception\ApiErrorException if the request fails
@@ -83,8 +85,8 @@ class InvoiceService extends \Stripe\Service\AbstractService
      * invoices. However, if you’d like to finalize a draft invoice manually, you can
      * do so using this method.
      *
-     * @param string $id
-     * @param null|array $params
+     * @param string                                 $id
+     * @param null|array                             $params
      * @param null|array|\Stripe\Util\RequestOptions $opts
      *
      * @throws \Stripe\Exception\ApiErrorException if the request fails
@@ -100,8 +102,8 @@ class InvoiceService extends \Stripe\Service\AbstractService
      * Marking an invoice as uncollectible is useful for keeping track of bad debts
      * that can be written off for accounting purposes.
      *
-     * @param string $id
-     * @param null|array $params
+     * @param string                                 $id
+     * @param null|array                             $params
      * @param null|array|\Stripe\Util\RequestOptions $opts
      *
      * @throws \Stripe\Exception\ApiErrorException if the request fails
@@ -120,8 +122,8 @@ class InvoiceService extends \Stripe\Service\AbstractService
      * settings</a>. However, if you’d like to attempt payment on an invoice out of the
      * normal collection schedule or for some other reason, you can do so.
      *
-     * @param string $id
-     * @param null|array $params
+     * @param string                                 $id
+     * @param null|array                             $params
      * @param null|array|\Stripe\Util\RequestOptions $opts
      *
      * @throws \Stripe\Exception\ApiErrorException if the request fails
@@ -136,8 +138,8 @@ class InvoiceService extends \Stripe\Service\AbstractService
     /**
      * Retrieves the invoice with the given ID.
      *
-     * @param string $id
-     * @param null|array $params
+     * @param string                                 $id
+     * @param null|array                             $params
      * @param null|array|\Stripe\Util\RequestOptions $opts
      *
      * @throws \Stripe\Exception\ApiErrorException if the request fails
@@ -159,8 +161,8 @@ class InvoiceService extends \Stripe\Service\AbstractService
      * Requests made in test-mode result in no emails being sent, despite sending an
      * <code>invoice.sent</code> event.
      *
-     * @param string $id
-     * @param null|array $params
+     * @param string                                 $id
+     * @param null|array                             $params
      * @param null|array|\Stripe\Util\RequestOptions $opts
      *
      * @throws \Stripe\Exception\ApiErrorException if the request fails
@@ -195,7 +197,7 @@ class InvoiceService extends \Stripe\Service\AbstractService
      * consider only proration line items where <code>period[start]</code> is equal to
      * the <code>subscription_proration_date</code> on the upcoming invoice resource.
      *
-     * @param null|array $params
+     * @param null|array                             $params
      * @param null|array|\Stripe\Util\RequestOptions $opts
      *
      * @throws \Stripe\Exception\ApiErrorException if the request fails
@@ -213,7 +215,7 @@ class InvoiceService extends \Stripe\Service\AbstractService
      * items. There is also a URL where you can retrieve the full (paginated) list of
      * line items.
      *
-     * @param null|array $params
+     * @param null|array                             $params
      * @param null|array|\Stripe\Util\RequestOptions $opts
      *
      * @throws \Stripe\Exception\ApiErrorException if the request fails
@@ -235,8 +237,8 @@ class InvoiceService extends \Stripe\Service\AbstractService
      * href="/docs/billing/invoices/reconciliation">automatically reconciling</a>
      * invoices, pass <code>auto_advance=false</code>.
      *
-     * @param string $id
-     * @param null|array $params
+     * @param string                                 $id
+     * @param null|array                             $params
      * @param null|array|\Stripe\Util\RequestOptions $opts
      *
      * @throws \Stripe\Exception\ApiErrorException if the request fails
@@ -254,8 +256,8 @@ class InvoiceService extends \Stripe\Service\AbstractService
      * finalized invoices and maintains a papertrail where the invoice can still be
      * found.
      *
-     * @param string $id
-     * @param null|array $params
+     * @param string                                 $id
+     * @param null|array                             $params
      * @param null|array|\Stripe\Util\RequestOptions $opts
      *
      * @throws \Stripe\Exception\ApiErrorException if the request fails

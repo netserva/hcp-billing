@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 // File generated from our OpenAPI spec
 
 namespace Stripe\Service;
@@ -10,7 +12,7 @@ class ProductService extends \Stripe\Service\AbstractService
      * Returns a list of your products. The products are returned sorted by creation
      * date, with the most recently created products appearing first.
      *
-     * @param null|array $params
+     * @param null|array                             $params
      * @param null|array|\Stripe\Util\RequestOptions $opts
      *
      * @throws \Stripe\Exception\ApiErrorException if the request fails
@@ -25,7 +27,7 @@ class ProductService extends \Stripe\Service\AbstractService
     /**
      * Creates a new product object.
      *
-     * @param null|array $params
+     * @param null|array                             $params
      * @param null|array|\Stripe\Util\RequestOptions $opts
      *
      * @throws \Stripe\Exception\ApiErrorException if the request fails
@@ -42,8 +44,8 @@ class ProductService extends \Stripe\Service\AbstractService
      * associated with it. Additionally, deleting a product with <code>type=good</code>
      * is only possible if it has no SKUs associated with it.
      *
-     * @param string $id
-     * @param null|array $params
+     * @param string                                 $id
+     * @param null|array                             $params
      * @param null|array|\Stripe\Util\RequestOptions $opts
      *
      * @throws \Stripe\Exception\ApiErrorException if the request fails
@@ -60,8 +62,8 @@ class ProductService extends \Stripe\Service\AbstractService
      * either a product creation request or the product list, and Stripe will return
      * the corresponding product information.
      *
-     * @param string $id
-     * @param null|array $params
+     * @param string                                 $id
+     * @param null|array                             $params
      * @param null|array|\Stripe\Util\RequestOptions $opts
      *
      * @throws \Stripe\Exception\ApiErrorException if the request fails
@@ -77,8 +79,8 @@ class ProductService extends \Stripe\Service\AbstractService
      * Updates the specific product by setting the values of the parameters passed. Any
      * parameters not provided will be left unchanged.
      *
-     * @param string $id
-     * @param null|array $params
+     * @param string                                 $id
+     * @param null|array                             $params
      * @param null|array|\Stripe\Util\RequestOptions $opts
      *
      * @throws \Stripe\Exception\ApiErrorException if the request fails

@@ -1,6 +1,8 @@
 <?php
+
+declare(strict_types=1);
 /**
- * PHPExcel
+ * PHPExcel.
  *
  * Copyright (c) 2006 - 2014 PHPExcel
  *
@@ -19,202 +21,227 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  *
  * @category   PHPExcel
- * @package    PHPExcel_Worksheet
+ *
  * @copyright  Copyright (c) 2006 - 2014 PHPExcel (http://www.codeplex.com/PHPExcel)
  * @license    http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt	LGPL
+ *
  * @version    ##VERSION##, ##DATE##
  */
 
-
 /**
- * PHPExcel_Worksheet_PageMargins
+ * PHPExcel_Worksheet_PageMargins.
  *
  * @category   PHPExcel
- * @package    PHPExcel_Worksheet
+ *
  * @copyright  Copyright (c) 2006 - 2014 PHPExcel (http://www.codeplex.com/PHPExcel)
  */
 class PHPExcel_Worksheet_PageMargins
 {
-	/**
-	 * Left
-	 *
-	 * @var double
-	 */
-	private $_left		= 0.7;
-
-	/**
-	 * Right
-	 *
-	 * @var double
-	 */
-	private $_right		= 0.7;
-
-	/**
-	 * Top
-	 *
-	 * @var double
-	 */
-	private $_top		= 0.75;
-
-	/**
-	 * Bottom
-	 *
-	 * @var double
-	 */
-	private $_bottom	= 0.75;
-
-	/**
-	 * Header
-	 *
-	 * @var double
-	 */
-	private $_header 	= 0.3;
-
-	/**
-	 * Footer
-	 *
-	 * @var double
-	 */
-	private $_footer 	= 0.3;
+    /**
+     * Left.
+     *
+     * @var float
+     */
+    private $_left = 0.7;
 
     /**
-     * Create a new PHPExcel_Worksheet_PageMargins
+     * Right.
+     *
+     * @var float
+     */
+    private $_right = 0.7;
+
+    /**
+     * Top.
+     *
+     * @var float
+     */
+    private $_top = 0.75;
+
+    /**
+     * Bottom.
+     *
+     * @var float
+     */
+    private $_bottom = 0.75;
+
+    /**
+     * Header.
+     *
+     * @var float
+     */
+    private $_header = 0.3;
+
+    /**
+     * Footer.
+     *
+     * @var float
+     */
+    private $_footer = 0.3;
+
+    /**
+     * Create a new PHPExcel_Worksheet_PageMargins.
      */
     public function __construct()
     {
     }
 
     /**
-     * Get Left
-     *
-     * @return double
+     * Implement PHP __clone to create a deep clone, not just a shallow copy.
      */
-    public function getLeft() {
-    	return $this->_left;
+    public function __clone()
+    {
+        $vars = get_object_vars($this);
+        foreach ($vars as $key => $value) {
+            if (is_object($value)) {
+                $this->{$key} = clone $value;
+            } else {
+                $this->{$key} = $value;
+            }
+        }
     }
 
     /**
-     * Set Left
+     * Get Left.
      *
-     * @param double $pValue
+     * @return float
+     */
+    public function getLeft()
+    {
+        return $this->_left;
+    }
+
+    /**
+     * Set Left.
+     *
+     * @param float $pValue
+     *
      * @return PHPExcel_Worksheet_PageMargins
      */
-    public function setLeft($pValue) {
-    	$this->_left = $pValue;
-    	return $this;
+    public function setLeft($pValue)
+    {
+        $this->_left = $pValue;
+
+        return $this;
     }
 
     /**
-     * Get Right
+     * Get Right.
      *
-     * @return double
+     * @return float
      */
-    public function getRight() {
-    	return $this->_right;
+    public function getRight()
+    {
+        return $this->_right;
     }
 
     /**
-     * Set Right
+     * Set Right.
      *
-     * @param double $pValue
+     * @param float $pValue
+     *
      * @return PHPExcel_Worksheet_PageMargins
      */
-    public function setRight($pValue) {
-    	$this->_right = $pValue;
-    	return $this;
+    public function setRight($pValue)
+    {
+        $this->_right = $pValue;
+
+        return $this;
     }
 
     /**
-     * Get Top
+     * Get Top.
      *
-     * @return double
+     * @return float
      */
-    public function getTop() {
-    	return $this->_top;
+    public function getTop()
+    {
+        return $this->_top;
     }
 
     /**
-     * Set Top
+     * Set Top.
      *
-     * @param double $pValue
+     * @param float $pValue
+     *
      * @return PHPExcel_Worksheet_PageMargins
      */
-    public function setTop($pValue) {
-    	$this->_top = $pValue;
-    	return $this;
+    public function setTop($pValue)
+    {
+        $this->_top = $pValue;
+
+        return $this;
     }
 
     /**
-     * Get Bottom
+     * Get Bottom.
      *
-     * @return double
+     * @return float
      */
-    public function getBottom() {
-    	return $this->_bottom;
+    public function getBottom()
+    {
+        return $this->_bottom;
     }
 
     /**
-     * Set Bottom
+     * Set Bottom.
      *
-     * @param double $pValue
+     * @param float $pValue
+     *
      * @return PHPExcel_Worksheet_PageMargins
      */
-    public function setBottom($pValue) {
-    	$this->_bottom = $pValue;
-    	return $this;
+    public function setBottom($pValue)
+    {
+        $this->_bottom = $pValue;
+
+        return $this;
     }
 
     /**
-     * Get Header
+     * Get Header.
      *
-     * @return double
+     * @return float
      */
-    public function getHeader() {
-    	return $this->_header;
+    public function getHeader()
+    {
+        return $this->_header;
     }
 
     /**
-     * Set Header
+     * Set Header.
      *
-     * @param double $pValue
+     * @param float $pValue
+     *
      * @return PHPExcel_Worksheet_PageMargins
      */
-    public function setHeader($pValue) {
-    	$this->_header = $pValue;
-    	return $this;
+    public function setHeader($pValue)
+    {
+        $this->_header = $pValue;
+
+        return $this;
     }
 
     /**
-     * Get Footer
+     * Get Footer.
      *
-     * @return double
+     * @return float
      */
-    public function getFooter() {
-    	return $this->_footer;
+    public function getFooter()
+    {
+        return $this->_footer;
     }
 
     /**
-     * Set Footer
+     * Set Footer.
      *
-     * @param double $pValue
+     * @param float $pValue
+     *
      * @return PHPExcel_Worksheet_PageMargins
      */
-    public function setFooter($pValue) {
-    	$this->_footer = $pValue;
-    	return $this;
-    }
+    public function setFooter($pValue)
+    {
+        $this->_footer = $pValue;
 
-	/**
-	 * Implement PHP __clone to create a deep clone, not just a shallow copy.
-	 */
-	public function __clone() {
-		$vars = get_object_vars($this);
-		foreach ($vars as $key => $value) {
-			if (is_object($value)) {
-				$this->$key = clone $value;
-			} else {
-				$this->$key = $value;
-			}
-		}
-	}
+        return $this;
+    }
 }

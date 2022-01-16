@@ -1,12 +1,13 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Yabacon\Paystack\Routes;
 
 use Yabacon\Paystack\Contracts\RouteInterface;
 
 class Transfer implements RouteInterface
 {
-
     public static function root()
     {
         return '/transfer';
@@ -31,7 +32,7 @@ class Transfer implements RouteInterface
     {
         return [
             RouteInterface::METHOD_KEY => RouteInterface::POST_METHOD,
-            RouteInterface::ENDPOINT_KEY => Transfer::root() . '/finalize_transfer',
+            RouteInterface::ENDPOINT_KEY => Transfer::root().'/finalize_transfer',
             RouteInterface::PARAMS_KEY => [
                 'reference',
                 'transfer_code',
@@ -44,7 +45,7 @@ class Transfer implements RouteInterface
     {
         return [
             RouteInterface::METHOD_KEY => RouteInterface::POST_METHOD,
-            RouteInterface::ENDPOINT_KEY => Transfer::root() . '/resend_otp',
+            RouteInterface::ENDPOINT_KEY => Transfer::root().'/resend_otp',
             RouteInterface::PARAMS_KEY => [
                 'transfer_code',
                 'reason',
@@ -56,7 +57,7 @@ class Transfer implements RouteInterface
     {
         return [
             RouteInterface::METHOD_KEY => RouteInterface::POST_METHOD,
-            RouteInterface::ENDPOINT_KEY => Transfer::root() . '/disable_otp',
+            RouteInterface::ENDPOINT_KEY => Transfer::root().'/disable_otp',
         ];
     }
 
@@ -64,7 +65,7 @@ class Transfer implements RouteInterface
     {
         return [
             RouteInterface::METHOD_KEY => RouteInterface::POST_METHOD,
-            RouteInterface::ENDPOINT_KEY => Transfer::root() . '/enable_otp',
+            RouteInterface::ENDPOINT_KEY => Transfer::root().'/enable_otp',
         ];
     }
 
@@ -72,7 +73,7 @@ class Transfer implements RouteInterface
     {
         return [
             RouteInterface::METHOD_KEY => RouteInterface::POST_METHOD,
-            RouteInterface::ENDPOINT_KEY => Transfer::root() . '/disable_otp_finalize',
+            RouteInterface::ENDPOINT_KEY => Transfer::root().'/disable_otp_finalize',
             RouteInterface::PARAMS_KEY => ['otp'],
         ];
     }
@@ -81,7 +82,7 @@ class Transfer implements RouteInterface
     {
         return [
             RouteInterface::METHOD_KEY => RouteInterface::GET_METHOD,
-            RouteInterface::ENDPOINT_KEY => Transfer::root() . '/{id}',
+            RouteInterface::ENDPOINT_KEY => Transfer::root().'/{id}',
             RouteInterface::ARGS_KEY => ['id'],
         ];
     }

@@ -3,31 +3,30 @@
          </div>
               <div class="box-body">
 
-              <?php if($this->session->flashdata('message')): ?>
+              <?php if ($this->session->flashdata('message')) { ?>
                     <div class="alert alert-info alert-dismissible">
                         <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-                            <?php echo $this->session->flashdata('message') ?>
+                            <?php echo $this->session->flashdata('message'); ?>
                     </div>
-                <?php endif ?>
+                <?php } ?>
 
                 <div class="table-responsive" id="registrars">
                     <div class="row">
                         <div class="col-md-12">
                             <table id="table-templates-2" class="table table-striped b-t b-light text-sm AppendDataTables dataTable no-footer">
                                 <thead>
-                                    <th><?=lang('registrar')?></th>
-                                    <th><?=lang('options')?></th>
+                                    <th><?php echo lang('registrar'); ?></th>
+                                    <th><?php echo lang('options'); ?></th>
                                 </thead>
                                 <tbody>
                                     <?php
-                                    
+
                                     $registrars = Plugin::domain_registrars();
-                                    foreach ($registrars as $registrar)
-                                    {?> 
+                                    foreach ($registrars as $registrar) {?> 
                                     <tr>
-                                        <td><?=ucfirst($registrar->system_name);?></td>
+                                        <td><?php echo ucfirst($registrar->system_name); ?></td>
                                         <td>
-                                        <?= modules::run($registrar->system_name.'/admin_options', $registrar->system_name)?> 
+                                        <?php echo modules::run($registrar->system_name.'/admin_options', $registrar->system_name); ?> 
                                         </td>
                                     <?php } ?>
                                 </tbody>

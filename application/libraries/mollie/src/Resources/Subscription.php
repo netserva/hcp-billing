@@ -1,9 +1,9 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Mollie\Api\Resources;
 
-use Mollie\Api\MollieApiClient;
-use Mollie\Api\Types\SubscriptionStatus;
 class Subscription extends \Mollie\Api\Resources\BaseResource
 {
     /**
@@ -39,7 +39,7 @@ class Subscription extends \Mollie\Api\Resources\BaseResource
      */
     public $amount;
     /**
-     * @var int|null
+     * @var null|int
      */
     public $times;
     /**
@@ -51,52 +51,56 @@ class Subscription extends \Mollie\Api\Resources\BaseResource
      */
     public $description;
     /**
-     * @var string|null
+     * @var null|string
      */
     public $method;
     /**
-     * @var string|null
+     * @var null|string
      */
     public $mandateId;
     /**
-     * @var array|null
+     * @var null|array
      */
     public $metadata;
     /**
      * UTC datetime the subscription canceled in ISO-8601 format.
      *
-     * @var string|null
+     * @var null|string
      */
     public $canceledAt;
     /**
-     * Date the subscription started. For example: 2018-04-24
+     * Date the subscription started. For example: 2018-04-24.
      *
-     * @var string|null
+     * @var null|string
      */
     public $startDate;
     /**
      * Contains an optional 'webhookUrl'.
      *
-     * @var \stdClass|null
+     * @var null|\stdClass
      */
     public $webhookUrl;
     /**
      * @var \stdClass
      */
     public $_links;
+
     /**
-     * @return BaseResource|Subscription
      * @throws \Mollie\Api\Exceptions\ApiException
+     *
+     * @return BaseResource|Subscription
      */
     public function update()
     {
         if (!isset($this->_links->self->href)) {
             return $this;
         }
-        $body = \json_encode(["amount" => $this->amount, "times" => $this->times, "startDate" => $this->startDate, "webhookUrl" => $this->webhookUrl, "description" => $this->description, "mandateId" => $this->mandateId, "metadata" => $this->metadata, "interval" => $this->interval]);
+        $body = \json_encode(['amount' => $this->amount, 'times' => $this->times, 'startDate' => $this->startDate, 'webhookUrl' => $this->webhookUrl, 'description' => $this->description, 'mandateId' => $this->mandateId, 'metadata' => $this->metadata, 'interval' => $this->interval]);
         $result = $this->client->performHttpCallToFullUrl(\Mollie\Api\MollieApiClient::HTTP_PATCH, $this->_links->self->href, $body);
+
         return \Mollie\Api\Resources\ResourceFactory::createFromApiResult($result, new \Mollie\Api\Resources\Subscription($this->client));
     }
+
     /**
      * Returns whether the Subscription is active or not.
      *
@@ -104,8 +108,9 @@ class Subscription extends \Mollie\Api\Resources\BaseResource
      */
     public function isActive()
     {
-        return $this->status === \Mollie\Api\Types\SubscriptionStatus::STATUS_ACTIVE;
+        return \Mollie\Api\Types\SubscriptionStatus::STATUS_ACTIVE === $this->status;
     }
+
     /**
      * Returns whether the Subscription is pending or not.
      *
@@ -113,8 +118,9 @@ class Subscription extends \Mollie\Api\Resources\BaseResource
      */
     public function isPending()
     {
-        return $this->status === \Mollie\Api\Types\SubscriptionStatus::STATUS_PENDING;
+        return \Mollie\Api\Types\SubscriptionStatus::STATUS_PENDING === $this->status;
     }
+
     /**
      * Returns whether the Subscription is canceled or not.
      *
@@ -122,8 +128,9 @@ class Subscription extends \Mollie\Api\Resources\BaseResource
      */
     public function isCanceled()
     {
-        return $this->status === \Mollie\Api\Types\SubscriptionStatus::STATUS_CANCELED;
+        return \Mollie\Api\Types\SubscriptionStatus::STATUS_CANCELED === $this->status;
     }
+
     /**
      * Returns whether the Subscription is suspended or not.
      *
@@ -131,8 +138,9 @@ class Subscription extends \Mollie\Api\Resources\BaseResource
      */
     public function isSuspended()
     {
-        return $this->status === \Mollie\Api\Types\SubscriptionStatus::STATUS_SUSPENDED;
+        return \Mollie\Api\Types\SubscriptionStatus::STATUS_SUSPENDED === $this->status;
     }
+
     /**
      * Returns whether the Subscription is completed or not.
      *
@@ -140,10 +148,11 @@ class Subscription extends \Mollie\Api\Resources\BaseResource
      */
     public function isCompleted()
     {
-        return $this->status === \Mollie\Api\Types\SubscriptionStatus::STATUS_COMPLETED;
+        return \Mollie\Api\Types\SubscriptionStatus::STATUS_COMPLETED === $this->status;
     }
+
     /**
-     * Cancels this subscription
+     * Cancels this subscription.
      *
      * @return Subscription
      */
@@ -154,17 +163,20 @@ class Subscription extends \Mollie\Api\Resources\BaseResource
         }
         $body = null;
         if ($this->client->usesOAuth()) {
-            $body = \json_encode(["testmode" => $this->mode === "test" ? \true : \false]);
+            $body = \json_encode(['testmode' => 'test' === $this->mode ? \true : \false]);
         }
         $result = $this->client->performHttpCallToFullUrl(\Mollie\Api\MollieApiClient::HTTP_DELETE, $this->_links->self->href, $body);
+
         return \Mollie\Api\Resources\ResourceFactory::createFromApiResult($result, new \Mollie\Api\Resources\Subscription($this->client));
     }
+
     public function payments()
     {
         if (!isset($this->_links->payments->href)) {
             return new \Mollie\Api\Resources\PaymentCollection($this->client, 0, null);
         }
         $result = $this->client->performHttpCallToFullUrl(\Mollie\Api\MollieApiClient::HTTP_GET, $this->_links->payments->href);
+
         return \Mollie\Api\Resources\ResourceFactory::createCursorResourceCollection($this->client, $result->_embedded->payments, \Mollie\Api\Resources\Payment::class, $result->_links);
     }
 }

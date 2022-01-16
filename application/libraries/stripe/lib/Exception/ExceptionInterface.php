@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Stripe\Exception;
 
 // TODO: remove this check once we drop support for PHP 5

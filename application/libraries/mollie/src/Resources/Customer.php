@@ -1,8 +1,9 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Mollie\Api\Resources;
 
-use Mollie\Api\MollieApiClient;
 class Customer extends \Mollie\Api\Resources\BaseResource
 {
     /**
@@ -30,15 +31,15 @@ class Customer extends \Mollie\Api\Resources\BaseResource
      */
     public $email;
     /**
-     * @var string|null
+     * @var null|string
      */
     public $locale;
     /**
-     * @var \stdClass|mixed|null
+     * @var null|mixed|\stdClass
      */
     public $metadata;
     /**
-     * @var string[]|array
+     * @var array|string[]
      */
     public $recentlyUsedMethods;
     /**
@@ -49,6 +50,7 @@ class Customer extends \Mollie\Api\Resources\BaseResource
      * @var \stdClass
      */
     public $_links;
+
     /**
      * @return Customer
      */
@@ -57,22 +59,22 @@ class Customer extends \Mollie\Api\Resources\BaseResource
         if (!isset($this->_links->self->href)) {
             return $this;
         }
-        $body = \json_encode(array("name" => $this->name, "email" => $this->email, "locale" => $this->locale, "metadata" => $this->metadata));
+        $body = \json_encode(['name' => $this->name, 'email' => $this->email, 'locale' => $this->locale, 'metadata' => $this->metadata]);
         $result = $this->client->performHttpCallToFullUrl(\Mollie\Api\MollieApiClient::HTTP_PATCH, $this->_links->self->href, $body);
+
         return \Mollie\Api\Resources\ResourceFactory::createFromApiResult($result, new \Mollie\Api\Resources\Customer($this->client));
     }
+
     /**
-     * @param array $options
-     * @param array $filters
-     *
      * @return Payment
      */
     public function createPayment(array $options = [], array $filters = [])
     {
         return $this->client->customerPayments->createFor($this, $this->withPresetOptions($options), $filters);
     }
+
     /**
-     * Get all payments for this customer
+     * Get all payments for this customer.
      *
      * @return PaymentCollection
      */
@@ -80,19 +82,17 @@ class Customer extends \Mollie\Api\Resources\BaseResource
     {
         return $this->client->customerPayments->listFor($this, null, null, $this->getPresetOptions());
     }
+
     /**
-     * @param array $options
-     * @param array $filters
-     *
      * @return Subscription
      */
     public function createSubscription(array $options = [], array $filters = [])
     {
         return $this->client->subscriptions->createFor($this, $this->withPresetOptions($options), $filters);
     }
+
     /**
      * @param string $subscriptionId
-     * @param array $parameters
      *
      * @return Subscription
      */
@@ -100,17 +100,17 @@ class Customer extends \Mollie\Api\Resources\BaseResource
     {
         return $this->client->subscriptions->getFor($this, $subscriptionId, $this->withPresetOptions($parameters));
     }
+
     /**
      * @param string $subscriptionId
-     *
-     * @return null
      */
     public function cancelSubscription($subscriptionId)
     {
         return $this->client->subscriptions->cancelFor($this, $subscriptionId, $this->getPresetOptions());
     }
+
     /**
-     * Get all subscriptions for this customer
+     * Get all subscriptions for this customer.
      *
      * @return SubscriptionCollection
      */
@@ -118,19 +118,17 @@ class Customer extends \Mollie\Api\Resources\BaseResource
     {
         return $this->client->subscriptions->listFor($this, null, null, $this->getPresetOptions());
     }
+
     /**
-     * @param array $options
-     * @param array $filters
-     *
      * @return Mandate
      */
     public function createMandate(array $options = [], array $filters = [])
     {
         return $this->client->mandates->createFor($this, $this->withPresetOptions($options), $filters);
     }
+
     /**
      * @param string $mandateId
-     * @param array $parameters
      *
      * @return Mandate
      */
@@ -138,17 +136,17 @@ class Customer extends \Mollie\Api\Resources\BaseResource
     {
         return $this->client->mandates->getFor($this, $mandateId, $parameters);
     }
+
     /**
      * @param string $mandateId
-     *
-     * @return null
      */
     public function revokeMandate($mandateId)
     {
         return $this->client->mandates->revokeFor($this, $mandateId, $this->getPresetOptions());
     }
+
     /**
-     * Get all mandates for this customer
+     * Get all mandates for this customer.
      *
      * @return MandateCollection
      */
@@ -156,8 +154,9 @@ class Customer extends \Mollie\Api\Resources\BaseResource
     {
         return $this->client->mandates->listFor($this, null, null, $this->getPresetOptions());
     }
+
     /**
-     * Helper function to check for mandate with status valid
+     * Helper function to check for mandate with status valid.
      *
      * @return bool
      */
@@ -169,10 +168,14 @@ class Customer extends \Mollie\Api\Resources\BaseResource
                 return \true;
             }
         }
+
         return \false;
     }
+
     /**
-     * Helper function to check for specific payment method mandate with status valid
+     * Helper function to check for specific payment method mandate with status valid.
+     *
+     * @param mixed $method
      *
      * @return bool
      */
@@ -184,10 +187,12 @@ class Customer extends \Mollie\Api\Resources\BaseResource
                 return \true;
             }
         }
+
         return \false;
     }
+
     /**
-     * When accessed by oAuth we want to pass the testmode by default
+     * When accessed by oAuth we want to pass the testmode by default.
      *
      * @return array
      */
@@ -195,14 +200,15 @@ class Customer extends \Mollie\Api\Resources\BaseResource
     {
         $options = [];
         if ($this->client->usesOAuth()) {
-            $options["testmode"] = $this->mode === "test" ? \true : \false;
+            $options['testmode'] = 'test' === $this->mode ? \true : \false;
         }
+
         return $options;
     }
+
     /**
      * Apply the preset options.
      *
-     * @param array $options
      * @return array
      */
     private function withPresetOptions(array $options)

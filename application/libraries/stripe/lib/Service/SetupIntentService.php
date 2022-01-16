@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 // File generated from our OpenAPI spec
 
 namespace Stripe\Service;
@@ -9,7 +11,7 @@ class SetupIntentService extends \Stripe\Service\AbstractService
     /**
      * Returns a list of SetupIntents.
      *
-     * @param null|array $params
+     * @param null|array                             $params
      * @param null|array|\Stripe\Util\RequestOptions $opts
      *
      * @throws \Stripe\Exception\ApiErrorException if the request fails
@@ -29,8 +31,8 @@ class SetupIntentService extends \Stripe\Service\AbstractService
      * Once canceled, setup is abandoned and any operations on the SetupIntent will
      * fail with an error.
      *
-     * @param string $id
-     * @param null|array $params
+     * @param string                                 $id
+     * @param null|array                             $params
      * @param null|array|\Stripe\Util\RequestOptions $opts
      *
      * @throws \Stripe\Exception\ApiErrorException if the request fails
@@ -54,8 +56,8 @@ class SetupIntentService extends \Stripe\Service\AbstractService
      * suggest additional actions via <code>next_action</code>. If setup fails, the
      * SetupIntent will transition to the <code>requires_payment_method</code> status.
      *
-     * @param string $id
-     * @param null|array $params
+     * @param string                                 $id
+     * @param null|array                             $params
      * @param null|array|\Stripe\Util\RequestOptions $opts
      *
      * @throws \Stripe\Exception\ApiErrorException if the request fails
@@ -74,7 +76,7 @@ class SetupIntentService extends \Stripe\Service\AbstractService
      * href="/docs/api/setup_intents/confirm">confirm</a> to collect any required
      * permissions to charge the payment method later.
      *
-     * @param null|array $params
+     * @param null|array                             $params
      * @param null|array|\Stripe\Util\RequestOptions $opts
      *
      * @throws \Stripe\Exception\ApiErrorException if the request fails
@@ -96,8 +98,8 @@ class SetupIntentService extends \Stripe\Service\AbstractService
      * returned. Please refer to the <a href="#setup_intent_object">SetupIntent</a>
      * object reference for more details.
      *
-     * @param string $id
-     * @param null|array $params
+     * @param string                                 $id
+     * @param null|array                             $params
      * @param null|array|\Stripe\Util\RequestOptions $opts
      *
      * @throws \Stripe\Exception\ApiErrorException if the request fails
@@ -112,8 +114,8 @@ class SetupIntentService extends \Stripe\Service\AbstractService
     /**
      * Updates a SetupIntent object.
      *
-     * @param string $id
-     * @param null|array $params
+     * @param string                                 $id
+     * @param null|array                             $params
      * @param null|array|\Stripe\Util\RequestOptions $opts
      *
      * @throws \Stripe\Exception\ApiErrorException if the request fails

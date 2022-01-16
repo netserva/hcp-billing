@@ -1,13 +1,15 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Stripe\Util;
 
 class AutoPagingIterator implements \Iterator
 {
-    private $lastId = null;
-    private $page = null;
+    private $lastId;
+    private $page;
     private $pageOffset = 0;
-    private $params = array();
+    private $params = [];
 
     public function __construct($collection, $params)
     {
@@ -15,7 +17,7 @@ class AutoPagingIterator implements \Iterator
         $this->params = $params;
     }
 
-    public function rewind()
+    public function rewind(): void
     {
         // Actually rewinding would require making a copy of the original page.
     }
@@ -23,7 +25,7 @@ class AutoPagingIterator implements \Iterator
     public function current()
     {
         $item = current($this->page->data);
-        $this->lastId = $item !== false ? $item['id'] : null;
+        $this->lastId = false !== $item ? $item['id'] : null;
 
         return $item;
     }
@@ -36,14 +38,14 @@ class AutoPagingIterator implements \Iterator
     public function next()
     {
         $item = next($this->page->data);
-        if ($item === false) {
+        if (false === $item) {
             // If we've run out of data on the current page, try to fetch another one
             // and increase the offset the new page would start at
             $this->pageOffset += count($this->page->data);
             if ($this->page['has_more']) {
                 $this->params = array_merge(
-                    $this->params ? $this->params : array(),
-                    array('starting_after' => $this->lastId)
+                    $this->params ? $this->params : [],
+                    ['starting_after' => $this->lastId]
                 );
                 $this->page = $this->page->all($this->params);
             } else {
@@ -55,7 +57,7 @@ class AutoPagingIterator implements \Iterator
     public function valid()
     {
         $key = key($this->page->data);
-        $valid = ($key !== null && $key !== false);
-        return $valid;
+
+        return (null !== $key && false !== $key);
     }
 }

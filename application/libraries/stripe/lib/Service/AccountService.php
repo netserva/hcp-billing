@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 // File generated from our OpenAPI spec
 
 namespace Stripe\Service;
@@ -10,7 +12,7 @@ class AccountService extends \Stripe\Service\AbstractService
      * Returns a list of accounts connected to your platform via <a
      * href="/docs/connect">Connect</a>. If you’re not a platform, the list is empty.
      *
-     * @param null|array $params
+     * @param null|array                             $params
      * @param null|array|\Stripe\Util\RequestOptions $opts
      *
      * @throws \Stripe\Exception\ApiErrorException if the request fails
@@ -27,8 +29,8 @@ class AccountService extends \Stripe\Service\AbstractService
      * returned sorted by creation date, with the most recent capability appearing
      * first.
      *
-     * @param string $parentId
-     * @param null|array $params
+     * @param string                                 $parentId
+     * @param null|array                             $params
      * @param null|array|\Stripe\Util\RequestOptions $opts
      *
      * @throws \Stripe\Exception\ApiErrorException if the request fails
@@ -43,8 +45,8 @@ class AccountService extends \Stripe\Service\AbstractService
     /**
      * List external accounts for an account.
      *
-     * @param string $parentId
-     * @param null|array $params
+     * @param string                                 $parentId
+     * @param null|array                             $params
      * @param null|array|\Stripe\Util\RequestOptions $opts
      *
      * @throws \Stripe\Exception\ApiErrorException if the request fails
@@ -61,8 +63,8 @@ class AccountService extends \Stripe\Service\AbstractService
      * are returned sorted by creation date, with the most recent people appearing
      * first.
      *
-     * @param string $parentId
-     * @param null|array $params
+     * @param string                                 $parentId
+     * @param null|array                             $params
      * @param null|array|\Stripe\Util\RequestOptions $opts
      *
      * @throws \Stripe\Exception\ApiErrorException if the request fails
@@ -80,7 +82,7 @@ class AccountService extends \Stripe\Service\AbstractService
      * href="https://dashboard.stripe.com/account/applications/settings">register your
      * platform</a>.
      *
-     * @param null|array $params
+     * @param null|array                             $params
      * @param null|array|\Stripe\Util\RequestOptions $opts
      *
      * @throws \Stripe\Exception\ApiErrorException if the request fails
@@ -95,8 +97,8 @@ class AccountService extends \Stripe\Service\AbstractService
     /**
      * Create an external account for a given account.
      *
-     * @param string $parentId
-     * @param null|array $params
+     * @param string                                 $parentId
+     * @param null|array                             $params
      * @param null|array|\Stripe\Util\RequestOptions $opts
      *
      * @throws \Stripe\Exception\ApiErrorException if the request fails
@@ -116,8 +118,8 @@ class AccountService extends \Stripe\Service\AbstractService
      * href="/docs/connect/express-accounts">Express accounts</a> connected to your
      * platform</strong>.
      *
-     * @param string $parentId
-     * @param null|array $params
+     * @param string                                 $parentId
+     * @param null|array                             $params
      * @param null|array|\Stripe\Util\RequestOptions $opts
      *
      * @throws \Stripe\Exception\ApiErrorException if the request fails
@@ -132,8 +134,8 @@ class AccountService extends \Stripe\Service\AbstractService
     /**
      * Creates a new person.
      *
-     * @param string $parentId
-     * @param null|array $params
+     * @param string                                 $parentId
+     * @param null|array                             $params
      * @param null|array|\Stripe\Util\RequestOptions $opts
      *
      * @throws \Stripe\Exception\ApiErrorException if the request fails
@@ -156,8 +158,8 @@ class AccountService extends \Stripe\Service\AbstractService
      * href="https://dashboard.stripe.com/account">account information tab in your
      * account settings</a> instead.
      *
-     * @param string $id
-     * @param null|array $params
+     * @param string                                 $id
+     * @param null|array                             $params
      * @param null|array|\Stripe\Util\RequestOptions $opts
      *
      * @throws \Stripe\Exception\ApiErrorException if the request fails
@@ -172,9 +174,9 @@ class AccountService extends \Stripe\Service\AbstractService
     /**
      * Delete a specified external account for a given account.
      *
-     * @param string $parentId
-     * @param string $id
-     * @param null|array $params
+     * @param string                                 $parentId
+     * @param string                                 $id
+     * @param null|array                             $params
      * @param null|array|\Stripe\Util\RequestOptions $opts
      *
      * @throws \Stripe\Exception\ApiErrorException if the request fails
@@ -193,9 +195,9 @@ class AccountService extends \Stripe\Service\AbstractService
      * the <code>executive</code> parameter, you cannot delete the only verified
      * <code>executive</code> on file.
      *
-     * @param string $parentId
-     * @param string $id
-     * @param null|array $params
+     * @param string                                 $parentId
+     * @param string                                 $id
+     * @param null|array                             $params
      * @param null|array|\Stripe\Util\RequestOptions $opts
      *
      * @throws \Stripe\Exception\ApiErrorException if the request fails
@@ -213,8 +215,8 @@ class AccountService extends \Stripe\Service\AbstractService
      * Test-mode Custom and Express accounts can be rejected at any time. Accounts
      * created using live-mode keys may only be rejected once all balances are zero.
      *
-     * @param string $id
-     * @param null|array $params
+     * @param string                                 $id
+     * @param null|array                             $params
      * @param null|array|\Stripe\Util\RequestOptions $opts
      *
      * @throws \Stripe\Exception\ApiErrorException if the request fails
@@ -229,9 +231,9 @@ class AccountService extends \Stripe\Service\AbstractService
     /**
      * Retrieves information about the specified Account Capability.
      *
-     * @param string $parentId
-     * @param string $id
-     * @param null|array $params
+     * @param string                                 $parentId
+     * @param string                                 $id
+     * @param null|array                             $params
      * @param null|array|\Stripe\Util\RequestOptions $opts
      *
      * @throws \Stripe\Exception\ApiErrorException if the request fails
@@ -246,9 +248,9 @@ class AccountService extends \Stripe\Service\AbstractService
     /**
      * Retrieve a specified external account for a given account.
      *
-     * @param string $parentId
-     * @param string $id
-     * @param null|array $params
+     * @param string                                 $parentId
+     * @param string                                 $id
+     * @param null|array                             $params
      * @param null|array|\Stripe\Util\RequestOptions $opts
      *
      * @throws \Stripe\Exception\ApiErrorException if the request fails
@@ -263,9 +265,9 @@ class AccountService extends \Stripe\Service\AbstractService
     /**
      * Retrieves an existing person.
      *
-     * @param string $parentId
-     * @param string $id
-     * @param null|array $params
+     * @param string                                 $parentId
+     * @param string                                 $id
+     * @param null|array                             $params
      * @param null|array|\Stripe\Util\RequestOptions $opts
      *
      * @throws \Stripe\Exception\ApiErrorException if the request fails
@@ -289,8 +291,8 @@ class AccountService extends \Stripe\Service\AbstractService
      * href="/docs/connect/updating-accounts">Connect</a> documentation to learn more
      * about updating accounts.
      *
-     * @param string $id
-     * @param null|array $params
+     * @param string                                 $id
+     * @param null|array                             $params
      * @param null|array|\Stripe\Util\RequestOptions $opts
      *
      * @throws \Stripe\Exception\ApiErrorException if the request fails
@@ -305,9 +307,9 @@ class AccountService extends \Stripe\Service\AbstractService
     /**
      * Updates an existing Account Capability.
      *
-     * @param string $parentId
-     * @param string $id
-     * @param null|array $params
+     * @param string                                 $parentId
+     * @param string                                 $id
+     * @param null|array                             $params
      * @param null|array|\Stripe\Util\RequestOptions $opts
      *
      * @throws \Stripe\Exception\ApiErrorException if the request fails
@@ -328,9 +330,9 @@ class AccountService extends \Stripe\Service\AbstractService
      * You can re-enable a disabled bank account by performing an update call without
      * providing any arguments or changes.
      *
-     * @param string $parentId
-     * @param string $id
-     * @param null|array $params
+     * @param string                                 $parentId
+     * @param string                                 $id
+     * @param null|array                             $params
      * @param null|array|\Stripe\Util\RequestOptions $opts
      *
      * @throws \Stripe\Exception\ApiErrorException if the request fails
@@ -345,9 +347,9 @@ class AccountService extends \Stripe\Service\AbstractService
     /**
      * Updates an existing person.
      *
-     * @param string $parentId
-     * @param string $id
-     * @param null|array $params
+     * @param string                                 $parentId
+     * @param string                                 $id
+     * @param null|array                             $params
      * @param null|array|\Stripe\Util\RequestOptions $opts
      *
      * @throws \Stripe\Exception\ApiErrorException if the request fails
@@ -362,8 +364,8 @@ class AccountService extends \Stripe\Service\AbstractService
     /**
      * Retrieves the details of an account.
      *
-     * @param null|string $id
-     * @param null|array $params
+     * @param null|string                         $id
+     * @param null|array                          $params
      * @param null|array|StripeUtilRequestOptions $opts
      *
      * @throws \Stripe\Exception\ApiErrorException if the request fails

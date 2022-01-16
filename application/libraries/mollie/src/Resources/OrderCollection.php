@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Mollie\Api\Resources;
 
 class OrderCollection extends \Mollie\Api\Resources\CursorCollection
@@ -9,8 +11,9 @@ class OrderCollection extends \Mollie\Api\Resources\CursorCollection
      */
     public function getCollectionResourceName()
     {
-        return "orders";
+        return 'orders';
     }
+
     /**
      * @return BaseResource
      */

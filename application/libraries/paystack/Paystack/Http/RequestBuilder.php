@@ -1,21 +1,22 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Yabacon\Paystack\Http;
 
-use \Yabacon\Paystack\Contracts\RouteInterface;
-use \Yabacon\Paystack\Helpers\Router;
-use \Yabacon\Paystack;
+use Yabacon\Paystack;
+use Yabacon\Paystack\Contracts\RouteInterface;
+use Yabacon\Paystack\Helpers\Router;
 
 class RequestBuilder
 {
+    public $payload = [];
+    public $sentargs = [];
     protected $paystackObj;
     protected $interface;
     protected $request;
 
-    public $payload = [ ];
-    public $sentargs = [ ];
-
-    public function __construct($paystackObj, $interface, array $payload = [ ], array $sentargs = [ ])
+    public function __construct($paystackObj, $interface, array $payload = [], array $sentargs = [])
     {
         $this->request = new Request($paystackObj);
         $this->paystackObj = $paystackObj;
@@ -26,35 +27,36 @@ class RequestBuilder
 
     public function build()
     {
-        $this->request->headers["Authorization"] = "Bearer " . $this->paystackObj->secret_key;
-        $this->request->headers["User-Agent"] = "Paystack/v1 PhpBindings/" . Paystack::VERSION;
-        $this->request->endpoint = Router::PAYSTACK_API_ROOT . $this->interface[RouteInterface::ENDPOINT_KEY];
+        $this->request->headers['Authorization'] = 'Bearer '.$this->paystackObj->secret_key;
+        $this->request->headers['User-Agent'] = 'Paystack/v1 PhpBindings/'.Paystack::VERSION;
+        $this->request->endpoint = Router::PAYSTACK_API_ROOT.$this->interface[RouteInterface::ENDPOINT_KEY];
         $this->request->method = $this->interface[RouteInterface::METHOD_KEY];
         $this->moveArgsToSentargs();
         $this->putArgsIntoEndpoint($this->request->endpoint);
         $this->packagePayload();
+
         return $this->request;
     }
 
-    public function packagePayload()
+    public function packagePayload(): void
     {
         if (is_array($this->payload) && count($this->payload)) {
-            if ($this->request->method === RouteInterface::GET_METHOD) {
-                $this->request->endpoint = $this->request->endpoint . '?' . http_build_query($this->payload);
+            if (RouteInterface::GET_METHOD === $this->request->method) {
+                $this->request->endpoint = $this->request->endpoint.'?'.http_build_query($this->payload);
             } else {
                 $this->request->body = json_encode($this->payload);
             }
         }
     }
 
-    public function putArgsIntoEndpoint(&$endpoint)
+    public function putArgsIntoEndpoint(&$endpoint): void
     {
         foreach ($this->sentargs as $key => $value) {
-            $endpoint = str_replace('{' . $key . '}', $value, $endpoint);
+            $endpoint = str_replace('{'.$key.'}', $value, $endpoint);
         }
     }
 
-    public function moveArgsToSentargs()
+    public function moveArgsToSentargs(): void
     {
         if (!array_key_exists(RouteInterface::ARGS_KEY, $this->interface)) {
             return;

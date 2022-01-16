@@ -2,21 +2,20 @@
         <div class="box-body">
         <div class="table-responsive">
         <?php
-        $attributes = array('class' => 'bs-example form-horizontal');
+        $attributes = ['class' => 'bs-example form-horizontal'];
     echo form_open(base_url().'domains/import_domains', $attributes); ?>  
     
         <div class="row">   
             <div class="form-group">
-            <label class="col-sm-3 control-label"><?=lang('registrar')?></label>
+            <label class="col-sm-3 control-label"><?php echo lang('registrar'); ?></label>
             <div class="col-md-3">
             <select name="registrar" class="form-control m-b">
-                    <option value=""><?=lang('none')?></option>
+                    <option value=""><?php echo lang('none'); ?></option>
                     <?php
-                            
+
                             $registrars = Plugin::domain_registrars();
-                            foreach ($registrars as $registrar)
-                            {?> 
-                            <option value="<?=$registrar->system_name;?>"><?=ucfirst($registrar->system_name);?></option>
+                            foreach ($registrars as $registrar) {?> 
+                            <option value="<?php echo $registrar->system_name; ?>"><?php echo ucfirst($registrar->system_name); ?></option>
                             <?php } ?>
 
                     </select>
@@ -27,30 +26,30 @@
         <table id="table-rates" class="table table-striped b-t">
             <thead>
             <tr>
-                <th><?=lang('type')?></th> 
-                <th><?=lang('domain')?></th> 
-                <th><?=lang('period')?></th>
-                <th><?=lang('registration')?> <?=lang('date')?></th> 
-                <th><?=lang('expires')?></th> 
-                <th><?=lang('status')?></th> 
-                <th><?=lang('notes')?></th> 
-                <th><input type="checkbox" id="select-all" checked> <?=lang('select')?></th>
+                <th><?php echo lang('type'); ?></th> 
+                <th><?php echo lang('domain'); ?></th> 
+                <th><?php echo lang('period'); ?></th>
+                <th><?php echo lang('registration'); ?> <?php echo lang('date'); ?></th> 
+                <th><?php echo lang('expires'); ?></th> 
+                <th><?php echo lang('status'); ?></th> 
+                <th><?php echo lang('notes'); ?></th> 
+                <th><input type="checkbox" id="select-all" checked> <?php echo lang('select'); ?></th>
             </tr>
             </thead>
             <tbody>
             <?php
-            
-            $data = $this->session->userdata('import_domains') ? $this->session->userdata('import_domains') : array();                    
+
+            $data = $this->session->userdata('import_domains') ? $this->session->userdata('import_domains') : [];
             foreach ($data as $acc) { ?>
             <tr>
-                <td><?=$acc->type?></td>
-                <td><?=$acc->domain?></td>
-                <td><?=$acc->period?></td>
-                <td><?=$acc->registration?></td> 
-                <td><?=$acc->expires?></td>
-                <td><?=$acc->status?></td>
-                <td><?=$acc->notes?></td>  
-                <td><input type="checkbox" checked name="<?=$acc->id?>"></td>               
+                <td><?php echo $acc->type; ?></td>
+                <td><?php echo $acc->domain; ?></td>
+                <td><?php echo $acc->period; ?></td>
+                <td><?php echo $acc->registration; ?></td> 
+                <td><?php echo $acc->expires; ?></td>
+                <td><?php echo $acc->status; ?></td>
+                <td><?php echo $acc->notes; ?></td>  
+                <td><input type="checkbox" checked name="<?php echo $acc->id; ?>"></td>               
             </tr>
             <?php }  ?>
             
@@ -62,7 +61,7 @@
                 <td></td>    
                 <td></td>
                 <td></td>
-                <td><button class="btn btn-success btn-block btn-sm"><?=lang('import')?></button></td> 
+                <td><button class="btn btn-success btn-block btn-sm"><?php echo lang('import'); ?></button></td> 
                 <td></td>                                 
             </tr>
             </tfoot>

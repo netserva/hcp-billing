@@ -1,18 +1,25 @@
 <?php
 
+declare(strict_types=1);
+
 // Test in a slightly different namespace than usual. See comment on
 // `error_log` below.
+
 namespace Stripe\Util;
 
+/**
+ * @internal
+ * @coversNothing
+ */
 class UtilLoggerTest extends \Stripe\TestCase
 {
-    public function testDefaultLogger()
+    public function testDefaultLogger(): void
     {
         $logger = new DefaultLogger();
-        $logger->error("message");
+        $logger->error('message');
 
         global $lastMessage;
-        $this->assertSame($lastMessage, "message");
+        $this->assertSame($lastMessage, 'message');
     }
 }
 
@@ -21,7 +28,7 @@ class UtilLoggerTest extends \Stripe\TestCase
 // that went to it. This is obviously bad, but luckily it's constrained to
 // being just in \Stripe\Util (i.e. won't interfere with PHPUnit for example)
 // and _just_ present when tests are running.
-function error_log($message)
+function error_log($message): void
 {
     global $lastMessage;
     $lastMessage = $message;

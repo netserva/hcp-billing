@@ -1,19 +1,20 @@
 <?php
 
+declare(strict_types=1);
 
 namespace Twilio\Jwt\Grants;
 
-
-interface Grant {
+interface Grant
+{
     /**
-     * Returns the grant type
+     * Returns the grant type.
      *
      * @return string type of the grant
      */
     public function getGrantKey(): string;
 
     /**
-     * Returns the grant data
+     * Returns the grant data.
      *
      * @return array data of the grant
      */

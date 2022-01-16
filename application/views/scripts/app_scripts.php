@@ -1,7 +1,8 @@
-<?php if (isset($datepicker)) { ?>
-<script src="<?=base_url()?>resource/js/slider/bootstrap-slider.js"></script>
-<script src="<?=base_url()?>resource/js/bootstrap-datepicker/js/bootstrap-datepicker.min.js"></script>
-<script src="<?=base_url()?>resource/js/bootstrap-datepicker/locales/bootstrap-datepicker.<?=(lang('lang_code') == 'en' ? 'en-GB': lang('lang_code'))?>.min.js"></script>
+<?php declare(strict_types=1);
+if (isset($datepicker)) { ?>
+<script src="<?php echo base_url(); ?>resource/js/slider/bootstrap-slider.js"></script>
+<script src="<?php echo base_url(); ?>resource/js/bootstrap-datepicker/js/bootstrap-datepicker.min.js"></script>
+<script src="<?php echo base_url(); ?>resource/js/bootstrap-datepicker/locales/bootstrap-datepicker.<?php echo ('en' == lang('lang_code') ? 'en-GB' : lang('lang_code')); ?>.min.js"></script>
 
 <script type="text/javascript">
 (function($){
@@ -16,19 +17,18 @@
 <?php } ?>
 
 <?php if (isset($form)) { ?>
-<script src="<?=base_url()?>resource/js/file-input/bootstrap-filestyle.min.js"></script>
-<script src="<?=base_url()?>resource/js/parsley/parsley.min.js"></script>
-<script src="<?=base_url()?>resource/js/parsley/parsley.extend.js"></script>
+<script src="<?php echo base_url(); ?>resource/js/file-input/bootstrap-filestyle.min.js"></script>
+<script src="<?php echo base_url(); ?>resource/js/parsley/parsley.min.js"></script>
+<script src="<?php echo base_url(); ?>resource/js/parsley/parsley.extend.js"></script>
 <?php } ?>
 
 <?php
 if (isset($datatables)) {
-    $sort = strtoupper(config_item('date_picker_format'));
-?>
-<script src="<?=base_url()?>resource/js/datatables/jquery.dataTables.min.js"></script>
-<script src="<?=base_url()?>resource/js/datatables/dataTables.bootstrap.min.js"></script>
+    $sort = strtoupper(config_item('date_picker_format')); ?>
+<script src="<?php echo base_url(); ?>resource/js/datatables/jquery.dataTables.min.js"></script>
+<script src="<?php echo base_url(); ?>resource/js/datatables/dataTables.bootstrap.min.js"></script>
 
-<script src="<?=base_url()?>resource/js/datatables/datetime-moment.js"></script>
+<script src="<?php echo base_url(); ?>resource/js/datatables/datetime-moment.js"></script>
 <script type="text/javascript">
 (function($){
 "use strict"; 
@@ -53,46 +53,46 @@ if (isset($datatables)) {
 
         $(document).ready(function() {
 
-        $.fn.dataTable.moment('<?=$sort?>');
-        $.fn.dataTable.moment('<?=$sort?> HH:mm');
+        $.fn.dataTable.moment('<?php echo $sort; ?>');
+        $.fn.dataTable.moment('<?php echo $sort; ?> HH:mm');
 
         var oTable1 = $('.AppendDataTables').dataTable({
         "bProcessing": true,
         "sDom": "<'row'<'col-sm-4'l><'col-sm-8'f>r>t<'row'<'col-sm-4'i><'col-sm-8'p>>",
         "sPaginationType": "full_numbers",
-        "iDisplayLength": <?=config_item('rows_per_table')?>,
+        "iDisplayLength": <?php echo config_item('rows_per_table'); ?>,
         "oLanguage": {
-                "sProcessing": "<?=lang('processing')?>",
-                "sLoadingRecords": "<?=lang('loading')?>",
-                "sLengthMenu": "<?=lang('show_entries')?>",
-                "sEmptyTable": "<?=lang('empty_table')?>",
-                "sInfo": "<?=lang('pagination_info')?>",
-                "sInfoEmpty": "<?=lang('pagination_empty')?>",
-                "sInfoFiltered": "<?=lang('pagination_filtered')?>",
+                "sProcessing": "<?php echo lang('processing'); ?>",
+                "sLoadingRecords": "<?php echo lang('loading'); ?>",
+                "sLengthMenu": "<?php echo lang('show_entries'); ?>",
+                "sEmptyTable": "<?php echo lang('empty_table'); ?>",
+                "sInfo": "<?php echo lang('pagination_info'); ?>",
+                "sInfoEmpty": "<?php echo lang('pagination_empty'); ?>",
+                "sInfoFiltered": "<?php echo lang('pagination_filtered'); ?>",
                 "sInfoPostFix":  "",
-                "sSearch": "<?=lang('search')?>:",
+                "sSearch": "<?php echo lang('search'); ?>:",
                 "sUrl": "",
                 "oPaginate": {
-                        "sFirst":"<?=lang('first')?>",
-                        "sPrevious": "<?=lang('previous')?>",
-                        "sNext": "<?=lang('next')?>",
-                        "sLast": "<?=lang('last')?>"
+                        "sFirst":"<?php echo lang('first'); ?>",
+                        "sPrevious": "<?php echo lang('previous'); ?>",
+                        "sNext": "<?php echo lang('next'); ?>",
+                        "sLast": "<?php echo lang('last'); ?>"
                 }
         },
         "tableTools": {
-                    "sSwfPath": "<?=base_url()?>resource/js/datatables/tableTools/swf/copy_csv_xls_pdf.swf",
+                    "sSwfPath": "<?php echo base_url(); ?>resource/js/datatables/tableTools/swf/copy_csv_xls_pdf.swf",
               "aButtons": [
                       {
                       "sExtends": "csv",
-                      "sTitle": "<?=config_item('company_name').' - '.lang('invoices')?>"
+                      "sTitle": "<?php echo config_item('company_name').' - '.lang('invoices'); ?>"
                   },
                       {
                       "sExtends": "xls",
-                      "sTitle": "<?=config_item('company_name').' - '.lang('invoices')?>"
+                      "sTitle": "<?php echo config_item('company_name').' - '.lang('invoices'); ?>"
                   },
                       {
                       "sExtends": "pdf",
-                      "sTitle": "<?=config_item('company_name').' - '.lang('invoices')?>"
+                      "sTitle": "<?php echo config_item('company_name').' - '.lang('invoices'); ?>"
                   },
               ],
         },
@@ -135,7 +135,7 @@ if (isset($datatables)) {
                 type: 'POST',
                 data: { json : JSON.stringify($('#form-strings').serializeArray()) },
                 success: function() {
-                    toastr.success("<?=lang('translation_updated_successfully')?>", "<?=lang('response_status')?>");
+                    toastr.success("<?php echo lang('translation_updated_successfully'); ?>", "<?php echo lang('response_status'); ?>");
                 },
                 error: function(xhr) {
                     alert('Error: '+JSON.stringify(xhr));
@@ -150,7 +150,7 @@ if (isset($datatables)) {
                 type: 'GET',
                 data: {},
                 success: function() {
-                    toastr.success("<?=lang('operation_successful')?>", "<?=lang('response_status')?>");
+                    toastr.success("<?php echo lang('operation_successful'); ?>", "<?php echo lang('response_status'); ?>");
                 },
                 error: function(xhr) {
                     alert('Error: '+JSON.stringify(xhr));
@@ -165,7 +165,7 @@ if (isset($datatables)) {
                 type: 'GET',
                 data: {},
                 success: function() {
-                    toastr.success("<?=lang('translation_restored_successfully')?>", "<?=lang('response_status')?>");
+                    toastr.success("<?php echo lang('translation_restored_successfully'); ?>", "<?php echo lang('response_status'); ?>");
                 },
                 error: function(xhr) {
                     alert('Error: '+JSON.stringify(xhr));
@@ -180,7 +180,7 @@ if (isset($datatables)) {
                 type: 'GET',
                 data: {},
                 success: function() {
-                    toastr.success("<?=lang('translation_submitted_successfully')?>", "<?=lang('response_status')?>");
+                    toastr.success("<?php echo lang('translation_submitted_successfully'); ?>", "<?php echo lang('response_status'); ?>");
                 },
                 error: function(xhr) {
                     alert('Error: '+JSON.stringify(xhr));
@@ -198,7 +198,7 @@ if (isset($datatables)) {
                 type: 'POST',
                 data: { active: isActive },
                 success: function() {
-                    toastr.success("<?=lang('translation_updated_successfully')?>", "<?=lang('response_status')?>");
+                    toastr.success("<?php echo lang('translation_updated_successfully'); ?>", "<?php echo lang('response_status'); ?>");
                 },
                 error: function(xhr) {
                     alert('Error: '+JSON.stringify(xhr));
@@ -243,10 +243,11 @@ if (isset($datatables)) {
 });
 })(jQuery);
 </script>
-<?php }  ?>
+<?php
+}  ?>
 
 <?php if (isset($iconpicker)) { ?>
-<script type="text/javascript" src="<?=base_url()?>resource/js/iconpicker/fontawesome-iconpicker.min.js"></script>
+<script type="text/javascript" src="<?php echo base_url(); ?>resource/js/iconpicker/fontawesome-iconpicker.min.js"></script>
 <script type="text/javascript">
 (function($){
 "use strict";
@@ -270,7 +271,7 @@ if (isset($datatables)) {
 <?php } ?>
 
 <?php if (isset($sortable)) { ?>
-<script type="text/javascript" src="<?=base_url()?>resource/js/sortable/jquery-sortable.js"></script>
+<script type="text/javascript" src="<?php echo base_url(); ?>resource/js/sortable/jquery-sortable.js"></script>
 <script type="text/javascript">
     var t1, t2, t3, t4, t5;
     $('#inv-details, #est-details').sortable({
@@ -329,7 +330,7 @@ if (isset($datatables)) {
         var items = JSON.stringify(data);
         var table = $('.sorted_table').attr('type');
         $.ajax({
-            url: "<?=base_url()?>"+table+"/items/reorder/",
+            url: "<?php echo base_url(); ?>"+table+"/items/reorder/",
             type: "POST",
             dataType:'json',
             data: { json: items },
@@ -341,7 +342,7 @@ if (isset($datatables)) {
         var data = $("#menu-"+table).sortable("serialize").get();
         var items = JSON.stringify(data);
         $.ajax({
-            url: "<?=base_url()?>settings/hook/reorder/"+access,
+            url: "<?php echo base_url(); ?>settings/hook/reorder/"+access,
             type: "POST",
             dataType:'json',
             data: { json: items },
@@ -353,7 +354,7 @@ if (isset($datatables)) {
         var data = $('#cron-jobs').sortable("serialize").get();
         var items = JSON.stringify(data);
         $.ajax({
-            url: "<?=base_url()?>settings/hook/reorder/1",
+            url: "<?php echo base_url(); ?>settings/hook/reorder/1",
             type: "POST",
             dataType:'json',
             data: { json: items },
@@ -366,7 +367,7 @@ if (isset($datatables)) {
 
 
 <?php if (isset($nouislider)) { ?>
-<script type="text/javascript" src="<?=base_url()?>resource/js/nouislider/jquery.nouislider.min.js"></script>
+<script type="text/javascript" src="<?php echo base_url(); ?>resource/js/nouislider/jquery.nouislider.min.js"></script>
 <script type="text/javascript">
 (function($){
 "use strict";
@@ -488,30 +489,31 @@ $("#pages").each(function() {
 <?php } ?>
 
 
-<?php 
-$last = $this->uri->total_segments(); 
-if ($this->uri->segment(1) != 'accounts' 
-&& $this->uri->segment(1) != 'domains' 
-&& $this->uri->segment(1) != 'orders' 
-|| (null != $this->uri->segment(2) && $this->uri->segment(2) == 'add_order')) {
-if($this->session->flashdata('message')){
-$message = $this->session->flashdata('message');
-$alert = $this->session->flashdata('response_status'); ?>
+<?php $last = $this->uri->total_segments();
+if ('accounts' != $this->uri->segment(1)
+&& 'domains' != $this->uri->segment(1)
+&& 'orders' != $this->uri->segment(1)
+|| (null != $this->uri->segment(2) && 'add_order' == $this->uri->segment(2))) {
+    if ($this->session->flashdata('message')) {
+        $message = $this->session->flashdata('message');
+        $alert = $this->session->flashdata('response_status'); ?>
 <script type="text/javascript">
 (function($){
 "use strict"; 
     $(document).ready(function(){
         swal({
-            title: "<?=lang($alert)?>",
-            text: "<?=$message?>",
-            type: "<?=$alert?>",
+            title: "<?php echo lang($alert); ?>",
+            text: "<?php echo $message; ?>",
+            type: "<?php echo $alert; ?>",
             timer: 5000,
             confirmButtonColor: "#38354a"
         });
 });
 })(jQuery);
 </script>
-<?php } } ?>
+<?php
+    }
+} ?>
 
 <?php if (isset($typeahead)) { ?>
     
@@ -582,15 +584,15 @@ $alert = $this->session->flashdata('response_status'); ?>
 <?php if (isset($menus)) { ?>
     <script>
     var current_group_id = <?php if (!empty($group_id)) {
-            echo $group_id;
-        } ?>;
+    echo $group_id;
+} ?>;
  
     </script>
    
 
 
-    <script type="text/javascript" src="<?=base_url()?>resource/js/jquery-ui.js"></script>
-    <script type="text/javascript" src="<?=base_url()?>resource/js/nestedSortable/jquery.mjs.nestedSortable.js"></script>
+    <script type="text/javascript" src="<?php echo base_url(); ?>resource/js/jquery-ui.js"></script>
+    <script type="text/javascript" src="<?php echo base_url(); ?>resource/js/nestedSortable/jquery.mjs.nestedSortable.js"></script>
   
     <script type="text/javascript">             
   
@@ -919,7 +921,7 @@ $alert = $this->session->flashdata('response_status'); ?>
                 type: 'POST',
                 data: { active: isActive },
                 success: function() {
-                    toastr.success("<?=lang('menu_item_status')?>", "<?=lang('response_status')?>");
+                    toastr.success("<?php echo lang('menu_item_status'); ?>", "<?php echo lang('response_status'); ?>");
                 },
                 error: function(xhr) {
                     alert('Error: '+JSON.stringify(xhr));

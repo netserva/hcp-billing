@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 // File generated from our OpenAPI spec
 
 namespace Stripe\Service;
@@ -11,7 +13,7 @@ class PayoutService extends \Stripe\Service\AbstractService
      * Stripe has sent you. The payouts are returned in sorted order, with the most
      * recently created payouts appearing first.
      *
-     * @param null|array $params
+     * @param null|array                             $params
      * @param null|array|\Stripe\Util\RequestOptions $opts
      *
      * @throws \Stripe\Exception\ApiErrorException if the request fails
@@ -28,8 +30,8 @@ class PayoutService extends \Stripe\Service\AbstractService
      * Funds will be refunded to your available balance. You may not cancel automatic
      * Stripe payouts.
      *
-     * @param string $id
-     * @param null|array $params
+     * @param string                                 $id
+     * @param null|array                             $params
      * @param null|array|\Stripe\Util\RequestOptions $opts
      *
      * @throws \Stripe\Exception\ApiErrorException if the request fails
@@ -54,7 +56,7 @@ class PayoutService extends \Stripe\Service\AbstractService
      * payout should draw from. The <a href="#balance_object">balance object</a>
      * details available and pending amounts by source type.
      *
-     * @param null|array $params
+     * @param null|array                             $params
      * @param null|array|\Stripe\Util\RequestOptions $opts
      *
      * @throws \Stripe\Exception\ApiErrorException if the request fails
@@ -71,8 +73,8 @@ class PayoutService extends \Stripe\Service\AbstractService
      * either a payout creation request or the payout list, and Stripe will return the
      * corresponding payout information.
      *
-     * @param string $id
-     * @param null|array $params
+     * @param string                                 $id
+     * @param null|array                             $params
      * @param null|array|\Stripe\Util\RequestOptions $opts
      *
      * @throws \Stripe\Exception\ApiErrorException if the request fails
@@ -89,8 +91,8 @@ class PayoutService extends \Stripe\Service\AbstractService
      * parameters not provided will be left unchanged. This request accepts only the
      * metadata as arguments.
      *
-     * @param string $id
-     * @param null|array $params
+     * @param string                                 $id
+     * @param null|array                             $params
      * @param null|array|\Stripe\Util\RequestOptions $opts
      *
      * @throws \Stripe\Exception\ApiErrorException if the request fails

@@ -1,67 +1,73 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Stripe;
 
+/**
+ * @internal
+ * @coversNothing
+ */
 class SourceTest extends TestCase
 {
-    const TEST_RESOURCE_ID = 'src_123';
+    public const TEST_RESOURCE_ID = 'src_123';
 
-    public function testIsRetrievable()
+    public function testIsRetrievable(): void
     {
         $this->expectsRequest(
             'get',
-            '/v1/sources/' . self::TEST_RESOURCE_ID
+            '/v1/sources/'.self::TEST_RESOURCE_ID
         );
         $resource = Source::retrieve(self::TEST_RESOURCE_ID);
-        $this->assertInstanceOf("Stripe\\Source", $resource);
+        $this->assertInstanceOf('Stripe\\Source', $resource);
     }
 
-    public function testIsCreatable()
+    public function testIsCreatable(): void
     {
         $this->expectsRequest(
             'post',
             '/v1/sources'
         );
-        $resource = Source::create(array(
-            "type" => "card"
-        ));
-        $this->assertInstanceOf("Stripe\\Source", $resource);
+        $resource = Source::create([
+            'type' => 'card',
+        ]);
+        $this->assertInstanceOf('Stripe\\Source', $resource);
     }
 
-    public function testIsSaveable()
+    public function testIsSaveable(): void
     {
         $resource = Source::retrieve(self::TEST_RESOURCE_ID);
-        $resource->metadata["key"] = "value";
+        $resource->metadata['key'] = 'value';
         $this->expectsRequest(
             'post',
-            '/v1/sources/' . self::TEST_RESOURCE_ID
+            '/v1/sources/'.self::TEST_RESOURCE_ID
         );
         $resource->save();
-        $this->assertInstanceOf("Stripe\\Source", $resource);
+        $this->assertInstanceOf('Stripe\\Source', $resource);
     }
 
-    public function testIsUpdatable()
+    public function testIsUpdatable(): void
     {
         $this->expectsRequest(
             'post',
-            '/v1/sources/' . self::TEST_RESOURCE_ID
+            '/v1/sources/'.self::TEST_RESOURCE_ID
         );
-        $resource = Source::update(self::TEST_RESOURCE_ID, array(
-            "metadata" => array("key" => "value"),
-        ));
-        $this->assertInstanceOf("Stripe\\Source", $resource);
+        $resource = Source::update(self::TEST_RESOURCE_ID, [
+            'metadata' => ['key' => 'value'],
+        ]);
+        $this->assertInstanceOf('Stripe\\Source', $resource);
     }
 
-    public function testCanSaveCardExpiryDate()
+    public function testCanSaveCardExpiryDate(): void
     {
-        $response = array(
+        $response = [
             'id' => 'src_foo',
             'object' => 'source',
-            'card' => array(
+            'card' => [
                 'exp_month' => 8,
                 'exp_year' => 2019,
-            ),
-        );
+            ],
+        ];
         $source = Source::constructFrom(
             $response,
             new Util\RequestOptions()
@@ -72,12 +78,12 @@ class SourceTest extends TestCase
         $this->stubRequest(
             'POST',
             '/v1/sources/src_foo',
-            array(
-                'card' => array(
+            [
+                'card' => [
                     'exp_month' => 12,
                     'exp_year' => 2022,
-                )
-            ),
+                ],
+            ],
             null,
             false,
             $response
@@ -91,47 +97,47 @@ class SourceTest extends TestCase
         $this->assertSame(2022, $source->card->exp_year);
     }
 
-    public function testIsDetachableWhenAttached()
+    public function testIsDetachableWhenAttached(): void
     {
         $resource = Source::retrieve(self::TEST_RESOURCE_ID);
-        $resource->customer = "cus_123";
+        $resource->customer = 'cus_123';
         $this->expectsRequest(
             'delete',
-            '/v1/customers/cus_123/sources/' . self::TEST_RESOURCE_ID
+            '/v1/customers/cus_123/sources/'.self::TEST_RESOURCE_ID
         );
         $resource->delete();
-        $this->assertInstanceOf("Stripe\\Source", $resource);
+        $this->assertInstanceOf('Stripe\\Source', $resource);
     }
 
     /**
      * @expectedException \Stripe\Error\Api
      */
-    public function testIsNotDetachableWhenUnattached()
+    public function testIsNotDetachableWhenUnattached(): void
     {
         $resource = Source::retrieve(self::TEST_RESOURCE_ID);
         $resource->detach();
     }
 
-    public function testCanListSourceTransactions()
+    public function testCanListSourceTransactions(): void
     {
         $source = Source::retrieve(self::TEST_RESOURCE_ID);
         $this->expectsRequest(
             'get',
-            '/v1/sources/' . $source->id . "/source_transactions"
+            '/v1/sources/'.$source->id.'/source_transactions'
         );
         $resources = $source->sourceTransactions();
         $this->assertTrue(is_array($resources->data));
-        $this->assertInstanceOf("Stripe\\SourceTransaction", $resources->data[0]);
+        $this->assertInstanceOf('Stripe\\SourceTransaction', $resources->data[0]);
     }
 
-    public function testCanVerify()
+    public function testCanVerify(): void
     {
         $resource = Source::retrieve(self::TEST_RESOURCE_ID);
         $this->expectsRequest(
             'post',
-            '/v1/sources/' . self::TEST_RESOURCE_ID . "/verify"
+            '/v1/sources/'.self::TEST_RESOURCE_ID.'/verify'
         );
-        $resource->verify(array("values" => array(32,45)));
-        $this->assertInstanceOf("Stripe\\Source", $resource);
+        $resource->verify(['values' => [32, 45]]);
+        $this->assertInstanceOf('Stripe\\Source', $resource);
     }
 }

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 // File generated from our OpenAPI spec
 
 namespace Stripe\Service;
@@ -12,7 +14,7 @@ class RefundService extends \Stripe\Service\AbstractService
      * convenience, the 10 most recent refunds are always available by default on the
      * charge object.
      *
-     * @param null|array $params
+     * @param null|array                             $params
      * @param null|array|\Stripe\Util\RequestOptions $opts
      *
      * @throws \Stripe\Exception\ApiErrorException if the request fails
@@ -27,7 +29,7 @@ class RefundService extends \Stripe\Service\AbstractService
     /**
      * Create a refund.
      *
-     * @param null|array $params
+     * @param null|array                             $params
      * @param null|array|\Stripe\Util\RequestOptions $opts
      *
      * @throws \Stripe\Exception\ApiErrorException if the request fails
@@ -42,8 +44,8 @@ class RefundService extends \Stripe\Service\AbstractService
     /**
      * Retrieves the details of an existing refund.
      *
-     * @param string $id
-     * @param null|array $params
+     * @param string                                 $id
+     * @param null|array                             $params
      * @param null|array|\Stripe\Util\RequestOptions $opts
      *
      * @throws \Stripe\Exception\ApiErrorException if the request fails
@@ -61,8 +63,8 @@ class RefundService extends \Stripe\Service\AbstractService
      *
      * This request only accepts <code>metadata</code> as an argument.
      *
-     * @param string $id
-     * @param null|array $params
+     * @param string                                 $id
+     * @param null|array                             $params
      * @param null|array|\Stripe\Util\RequestOptions $opts
      *
      * @throws \Stripe\Exception\ApiErrorException if the request fails

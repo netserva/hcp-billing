@@ -1,90 +1,104 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Twilio\Jwt\Grants;
 
-class TaskRouterGrant implements Grant {
+class TaskRouterGrant implements Grant
+{
     private $workspaceSid;
     private $workerSid;
     private $role;
 
     /**
-     * Returns the workspace sid
+     * Returns the workspace sid.
      *
      * @return string the workspace sid
      */
-    public function getWorkspaceSid(): string {
+    public function getWorkspaceSid(): string
+    {
         return $this->workspaceSid;
     }
 
     /**
-     * Set the workspace sid of this grant
+     * Set the workspace sid of this grant.
      *
      * @param string $workspaceSid workspace sid of the grant
      *
      * @return $this updated grant
      */
-    public function setWorkspaceSid(string $workspaceSid): self {
+    public function setWorkspaceSid(string $workspaceSid): self
+    {
         $this->workspaceSid = $workspaceSid;
+
         return $this;
     }
 
     /**
-     * Returns the worker sid
+     * Returns the worker sid.
      *
      * @return string the worker sid
      */
-    public function getWorkerSid(): string {
+    public function getWorkerSid(): string
+    {
         return $this->workerSid;
     }
 
     /**
-     * Set the worker sid of this grant
+     * Set the worker sid of this grant.
      *
      * @param string $workerSid worker sid of the grant
      *
      * @return $this updated grant
      */
-    public function setWorkerSid(string $workerSid): self {
+    public function setWorkerSid(string $workerSid): self
+    {
         $this->workerSid = $workerSid;
+
         return $this;
     }
 
     /**
-     * Returns the role
+     * Returns the role.
      *
      * @return string the role
      */
-    public function getRole(): string {
+    public function getRole(): string
+    {
         return $this->role;
     }
 
     /**
-     * Set the role of this grant
+     * Set the role of this grant.
      *
      * @param string $role role of the grant
      *
      * @return $this updated grant
      */
-    public function setRole(string $role): self {
+    public function setRole(string $role): self
+    {
         $this->role = $role;
+
         return $this;
     }
 
     /**
-     * Returns the grant type
+     * Returns the grant type.
      *
      * @return string type of the grant
      */
-    public function getGrantKey(): string {
+    public function getGrantKey(): string
+    {
         return 'task_router';
     }
 
     /**
-     * Returns the grant data
+     * Returns the grant data.
      *
      * @return array data of the grant
      */
-    public function getPayload(): array {
+    public function getPayload(): array
+    {
         $payload = [];
         if ($this->workspaceSid) {
             $payload['workspace_sid'] = $this->workspaceSid;

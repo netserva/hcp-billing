@@ -1,10 +1,12 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Stripe;
 
 abstract class Webhook
 {
-    const DEFAULT_TOLERANCE = 300;
+    public const DEFAULT_TOLERANCE = 300;
 
     /**
      * Returns an Event instance using the provided JSON payload. Throws an
@@ -12,14 +14,14 @@ abstract class Webhook
      * an Exception\SignatureVerificationException if the signature
      * verification fails for any reason.
      *
-     * @param string $payload the payload sent by Stripe
+     * @param string $payload   the payload sent by Stripe
      * @param string $sigHeader the contents of the signature header sent by
-     *  Stripe
-     * @param string $secret secret used to generate the signature
-     * @param int $tolerance maximum difference allowed between the header's
-     *  timestamp and the current time
+     *                          Stripe
+     * @param string $secret    secret used to generate the signature
+     * @param int    $tolerance maximum difference allowed between the header's
+     *                          timestamp and the current time
      *
-     * @throws Exception\UnexpectedValueException if the payload is not valid JSON,
+     * @throws Exception\UnexpectedValueException       if the payload is not valid JSON,
      * @throws Exception\SignatureVerificationException if the verification fails
      *
      * @return Event the Event instance
@@ -32,7 +34,7 @@ abstract class Webhook
         $jsonError = \json_last_error();
         if (null === $data && \JSON_ERROR_NONE !== $jsonError) {
             $msg = "Invalid payload: {$payload} "
-              . "(json_last_error() was {$jsonError})";
+              ."(json_last_error() was {$jsonError})";
 
             throw new Exception\UnexpectedValueException($msg);
         }

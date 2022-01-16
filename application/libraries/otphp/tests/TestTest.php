@@ -1,6 +1,8 @@
 <?php
+
+declare(strict_types=1);
 /*
- * Copyright (c) 2011 Le Lag 
+ * Copyright (c) 2011 Le Lag
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
  * in the Software without restriction, including without limitation the rights
@@ -22,8 +24,14 @@
 
 require_once dirname(__FILE__).'/../lib/otphp.php';
 
-class TestTest extends PHPUnit_Framework_TestCase {
-  public function testThatPHPUnitWorks() {
-    $this->assertEquals(1,1);
-  }
+/**
+ * @internal
+ * @coversNothing
+ */
+class TestTest extends PHPUnit_Framework_TestCase
+{
+    public function testThatPHPUnitWorks(): void
+    {
+        $this->assertEquals(1, 1);
+    }
 }

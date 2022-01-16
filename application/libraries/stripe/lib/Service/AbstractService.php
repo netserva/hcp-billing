@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Stripe\Service;
 
 /**
@@ -32,28 +34,6 @@ abstract class AbstractService
         return $this->client;
     }
 
-    /**
-     * Translate null values to empty strings. For service methods,
-     * we interpret null as a request to unset the field, which
-     * corresponds to sending an empty string for the field to the
-     * API.
-     *
-     * @param null|array $params
-     */
-    private static function formatParams($params)
-    {
-        if (null === $params) {
-            return null;
-        }
-        \array_walk_recursive($params, function (&$value, $key) {
-            if (null === $value) {
-                $value = '';
-            }
-        });
-
-        return $params;
-    }
-
     protected function request($method, $path, $params, $opts)
     {
         return $this->getClient()->request($method, $path, static::formatParams($params), $opts);
@@ -75,5 +55,27 @@ abstract class AbstractService
         }
 
         return \sprintf($basePath, ...\array_map('\urlencode', $ids));
+    }
+
+    /**
+     * Translate null values to empty strings. For service methods,
+     * we interpret null as a request to unset the field, which
+     * corresponds to sending an empty string for the field to the
+     * API.
+     *
+     * @param null|array $params
+     */
+    private static function formatParams($params)
+    {
+        if (null === $params) {
+            return null;
+        }
+        \array_walk_recursive($params, function (&$value, $key): void {
+            if (null === $value) {
+                $value = '';
+            }
+        });
+
+        return $params;
     }
 }

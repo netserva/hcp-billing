@@ -1,12 +1,14 @@
 <?php
+
+declare(strict_types=1);
 /**
- * ApiConnectionException
+ * ApiConnectionException.
  */
 
 namespace Resellerclub;
 
 /**
- * Class ApiConnectionException
+ * Class ApiConnectionException.
  *
  * Throws when API connection cannot be made.
  * Usual suspects are:
@@ -14,9 +16,7 @@ namespace Resellerclub;
  * # Internet is not present.
  * # Secure connection cannot be obtained.
  * # API server is down.
- *
- * @package Resellerclub
  */
-class ApiConnectionException extends \Exception{
-
+class ApiConnectionException extends \Exception
+{
 }

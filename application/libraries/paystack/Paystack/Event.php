@@ -1,14 +1,17 @@
 <?php
+
+declare(strict_types=1);
+
 namespace Yabacon\Paystack;
 
 use Yabacon\Paystack\Http\Request;
 
 class Event
 {
+    public const SIGNATURE_KEY = 'HTTP_X_PAYSTACK_SIGNATURE';
     public $raw = '';
-    protected $signature = '';
     public $obj;
-    const SIGNATURE_KEY = 'HTTP_X_PAYSTACK_SIGNATURE';
+    protected $signature = '';
 
     protected function __construct()
     {
@@ -18,14 +21,10 @@ class Event
     {
         $evt = new Event();
         $evt->raw = @file_get_contents('php://input');
-        $evt->signature = ( isset($_SERVER[self::SIGNATURE_KEY]) ? $_SERVER[self::SIGNATURE_KEY] : '' );
+        $evt->signature = ($_SERVER[self::SIGNATURE_KEY] ?? '');
         $evt->loadObject();
-        return $evt;
-    }
 
-    protected function loadObject()
-    {
-        $this->obj = json_decode($this->raw);
+        return $evt;
     }
 
     public function discoverOwner(array $keys)
@@ -45,6 +44,7 @@ class Event
         if ($this->signature === hash_hmac('sha512', $this->raw, $key)) {
             return true;
         }
+
         return false;
     }
 
@@ -53,9 +53,10 @@ class Event
         $pack = new Request();
         $pack->method = $method;
         $pack->headers = $additional_headers;
-        $pack->headers["X-Paystack-Signature"] = $this->signature;
-        $pack->headers["Content-Type"] = "application/json";
+        $pack->headers['X-Paystack-Signature'] = $this->signature;
+        $pack->headers['Content-Type'] = 'application/json';
         $pack->body = $this->raw;
+
         return $pack;
     }
 
@@ -66,6 +67,12 @@ class Event
         }
         $packed = $this->package($additional_headers, $method);
         $packed->endpoint = $url;
+
         return $packed->send()->wrapUp();
+    }
+
+    protected function loadObject(): void
+    {
+        $this->obj = json_decode($this->raw);
     }
 }

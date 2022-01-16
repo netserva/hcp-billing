@@ -1,8 +1,9 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Mollie\Api\Resources;
 
-use Mollie\Api\Types\InvoiceStatus;
 class Invoice extends \Mollie\Api\Resources\BaseResource
 {
     /**
@@ -26,21 +27,21 @@ class Invoice extends \Mollie\Api\Resources\BaseResource
      */
     public $status;
     /**
-     * Date the invoice was issued, e.g. 2018-01-01
+     * Date the invoice was issued, e.g. 2018-01-01.
      *
      * @var string
      */
     public $issuedAt;
     /**
-     * Date the invoice was paid, e.g. 2018-01-01
+     * Date the invoice was paid, e.g. 2018-01-01.
      *
-     * @var string|null
+     * @var null|string
      */
     public $paidAt;
     /**
-     * Date the invoice is due, e.g. 2018-01-01
+     * Date the invoice is due, e.g. 2018-01-01.
      *
-     * @var string|null
+     * @var null|string
      */
     public $dueAt;
     /**
@@ -63,36 +64,39 @@ class Invoice extends \Mollie\Api\Resources\BaseResource
     public $grossAmount;
     /**
      * Object containing the invoice lines.
-     * See https://docs.mollie.com/reference/v2/invoices-api/get-invoice for reference
+     * See https://docs.mollie.com/reference/v2/invoices-api/get-invoice for reference.
      *
      * @var \stdClass
      */
     public $lines;
     /**
-     * Contains a PDF to the Invoice
+     * Contains a PDF to the Invoice.
      *
      * @var \stdClass
      */
     public $_links;
+
     /**
      * @return bool
      */
     public function isPaid()
     {
-        return $this->status == \Mollie\Api\Types\InvoiceStatus::STATUS_PAID;
+        return \Mollie\Api\Types\InvoiceStatus::STATUS_PAID == $this->status;
     }
+
     /**
      * @return bool
      */
     public function isOpen()
     {
-        return $this->status == \Mollie\Api\Types\InvoiceStatus::STATUS_OPEN;
+        return \Mollie\Api\Types\InvoiceStatus::STATUS_OPEN == $this->status;
     }
+
     /**
      * @return bool
      */
     public function isOverdue()
     {
-        return $this->status == \Mollie\Api\Types\InvoiceStatus::STATUS_OVERDUE;
+        return \Mollie\Api\Types\InvoiceStatus::STATUS_OVERDUE == $this->status;
     }
 }

@@ -1,12 +1,18 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Stripe;
 
+/**
+ * @internal
+ * @coversNothing
+ */
 class SKUTest extends TestCase
 {
-    const TEST_RESOURCE_ID = 'sku_123';
+    public const TEST_RESOURCE_ID = 'sku_123';
 
-    public function testIsListable()
+    public function testIsListable(): void
     {
         $this->expectsRequest(
             'get',
@@ -14,69 +20,69 @@ class SKUTest extends TestCase
         );
         $resources = SKU::all();
         $this->assertTrue(is_array($resources->data));
-        $this->assertInstanceOf("Stripe\\SKU", $resources->data[0]);
+        $this->assertInstanceOf('Stripe\\SKU', $resources->data[0]);
     }
 
-    public function testIsRetrievable()
+    public function testIsRetrievable(): void
     {
         $this->expectsRequest(
             'get',
-            '/v1/skus/' . self::TEST_RESOURCE_ID
+            '/v1/skus/'.self::TEST_RESOURCE_ID
         );
         $resource = SKU::retrieve(self::TEST_RESOURCE_ID);
-        $this->assertInstanceOf("Stripe\\SKU", $resource);
+        $this->assertInstanceOf('Stripe\\SKU', $resource);
     }
 
-    public function testIsCreatable()
+    public function testIsCreatable(): void
     {
         $this->expectsRequest(
             'post',
             '/v1/skus'
         );
-        $resource = SKU::create(array(
-            'currency'  => 'usd',
-            'inventory' => array(
-                'type'     => 'finite',
-                'quantity' => 1
-            ),
-            'price'     => 100,
-            'product'   => "prod_123"
-        ));
-        $this->assertInstanceOf("Stripe\\SKU", $resource);
+        $resource = SKU::create([
+            'currency' => 'usd',
+            'inventory' => [
+                'type' => 'finite',
+                'quantity' => 1,
+            ],
+            'price' => 100,
+            'product' => 'prod_123',
+        ]);
+        $this->assertInstanceOf('Stripe\\SKU', $resource);
     }
 
-    public function testIsSaveable()
+    public function testIsSaveable(): void
     {
         $resource = SKU::retrieve(self::TEST_RESOURCE_ID);
-        $resource->metadata["key"] = "value";
+        $resource->metadata['key'] = 'value';
         $this->expectsRequest(
             'post',
-            '/v1/skus/' . self::TEST_RESOURCE_ID
+            '/v1/skus/'.self::TEST_RESOURCE_ID
         );
         $resource->save();
-        $this->assertInstanceOf("Stripe\\SKU", $resource);
+        $this->assertInstanceOf('Stripe\\SKU', $resource);
     }
 
-    public function testIsUpdatable()
+    public function testIsUpdatable(): void
     {
         $this->expectsRequest(
             'post',
-            '/v1/skus/' . self::TEST_RESOURCE_ID
+            '/v1/skus/'.self::TEST_RESOURCE_ID
         );
-        $resource = SKU::update(self::TEST_RESOURCE_ID, array(
-            "metadata" => array("key" => "value"),
-        ));
-        $this->assertInstanceOf("Stripe\\SKU", $resource);
+        $resource = SKU::update(self::TEST_RESOURCE_ID, [
+            'metadata' => ['key' => 'value'],
+        ]);
+        $this->assertInstanceOf('Stripe\\SKU', $resource);
     }
 
-    public function testIsDeletable()
+    public function testIsDeletable(): void
     {
         $resource = SKU::retrieve(self::TEST_RESOURCE_ID);
         $this->expectsRequest(
             'delete',
-            '/v1/skus/' . self::TEST_RESOURCE_ID
+            '/v1/skus/'.self::TEST_RESOURCE_ID
         );
         $resource->delete();
-        $this->assertInstanceOf("Stripe\\SKU", $resource);
+        $this->assertInstanceOf('Stripe\\SKU', $resource);
     }
 }

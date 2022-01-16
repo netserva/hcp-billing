@@ -1,15 +1,13 @@
 <?php
 
+declare(strict_types=1);
+
 namespace _PhpScoper5ed105407e8f2;
 
-/*
- * Cancel order lines using the Mollie API.
- */
+// Cancel order lines using the Mollie API.
 try {
-    /*
-     * Initialize the Mollie API library with your API key or OAuth access token.
-     */
-    require "../initialize.php";
+    // Initialize the Mollie API library with your API key or OAuth access token.
+    require '../initialize.php';
     /*
      * Cancel an order line with ID "odl_dgtxyl" for order ID "ord_8wmqcHMN4U"
      *
@@ -22,13 +20,13 @@ try {
     if ($line && $line->isCancelable) {
         $order->cancelLines(['lines' => [['id' => $lineId, 'quantity' => 1]]]);
         $updatedOrder = $mollie->orders->get($orderId);
-        echo 'Your order ' . $order->id . ' was updated:';
+        echo 'Your order '.$order->id.' was updated:';
         foreach ($order->lines as $line) {
-            echo $line->description . '. Status: <b>' . $line->status . '</b>.';
+            echo $line->description.'. Status: <b>'.$line->status.'</b>.';
         }
     } else {
-        echo "Unable to cancel line " . $lineId . " for your order " . $orderId . ".";
+        echo 'Unable to cancel line '.$lineId.' for your order '.$orderId.'.';
     }
 } catch (\Mollie\Api\Exceptions\ApiException $e) {
-    echo "API call failed: " . \htmlspecialchars($e->getMessage());
+    echo 'API call failed: '.\htmlspecialchars($e->getMessage());
 }

@@ -1,16 +1,20 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Mollie\Api\Resources;
 
 class Capture extends \Mollie\Api\Resources\BaseResource
 {
     /**
-     * Always 'capture' for this object
+     * Always 'capture' for this object.
+     *
      * @var string
      */
     public $resource;
     /**
-     * Id of the capture
+     * Id of the capture.
+     *
      * @var string
      */
     public $id;
@@ -21,13 +25,13 @@ class Capture extends \Mollie\Api\Resources\BaseResource
      */
     public $mode;
     /**
-     * Amount object containing the value and currency
+     * Amount object containing the value and currency.
      *
      * @var \stdClass
      */
     public $amount;
     /**
-     * Amount object containing the settlement value and currency
+     * Amount object containing the settlement value and currency.
      *
      * @var \stdClass
      */

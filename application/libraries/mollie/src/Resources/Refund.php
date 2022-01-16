@@ -1,9 +1,9 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Mollie\Api\Resources;
 
-use Mollie\Api\MollieApiClient;
-use Mollie\Api\Types\RefundStatus;
 class Refund extends \Mollie\Api\Resources\BaseResource
 {
     /**
@@ -26,13 +26,14 @@ class Refund extends \Mollie\Api\Resources\BaseResource
      * UTC datetime the payment was created in ISO-8601 format.
      *
      * @example "2013-12-25T10:30:54+00:00"
+     *
      * @var string
      */
     public $createdAt;
     /**
      * The refund's description, if available.
      *
-     * @var string|null
+     * @var null|string
      */
     public $description;
     /**
@@ -44,7 +45,7 @@ class Refund extends \Mollie\Api\Resources\BaseResource
     /**
      * The order id that was refunded.
      *
-     * @var string|null
+     * @var null|string
      */
     public $orderId;
     /**
@@ -52,17 +53,17 @@ class Refund extends \Mollie\Api\Resources\BaseResource
      * The lines will show the quantity, discountAmount, vatAmount and totalAmount
      * refunded.
      *
-     * @var array|object[]|null
+     * @var null|array|object[]
      */
     public $lines;
     /**
-     * The settlement amount
+     * The settlement amount.
      *
      * @var \stdClass
      */
     public $settlementAmount;
     /**
-     * The refund status
+     * The refund status.
      *
      * @var string
      */
@@ -71,6 +72,7 @@ class Refund extends \Mollie\Api\Resources\BaseResource
      * @var \stdClass
      */
     public $_links;
+
     /**
      * Is this refund queued?
      *
@@ -78,8 +80,9 @@ class Refund extends \Mollie\Api\Resources\BaseResource
      */
     public function isQueued()
     {
-        return $this->status === \Mollie\Api\Types\RefundStatus::STATUS_QUEUED;
+        return \Mollie\Api\Types\RefundStatus::STATUS_QUEUED === $this->status;
     }
+
     /**
      * Is this refund pending?
      *
@@ -87,8 +90,9 @@ class Refund extends \Mollie\Api\Resources\BaseResource
      */
     public function isPending()
     {
-        return $this->status === \Mollie\Api\Types\RefundStatus::STATUS_PENDING;
+        return \Mollie\Api\Types\RefundStatus::STATUS_PENDING === $this->status;
     }
+
     /**
      * Is this refund processing?
      *
@@ -96,8 +100,9 @@ class Refund extends \Mollie\Api\Resources\BaseResource
      */
     public function isProcessing()
     {
-        return $this->status === \Mollie\Api\Types\RefundStatus::STATUS_PROCESSING;
+        return \Mollie\Api\Types\RefundStatus::STATUS_PROCESSING === $this->status;
     }
+
     /**
      * Is this refund transferred to consumer?
      *
@@ -105,18 +110,19 @@ class Refund extends \Mollie\Api\Resources\BaseResource
      */
     public function isTransferred()
     {
-        return $this->status === \Mollie\Api\Types\RefundStatus::STATUS_REFUNDED;
+        return \Mollie\Api\Types\RefundStatus::STATUS_REFUNDED === $this->status;
     }
+
     /**
      * Cancel the refund.
      * Returns null if successful.
      *
-     * @return null
      * @throws \Mollie\Api\Exceptions\ApiException
      */
     public function cancel()
     {
         $this->client->performHttpCallToFullUrl(\Mollie\Api\MollieApiClient::HTTP_DELETE, $this->_links->self->href);
+
         return null;
     }
 }

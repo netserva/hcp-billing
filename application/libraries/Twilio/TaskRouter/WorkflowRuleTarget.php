@@ -1,38 +1,44 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Twilio\TaskRouter;
 
 /**
- * Twilio TaskRouter Workflow Rule Target
+ * Twilio TaskRouter Workflow Rule Target.
  *
  * @author Justin Witz <jwitz@twilio.com>
  * @license  http://creativecommons.org/licenses/MIT/ MIT
  */
-class WorkflowRuleTarget implements \JsonSerializable {
+class WorkflowRuleTarget implements \JsonSerializable
+{
     public $queue;
     public $expression;
     public $priority;
     public $timeout;
 
-    public function __construct(string $queue, int $priority = null, int $timeout = null, string $expression = null) {
+    public function __construct(string $queue, int $priority = null, int $timeout = null, string $expression = null)
+    {
         $this->queue = $queue;
         $this->priority = $priority;
         $this->timeout = $timeout;
         $this->expression = $expression;
     }
 
-    public function jsonSerialize(): array {
+    public function jsonSerialize(): array
+    {
         $json = [];
         $json['queue'] = $this->queue;
-        if ($this->priority !== null) {
+        if (null !== $this->priority) {
             $json['priority'] = $this->priority;
         }
-        if ($this->timeout !== null) {
+        if (null !== $this->timeout) {
             $json['timeout'] = $this->timeout;
         }
-        if ($this->expression !== null) {
+        if (null !== $this->expression) {
             $json['expression'] = $this->expression;
         }
+
         return $json;
     }
 }

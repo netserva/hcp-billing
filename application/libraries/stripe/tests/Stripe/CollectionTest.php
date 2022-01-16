@@ -1,121 +1,127 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Stripe;
 
+/**
+ * @internal
+ * @coversNothing
+ */
 class CollectionTest extends TestCase
 {
     /**
      * @before
      */
-    public function setUpFixture()
+    public function setUpFixture(): void
     {
-        $this->fixture = Collection::constructFrom(array(
-            'data' => array(array('id' => 1)),
+        $this->fixture = Collection::constructFrom([
+            'data' => [['id' => 1]],
             'has_more' => true,
             'url' => '/things',
-        ), new Util\RequestOptions());
+        ], new Util\RequestOptions());
     }
 
-    public function testCanList()
+    public function testCanList(): void
     {
         $this->stubRequest(
             'GET',
             '/things',
-            array(),
+            [],
             null,
             false,
-            array(
-                'data' => array(array('id' => 1)),
+            [
+                'data' => [['id' => 1]],
                 'has_more' => true,
                 'url' => '/things',
-            )
+            ]
         );
 
         $resources = $this->fixture->all();
         $this->assertTrue(is_array($resources->data));
     }
 
-    public function testCanRetrieve()
+    public function testCanRetrieve(): void
     {
         $this->stubRequest(
             'GET',
             '/things/1',
-            array(),
+            [],
             null,
             false,
-            array(
+            [
                 'id' => 1,
-            )
+            ]
         );
 
         $this->fixture->retrieve(1);
     }
 
-    public function testCanCreate()
+    public function testCanCreate(): void
     {
         $this->stubRequest(
             'POST',
             '/things',
-            array(
+            [
                 'foo' => 'bar',
-            ),
+            ],
             null,
             false,
-            array(
+            [
                 'id' => 2,
-            )
+            ]
         );
 
-        $this->fixture->create(array(
+        $this->fixture->create([
             'foo' => 'bar',
-        ));
+        ]);
     }
 
-    public function testProvidesAutoPagingIterator()
+    public function testProvidesAutoPagingIterator(): void
     {
         $this->stubRequest(
             'GET',
             '/things',
-            array(
+            [
                 'starting_after' => 1,
-            ),
+            ],
             null,
             false,
-            array(
-                'data' => array(array('id' => 2), array('id' => 3)),
+            [
+                'data' => [['id' => 2], ['id' => 3]],
                 'has_more' => false,
-            )
+            ]
         );
 
-        $seen = array();
+        $seen = [];
         foreach ($this->fixture->autoPagingIterator() as $item) {
             array_push($seen, $item['id']);
         }
 
-        $this->assertSame(array(1, 2, 3), $seen);
+        $this->assertSame([1, 2, 3], $seen);
     }
 
-    public function testSupportsIteratorToArray()
+    public function testSupportsIteratorToArray(): void
     {
         $this->stubRequest(
             'GET',
             '/things',
-            array(
+            [
                 'starting_after' => 1,
-            ),
+            ],
             null,
             false,
-            array(
-                'data' => array(array('id' => 2), array('id' => 3)),
+            [
+                'data' => [['id' => 2], ['id' => 3]],
                 'has_more' => false,
-            )
+            ]
         );
 
-        $seen = array();
+        $seen = [];
         foreach (iterator_to_array($this->fixture->autoPagingIterator()) as $item) {
             array_push($seen, $item['id']);
         }
 
-        $this->assertSame(array(1, 2, 3), $seen);
+        $this->assertSame([1, 2, 3], $seen);
     }
 }

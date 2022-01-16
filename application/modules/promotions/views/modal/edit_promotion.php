@@ -1,55 +1,55 @@
-<?php $options = intervals();?>
+<?php declare(strict_types=1);
+$options = intervals(); ?>
 <div class="modal-dialog">
     <div class="modal-content">
         <div class="modal-header"> <button type="button" class="close" data-dismiss="modal">&times;</button>
-            <h4 class="modal-title"><?=lang('promotion')?></h4>
+            <h4 class="modal-title"><?php echo lang('promotion'); ?></h4>
         </div><?php
-			 $attributes = array('class' => 'bs-example form-horizontal');
-          echo form_open(base_url().'promotions/edit',$attributes); ?>
+             $attributes = ['class' => 'bs-example form-horizontal'];
+          echo form_open(base_url().'promotions/edit', $attributes); ?>
         <div class="modal-body">
-			<input type="hidden" value="<?=$promo->id?>" name="id">
+			<input type="hidden" value="<?php echo $promo->id; ?>" name="id">
 
             <div class="form-group">
-                <label class="col-lg-4 control-label"><?=lang('discount_type')?></label>
+                <label class="col-lg-4 control-label"><?php echo lang('discount_type'); ?></label>
                 <div class="col-lg-3">
                     <select name="type" id="select" type="select" class="form-control m-b">
-                        <option value="1" <?=$promo->type == 1 ? 'selected' : ''?>><?=lang('amount')?></option>
-                        <option value="2" <?=$promo->type == 2 ? 'selected' : ''?>><?=lang('percentage')?></option>
+                        <option value="1" <?php echo 1 == $promo->type ? 'selected' : ''; ?>><?php echo lang('amount'); ?></option>
+                        <option value="2" <?php echo 2 == $promo->type ? 'selected' : ''; ?>><?php echo lang('percentage'); ?></option>
                     </select>
                 </div> 
 				<div class="col-lg-3">
-                    <input type="text" class="form-control" name="value" value="<?=$promo->value?>" required>
+                    <input type="text" class="form-control" name="value" value="<?php echo $promo->value; ?>" required>
                 </div>
 				<div class="col-lg-1" id="type"></div>
             </div>
  
 
             <div class="form-group">
-                <label class="col-lg-4 control-label"><?=lang('code')?></label>
+                <label class="col-lg-4 control-label"><?php echo lang('code'); ?></label>
                 <div class="col-lg-4">
-                    <input type="text" class="form-control" name="code" id="code" value="<?=$promo->code?>" required>
+                    <input type="text" class="form-control" name="code" id="code" value="<?php echo $promo->code; ?>" required>
                 </div>
                 <div class="col-lg-4">
-                    <span class="btn btn-sm btn-warning btn-block" id="generate"><?=lang('generate')?></span>
+                    <span class="btn btn-sm btn-warning btn-block" id="generate"><?php echo lang('generate'); ?></span>
                 </div>
             </div>
 
 
 			<div class="form-group">
-                <label class="col-lg-4 control-label"><?=lang('description')?></label>
+                <label class="col-lg-4 control-label"><?php echo lang('description'); ?></label>
                 <div class="col-lg-8">
-                    <input type="text" class="form-control" name="description" value="<?=$promo->description?>" required>
+                    <input type="text" class="form-control" name="description" value="<?php echo $promo->description; ?>" required>
                 </div>
             </div>
 
 
             <div class="form-group">
-                <label class="col-lg-4 control-label"><?=lang('apply_to')?></label>
+                <label class="col-lg-4 control-label"><?php echo lang('apply_to'); ?></label>
                 <div class="col-lg-8">
                     <select class="select2" multiple="multiple" style="width: 100%;" name="apply_to[]">
-                        <?php foreach(Item::get_items() as $item)
-				  		{?>
-                        <option value="<?=$item->item_id?>"><?=$item->item_name?></option>
+                        <?php foreach (Item::get_items() as $item) {?>
+                        <option value="<?php echo $item->item_id; ?>"><?php echo $item->item_name; ?></option>
                         <?php } ?>
                     </select>
                 </div>
@@ -58,12 +58,11 @@
 
 
             <div class="form-group">
-                <label class="col-lg-4 control-label"><?=lang('require')?> (<?=lang('optional')?>)</label>
+                <label class="col-lg-4 control-label"><?php echo lang('require'); ?> (<?php echo lang('optional'); ?>)</label>
                 <div class="col-lg-8">
                     <select class="select2required" multiple="multiple" style="width: 100%;" name="required[]">
-                        <?php foreach(Item::get_items() as $item)
-				  		{?>
-                        <option value="<?=$item->item_id?>"><?=$item->item_name?></option>
+                        <?php foreach (Item::get_items() as $item) {?>
+                        <option value="<?php echo $item->item_id; ?>"><?php echo $item->item_name; ?></option>
                         <?php } ?>
                     </select>
                 </div>
@@ -71,12 +70,11 @@
 
 
             <div class="form-group">
-                <label class="col-lg-4 control-label"><?=lang('billing_cycle')?> (<?=lang('optional')?>)</label>
+                <label class="col-lg-4 control-label"><?php echo lang('billing_cycle'); ?> (<?php echo lang('optional'); ?>)</label>
                 <div class="col-lg-8">
                     <select class="select2options" multiple="multiple" style="width: 100%;" name="billing_cycle[]">
-                        <?php foreach ($options as $key => $value)
-				  		{?>
-                        <option value="<?=$key?>"><?=ucfirst(str_replace('_', ' ', $key))?></option>
+                        <?php foreach ($options as $key => $value) {?>
+                        <option value="<?php echo $key; ?>"><?php echo ucfirst(str_replace('_', ' ', $key)); ?></option>
                         <?php } ?>
                     </select>
                 </div>
@@ -85,74 +83,74 @@
 
 
             <div class="form-group">
-                <label class="col-lg-4 control-label"><?=lang('payment')?></label>
+                <label class="col-lg-4 control-label"><?php echo lang('payment'); ?></label>
                 <div class="col-lg-8">
                     <select class="form-control" name="payment">
-                        <option value="1" <?=$promo->payment == 1 ? 'selected' : ''?>><?=lang('apply_in_first_payment')?></option>
-                        <option value="2" <?=$promo->payment == 2 ? 'selected' : ''?>><?=lang('apply_in_payment_renewals')?></option>
+                        <option value="1" <?php echo 1 == $promo->payment ? 'selected' : ''; ?>><?php echo lang('apply_in_first_payment'); ?></option>
+                        <option value="2" <?php echo 2 == $promo->payment ? 'selected' : ''; ?>><?php echo lang('apply_in_payment_renewals'); ?></option>
                     </select>
                 </div>
             </div>
 
 
             <div class="form-group">
-                <label class="col-lg-4 control-label"><?=lang('once_per_order')?></label>
+                <label class="col-lg-4 control-label"><?php echo lang('once_per_order'); ?></label>
                 <div class="col-lg-4">
                     <select class="form-control" name="per_order">
-                        <option value="0" <?=$promo->per_order == 0 ? 'selected' : ''?>><?=lang('no')?></option>
-                        <option value="1" <?=$promo->per_order == 1 ? 'selected' : ''?>><?=lang('yes')?></option>
+                        <option value="0" <?php echo 0 == $promo->per_order ? 'selected' : ''; ?>><?php echo lang('no'); ?></option>
+                        <option value="1" <?php echo 1 == $promo->per_order ? 'selected' : ''; ?>><?php echo lang('yes'); ?></option>
                     </select>
                 </div>
             </div>
  
 
             <div class="form-group">
-                <label class="col-lg-4 control-label"><?=lang('new_customers_only')?></label>
+                <label class="col-lg-4 control-label"><?php echo lang('new_customers_only'); ?></label>
                 <div class="col-lg-4">
                     <select class="form-control" name="new_customers">
-                        <option value="0" <?=$promo->new_customers == 0 ? 'selected' : ''?>><?=lang('no')?></option>
-                        <option value="1" <?=$promo->new_customers == 1 ? 'selected' : ''?>><?=lang('yes')?></option>
+                        <option value="0" <?php echo 0 == $promo->new_customers ? 'selected' : ''; ?>><?php echo lang('no'); ?></option>
+                        <option value="1" <?php echo 1 == $promo->new_customers ? 'selected' : ''; ?>><?php echo lang('yes'); ?></option>
                     </select>
                 </div>
             </div>
 
 
             <div class="form-group">
-                <label class="col-lg-4 control-label"><?=lang('use_start_end_date')?></label>
+                <label class="col-lg-4 control-label"><?php echo lang('use_start_end_date'); ?></label>
                 <div class="col-lg-4">
                     <select class="form-control" name="use_date">
-                        <option value="0" <?=$promo->use_date == 0 ? 'selected' : ''?>><?=lang('no')?></option>
-                        <option value="1" <?=$promo->use_date == 1 ? 'selected' : ''?>><?=lang('yes')?></option>
+                        <option value="0" <?php echo 0 == $promo->use_date ? 'selected' : ''; ?>><?php echo lang('no'); ?></option>
+                        <option value="1" <?php echo 1 == $promo->use_date ? 'selected' : ''; ?>><?php echo lang('yes'); ?></option>
                     </select>
                 </div>
             </div>
 
 
             <div class="form-group">
-                <label class="col-lg-4 control-label"><?=lang('start_date')?></label>
+                <label class="col-lg-4 control-label"><?php echo lang('start_date'); ?></label>
                 <div class="col-lg-4">
                     <input class="input-sm input-s datepicker-input form-control" size="16" type="text"
-                        value="<?=$promo->start_date?>" name="start_date"
-                        data-date-format="<?=config_item('date_picker_format');?>">
+                        value="<?php echo $promo->start_date; ?>" name="start_date"
+                        data-date-format="<?php echo config_item('date_picker_format'); ?>">
                 </div>
             </div>
 
 
 
             <div class="form-group">
-                <label class="col-lg-4 control-label"><?=lang('end_date')?></label>
+                <label class="col-lg-4 control-label"><?php echo lang('end_date'); ?></label>
                 <div class="col-lg-4">
                     <input class="input-sm input-s datepicker-input form-control" size="16" type="text"
-                        value="<?=$promo->end_date?>" name="end_date"
-                        data-date-format="<?=config_item('date_picker_format');?>">
+                        value="<?php echo $promo->end_date; ?>" name="end_date"
+                        data-date-format="<?php echo config_item('date_picker_format'); ?>">
                 </div>
             </div>
 
 
 
         </div>
-        <div class="modal-footer"> <a href="#" class="btn btn-default" data-dismiss="modal"><?=lang('close')?></a>
-            <button type="submit" class="btn btn-<?=config_item('theme_color');?>"><?=lang('update_promotion')?></button>
+        <div class="modal-footer"> <a href="#" class="btn btn-default" data-dismiss="modal"><?php echo lang('close'); ?></a>
+            <button type="submit" class="btn btn-<?php echo config_item('theme_color'); ?>"><?php echo lang('update_promotion'); ?></button>
             </form>
         </div>
     </div>
@@ -162,7 +160,7 @@
 
 
 <script type="text/javascript">
-	var currency = '<?=config_item('default_currency')?>';
+	var currency = '<?php echo config_item('default_currency'); ?>';
 	var percent = '%';
 
 	$('#type').text(currency);
@@ -180,15 +178,15 @@
 
 
 	$('.select2').select2();
-	var apply_to = JSON.parse('<?= addslashes(json_encode(unserialize($promo->apply_to))) ?>');
+	var apply_to = JSON.parse('<?php echo addslashes(json_encode(unserialize($promo->apply_to))); ?>');
 	$('.select2').val(apply_to).trigger('change');
 
 	$('.select2required').select2();
-	var required = JSON.parse('<?= addslashes(json_encode(unserialize($promo->required))) ?>');
+	var required = JSON.parse('<?php echo addslashes(json_encode(unserialize($promo->required))); ?>');
 	$('.select2required').val(required).trigger('change');
 
 	$('.select2options').select2();
-	var billing_cycle = JSON.parse('<?= addslashes(json_encode(unserialize($promo->billing_cycle))) ?>');
+	var billing_cycle = JSON.parse('<?php echo addslashes(json_encode(unserialize($promo->billing_cycle))); ?>');
 	$('.select2options').val(billing_cycle).trigger('change');
 
 	$('#generate').on('click', function() {

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Stripe\ApiOperations;
 
 /**
@@ -10,7 +12,7 @@ namespace Stripe\ApiOperations;
 trait Delete
 {
     /**
-     * @param null|array $params
+     * @param null|array        $params
      * @param null|array|string $opts
      *
      * @throws \Stripe\Exception\ApiErrorException if the request fails
@@ -22,7 +24,7 @@ trait Delete
         self::_validateParams($params);
 
         $url = $this->instanceUrl();
-        list($response, $opts) = $this->_request('delete', $url, $params, $opts);
+        [$response, $opts] = $this->_request('delete', $url, $params, $opts);
         $this->refreshFrom($response, $opts);
 
         return $this;

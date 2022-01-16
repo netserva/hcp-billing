@@ -1,10 +1,12 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Mollie\Api\Types;
 
 class MandateStatus
 {
-    const STATUS_PENDING = "pending";
-    const STATUS_VALID = "valid";
-    const STATUS_INVALID = "invalid";
+    public const STATUS_PENDING = 'pending';
+    public const STATUS_VALID = 'valid';
+    public const STATUS_INVALID = 'invalid';
 }

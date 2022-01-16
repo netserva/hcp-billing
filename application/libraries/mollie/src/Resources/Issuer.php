@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Mollie\Api\Resources;
 
 class Issuer extends \Mollie\Api\Resources\BaseResource
@@ -20,11 +22,12 @@ class Issuer extends \Mollie\Api\Resources\BaseResource
      * The payment method this issuer belongs to.
      *
      * @see Mollie_API_Object_Method
+     *
      * @var string
      */
     public $method;
     /**
-     * Object containing a size1x or size2x image
+     * Object containing a size1x or size2x image.
      *
      * @var \stdClass
      */
