@@ -18,7 +18,7 @@
 					</div>
 				</div>
 
-			<div style="text-align:center;"> <?=config_item('company_name')?> &copy; <?=date('Y')?></div>
+			<div style="text-align:center;"> <?php echo config_item('company_name'); ?> &copy; <?php echo date('Y'); ?></div>
 			</div>
 		</footer>
 		<!-- End Footer  -->

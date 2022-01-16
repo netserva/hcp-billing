@@ -1,16 +1,16 @@
-<?php
-$password = array(
-	'name'	=> 'password',
-	'id'	=> 'password',
-	'size'	=> 30,
-);
-$email = array(
-	'name'	=> 'email',
-	'id'	=> 'email',
-	'value'	=> set_value('email'),
-	'maxlength'	=> 80,
-	'size'	=> 30,
-);
+<?php declare(strict_types=1);
+$password = [
+    'name' => 'password',
+    'id' => 'password',
+    'size' => 30,
+];
+$email = [
+    'name' => 'email',
+    'id' => 'email',
+    'value' => set_value('email'),
+    'maxlength' => 80,
+    'size' => 30,
+];
 ?>
 
 <div class="container inner">
@@ -21,12 +21,12 @@ $email = array(
 	<tr>
 		<td><?php echo form_label(lang('password'), $password['id']); ?></td>
 		<td><?php echo form_password($password); ?></td>
-		<td class="text-danger"><?php echo form_error($password['name']); ?><?php echo isset($errors[$password['name']])?$errors[$password['name']]:''; ?></td>
+		<td class="text-danger"><?php echo form_error($password['name']); ?><?php echo $errors[$password['name']] ?? ''; ?></td>
 	</tr>
 	<tr>
 		<td><?php echo form_label(lang('new_email_address'), $email['id']); ?></td>
 		<td><?php echo form_input($email); ?></td>
-		<td class="text-danger"><?php echo form_error($email['name']); ?><?php echo isset($errors[$email['name']])?$errors[$email['name']]:''; ?></td>
+		<td class="text-danger"><?php echo form_error($email['name']); ?><?php echo $errors[$email['name']] ?? ''; ?></td>
 	</tr>
 </table>
 <?php echo form_submit('change', 'Send confirmation email'); ?>

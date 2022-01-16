@@ -1,4 +1,5 @@
-<?php if(get_slug() != 'contact' && get_slug() != 'knowledge' && get_slug() != 'issues' && get_slug() != 'features') { ?>
+<?php declare(strict_types=1);
+if ('contact' != get_slug() && 'knowledge' != get_slug() && 'issues' != get_slug() && 'features' != get_slug()) { ?>
   <section id="Page-title" class="page_header">
 <div class="color-overlay"></div>
 			<div class="container inner-img">

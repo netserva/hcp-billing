@@ -15,13 +15,13 @@
               <?php blocks('content_top', get_slug()); ?>
               <h2>Articles</h2>
                 <ul>
-                        <?php foreach($articles as $article) { ?>
+                        <?php foreach ($articles as $article) { ?>
                         <li>
-                        <a href="<?=base_url()?>knowledge/article/<?=$article->slug;?>"><?=$article->title;?></a>
-                        <span class="pull-right"><i class="fa fa-eye"></i> <?=$article->views;?></span>
-                        <div class="small">Last Updated: <?=explode(' ', $article->modified)[0];?> in <a
-                                    href="<?=base_url()?>knowledge/category/<?=strtolower(str_replace(' ', '_', $article->cat_name));?>">
-                                    <?=$article->cat_name;?></a></div>                            
+                        <a href="<?php echo base_url(); ?>knowledge/article/<?php echo $article->slug; ?>"><?php echo $article->title; ?></a>
+                        <span class="pull-right"><i class="fa fa-eye"></i> <?php echo $article->views; ?></span>
+                        <div class="small">Last Updated: <?php echo explode(' ', $article->modified)[0]; ?> in <a
+                                    href="<?php echo base_url(); ?>knowledge/category/<?php echo strtolower(str_replace(' ', '_', $article->cat_name)); ?>">
+                                    <?php echo $article->cat_name; ?></a></div>                            
                         </li>
                         <?php } ?>
                     </ul>
@@ -35,9 +35,9 @@
             <div class="kb-latest">              
                     <h3 class="">Latest Articles</h3>  
                        <ul>
-                        <?php foreach($latest as $article) { ?>
+                        <?php foreach ($latest as $article) { ?>
                         <li>
-                        <a href="<?=base_url()?>knowledge/article/<?=$article->slug;?>"><?=$article->title;?></a>                          
+                        <a href="<?php echo base_url(); ?>knowledge/article/<?php echo $article->slug; ?>"><?php echo $article->title; ?></a>                          
                         </li>
                         <?php } ?>
                     </ul>
@@ -46,12 +46,12 @@
 
                 <h3 class="">Categories</h3>  
                 <ul class="list_group">
-                    <?php foreach($categories as $category) { ?>
+                    <?php foreach ($categories as $category) { ?>
                     <li class="list-group-item d-flex justify-content-between align-items-center">
                         <a
-                            href="<?=base_url()?>knowledge/category/<?=strtolower(str_replace(' ', '_', $category->cat_name));?>">
-                            <?=$category->cat_name;?></a>
-                        <span class="badge badge-primary badge-pill"><?=$category->num;?></span>
+                            href="<?php echo base_url(); ?>knowledge/category/<?php echo strtolower(str_replace(' ', '_', $category->cat_name)); ?>">
+                            <?php echo $category->cat_name; ?></a>
+                        <span class="badge badge-primary badge-pill"><?php echo $category->num; ?></span>
                     </li>
                     <?php } ?>
                 </ul> 

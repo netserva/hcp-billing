@@ -1,40 +1,39 @@
-<?php 
+<?php declare(strict_types=1);
+$name = [
+    'name' => 'name',
+    'placeholder' => lang('name'),
+    'value' => set_value('name'),
+];
 
-$name = array(
-	'name'	=> 'name',
-	'placeholder' => lang('name'),
-	'value' => set_value('name')
-);
+$email = [
+    'name' => 'email',
+    'placeholder' => lang('email'),
+    'value' => set_value('email'),
+];
 
-$email = array(
-	'name'	=> 'email',
-	'placeholder' => lang('email'),
-	'value' => set_value('email') 
-);
- 
-$subject = array(
-	'name'	=> 'subject',
-	'id'	=> 'subject',
-	'placeholder' => lang('subject') 
-);
+$subject = [
+    'name' => 'subject',
+    'id' => 'subject',
+    'placeholder' => lang('subject'),
+];
 
-$message = array(
-	'name'	=> 'message',
-	'id'	=> 'message',
-	'placeholder' => lang('message'),
-	'rows' => '7',
+$message = [
+    'name' => 'message',
+    'id' => 'message',
+    'placeholder' => lang('message'),
+    'rows' => '7',
     'cols' => '40',
-	'size'	=> 20,
-	'class' => 'txt-box textArea'
-);
+    'size' => 20,
+    'class' => 'txt-box textArea',
+];
 
-$captcha = array(
-	'name'	=> 'captcha',
-	'id'	=> 'captcha',
-	'class'	=> 'form-control input-lg',
-	'maxlength'	=> 10,
-);
- 
+$captcha = [
+    'name' => 'captcha',
+    'id' => 'captcha',
+    'class' => 'form-control input-lg',
+    'maxlength' => 10,
+];
+
 ?>
 
 <div class="contact-page">
@@ -52,7 +51,7 @@ $captcha = array(
         <div class="row">
 
             <!-- Sidebar -->
-            <?php if(config_item('contact_sidebar_left') == TRUE) { ?>
+            <?php if (true == config_item('contact_sidebar_left')) { ?>
             <aside class="col-sm-3 sidebar_left">
             <?php blocks('sidebar_left', get_slug()); ?>
             </aside>
@@ -60,24 +59,27 @@ $captcha = array(
             <!-- /Sidebar -->
 
             <!-- main content -->
-            <section class="<?php 
-                if(config_item('contact_sidebar_right') == TRUE && config_item('contact_sidebar_left') == TRUE) { echo 'col-md-6'; }
-                else if(config_item('contact_sidebar_right') == TRUE || config_item('contact_sidebar_left') == TRUE) { echo 'col-md-9'; }
-                else { echo 'col-md-12 0'; } 
+            <section class="<?php if (true == config_item('contact_sidebar_right') && true == config_item('contact_sidebar_left')) {
+    echo 'col-md-6';
+} elseif (true == config_item('contact_sidebar_right') || true == config_item('contact_sidebar_left')) {
+                    echo 'col-md-9';
+                } else {
+                    echo 'col-md-12 0';
+                }
                 ?>">
 
               <?php blocks('content_top', get_slug()); ?> 
 
 				<?php
-			$attributes = array('class' => 'leave-comment contact-form', 'id' => 'contact-form');
-			echo form_open($this->uri->uri_string(),$attributes); ?>
+            $attributes = ['class' => 'leave-comment contact-form', 'id' => 'contact-form'];
+            echo form_open($this->uri->uri_string(), $attributes); ?>
 
 	
-			<?php if($this->session->flashdata('message')) {?>
+			<?php if ($this->session->flashdata('message')) {?>
 			<div class="alert alert-info">
 			<?php
-			echo $this->session->flashdata('message'); 
-			?>
+            echo $this->session->flashdata('message');
+            ?>
 			</div>
 			<?php } ?>
 
@@ -88,39 +90,39 @@ $captcha = array(
 					<div class="form-input col-md-6">
 						<?php echo form_input($name); ?>
 						<span class="text-danger">
-							<?php echo form_error($name['name']); ?><?php echo isset($errors[$name['name']])?$errors[$name['name']]:''; ?>
+							<?php echo form_error($name['name']); ?><?php echo $errors[$name['name']] ?? ''; ?>
 						</span>
 					</div>
 					<div class="form-input col-md-6">
 					<?php echo form_input($email); ?>
 						<span class="text-danger">
-							<?php echo form_error($email['name']); ?><?php echo isset($errors[$email['name']])?$errors[$email['name']]:''; ?>
+							<?php echo form_error($email['name']); ?><?php echo $errors[$email['name']] ?? ''; ?>
 						</span>
 					</div>
 					<div class="form-input col-md-12">
 					<?php echo form_input($subject); ?>
-						<span class="text-danger"><?php echo form_error($subject['name']); ?><?php echo isset($errors[$subject['name']])?$errors[$subject['name']]:''; ?>
+						<span class="text-danger"><?php echo form_error($subject['name']); ?><?php echo $errors[$subject['name']] ?? ''; ?>
 					</span>
 					</div>
 					<div class="form-input col-md-12">						
 						<?php echo form_textarea($message); ?>
 						<span class="text-danger">
-							<?php echo form_error($message['name']); ?><?php echo isset($errors[$message['name']])?$errors[$message['name']]:''; ?>
+							<?php echo form_error($message['name']); ?><?php echo $errors[$message['name']] ?? ''; ?>
 						</span>
 					</div>
 					<div class="form-submit col-md-12">
-						<input type="submit" id="submit" class="btn btn-<?=config_item('theme_color');?> pull-right" value="<?=lang('send_message')?>">
+						<input type="submit" id="submit" class="btn btn-<?php echo config_item('theme_color'); ?> pull-right" value="<?php echo lang('send_message'); ?>">
 					</div>
 
 					<table>
 
 					<?php if ($show_captcha) {
-						if ($use_recaptcha) { ?>
+                if ($use_recaptcha) { ?>
 							
 					<?php echo $this->recaptcha->render(); ?>
 
 					<?php } else { ?>
-					<tr><td colspan="2"><p><?=lang('enter_the_code_exactly')?></p></td></tr>
+					<tr><td colspan="2"><p><?php echo lang('enter_the_code_exactly'); ?></p></td></tr>
 
 
 					<tr>
@@ -129,7 +131,7 @@ $captcha = array(
 						<span class="text-danger"><?php echo form_error($captcha['name']); ?></span>
 					</tr>
 					<?php }
-					} ?>
+            } ?>
 					</table>
 
 				</div>
@@ -146,7 +148,7 @@ $captcha = array(
             <!-- /main -->
 	
             <!-- Sidebar -->
-            <?php if(config_item('contact_sidebar_right') == TRUE) { ?>
+            <?php if (true == config_item('contact_sidebar_right')) { ?>
             <aside class="col-sm-3 sidebar_right">
             <?php blocks('sidebar_right', get_slug()); ?>
             </aside>

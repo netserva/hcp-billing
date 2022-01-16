@@ -1,5 +1,7 @@
 <?php
+
+declare(strict_types=1);
 /**
-* Name: Content Top
-*/
-render_block($blocks); ?>
+ * Name: Content Top.
+ */
+render_block($blocks);

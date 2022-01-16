@@ -1,5 +1,5 @@
-<?php 
-    $cart = $this->session->userdata('cart'); 
+<?php declare(strict_types=1);
+$cart = $this->session->userdata('cart');
     $total = 0;
 ?>
 
@@ -12,12 +12,12 @@
                     <div class="row">
                         <div class="col-md-8 col-md-offset-2">
                             <h2 class="title text-uppercase text-theme-color-2 line-bottom-double-line-centered">
-                                <?=lang('domain_options')?>
+                                <?php echo lang('domain_options'); ?>
                             </h2>
-                            <p class="font-13 mt-10"><?=lang('new_or_existing_domain')?></p>
+                            <p class="font-13 mt-10"><?php echo lang('new_or_existing_domain'); ?></p>
                             <hr>
                             <a class="btn btn-primary"
-                                href="<?=base_url()?>cart/add_existing"><?=lang('use_existing_domain')?></a>
+                                href="<?php echo base_url(); ?>cart/add_existing"><?php echo lang('use_existing_domain'); ?></a>
                             <hr>
                         </div>
                     </div>
@@ -27,7 +27,7 @@
                         <div class="col-md-8 col-md-offset-2">
                             <div class="row">
                                 <div class="col-sm-6">
-                                    <form action="<?=base_url()?>cart/add_domain" class="search_form" method="post"
+                                    <form action="<?php echo base_url(); ?>cart/add_domain" class="search_form" method="post"
                                         id="search_form cart">
                                         <input name="domain" type="hidden" id="domain">
                                         <input name="price" type="hidden" id="price">
@@ -38,8 +38,8 @@
                                 <div class="col-sm-2">
                                     <span class="input-group-btn">
                                         <select class="btn btn-default" name="ext" id="ext">
-                                            <?php foreach($domains as $domain) { ?>
-                                            <option value="<?=$domain->item_name;?>">.<?=$domain->item_name;?></option>
+                                            <?php foreach ($domains as $domain) { ?>
+                                            <option value="<?php echo $domain->item_name; ?>">.<?php echo $domain->item_name; ?></option>
                                             <?php } ?>
                                         </select>
                                     </span>
@@ -47,12 +47,12 @@
                                 <div class="col-md-4">
                                     <div class="btn-group">
                                         <button class="btn btn-warning" type="submit" id="Transfer"
-                                            data="<?=lang('domain_transfer')?>"><?=lang('transfer')?></button>
+                                            data="<?php echo lang('domain_transfer'); ?>"><?php echo lang('transfer'); ?></button>
                                         <button class="btn btn-success" type="submit" id="btnSearch"
-                                            data="<?=lang('domain_registration')?>"><?=lang('register')?></button>
+                                            data="<?php echo lang('domain_registration'); ?>"><?php echo lang('register'); ?></button>
                                     </div>
 
-                                    <img id="checking" src="<?=base_url()?>resource/images/checking.gif" />
+                                    <img id="checking" src="<?php echo base_url(); ?>resource/images/checking.gif" />
                                 </div>
                             </div>
 

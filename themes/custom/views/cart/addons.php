@@ -1,6 +1,6 @@
-<?php 
-	$options = intervals();
-	$options['total_cost'] = 0;
+<?php declare(strict_types=1);
+$options = intervals();
+    $options['total_cost'] = 0;
     $item = Item::view_item($id);
 ?>
 
@@ -16,43 +16,40 @@
 </div>
         <div class="box-body">
             
-                    <h2><?=$item->item_name . " " . lang('addons')?></h2>
+                    <h2><?php echo $item->item_name.' '.lang('addons'); ?></h2>
                     <hr>
                     <?php
 
-                        $attributes = array('class' => 'bs-example form-horizontal');
-                        echo form_open(base_url().'cart/options',$attributes); 
+                        $attributes = ['class' => 'bs-example form-horizontal'];
+                        echo form_open(base_url().'cart/options', $attributes);
 
-                        foreach($addons as $k => $package)
-                        { ?>
+                        foreach ($addons as $k => $package) { ?>
 
                     <div class="row">
                         <div class="col-md-6">
-                            <h5><?=$package->item_name?>
+                            <h5><?php echo $package->item_name; ?>
                         </div>
 
                         <div class="col-md-6">
                             <select class="form-control" name="selected[]">
-                                <?php 
+                                <?php $interval = false;
 
-                                        $interval = false;
-
-                                        foreach ($options as $key => $value) {       
-                                            if(isset($package->$key) && $package->$key > 0) { 
-                                                    $interval = true; 
-                                                }  
-                                            } 
-
-                                        foreach ($options as $key => $value) {       
-                                                if(isset($package->$key) && $package->$key > 0 || $interval == false && $key == 'total_cost') { ?>
-                                <option
-                                    value="<?=$package->item_id?>,<?=$package->item_name?>,<?=$key?>,<?=$package->$key?>">
-                                    <?=Applib::format_currency(config_item('default_currency'), $package->$key)?> -
-                                    <?= lang($key) ?></option>
-                                <?php //if($package->$value == 0) break;
-                                                }  
+                                        foreach ($options as $key => $value) {
+                                            if (isset($package->{$key}) && $package->{$key} > 0) {
+                                                $interval = true;
                                             }
-                                        
+                                        }
+
+                                        foreach ($options as $key => $value) {
+                                            if (isset($package->{$key}) && $package->{$key} > 0 || false == $interval && 'total_cost' == $key) { ?>
+                                <option
+                                    value="<?php echo $package->item_id; ?>,<?php echo $package->item_name; ?>,<?php echo $key; ?>,<?php echo $package->{$key}; ?>">
+                                    <?php echo Applib::format_currency(config_item('default_currency'), $package->{$key}); ?> -
+                                    <?php echo lang($key); ?></option>
+                                <?php //if($package->$value == 0) break;
+                                                }
+                                        }
+
                                         ?>
                             </select>
                         </div>
@@ -61,7 +58,7 @@
 
                     <?php } ?>
 
-                    <input type="submit" class="btn btn-success btn-block" value="<?= lang('continue') ?>">
+                    <input type="submit" class="btn btn-success btn-block" value="<?php echo lang('continue'); ?>">
 
                     </form>
                 </div>

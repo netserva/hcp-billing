@@ -27,7 +27,7 @@
 								<span class="icon-bar"></span>
 							</button>
 							<a class="logo" href="/">
-              <img src="<?=base_url()?>resource/images/<?=config_item('company_logo')?>"  />    
+              <img src="<?php echo base_url(); ?>resource/images/<?php echo config_item('company_logo'); ?>"  />    
 							</a>
 						</div>  
 
@@ -48,6 +48,6 @@
  
 <div class="floating">
 <div class="icon-bar">
-<a href="<?=base_url()?>cart/shopping_cart"><?php blocks('floating_icon', get_slug()); ?></a> 
+<a href="<?php echo base_url(); ?>cart/shopping_cart"><?php blocks('floating_icon', get_slug()); ?></a> 
 </div>
 </div>

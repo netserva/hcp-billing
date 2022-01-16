@@ -1,1 +1,4 @@
-<?php echo $message; ?>
+<?php
+
+declare(strict_types=1);
+echo $message;

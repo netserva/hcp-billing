@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 // .US
 $ext = $this->session->userdata('tld'); ?>
 <section id="pricing" class="bg-silver-light">
@@ -9,26 +9,26 @@ $ext = $this->session->userdata('tld'); ?>
 
                     <section class="panel panel-default">
                         <header class="panel-heading text-center">
-                            <h3><?= lang('additional_information').' '.'('.$ext.')'?></h3>
+                            <h3><?php echo lang('additional_information').' '.'('.$ext.')'; ?></h3>
                         </header>
 
                         <div class="panel-body" style="padding:30px;">
 
                             <?php
-			 $attributes = array('class' => 'bs-example form-horizontal');
-          echo form_open(base_url().'cart/domain_fields',$attributes); ?>
+             $attributes = ['class' => 'bs-example form-horizontal'];
+          echo form_open(base_url().'cart/domain_fields', $attributes); ?>
 
                             <div class="row">
                                 <div class="col-md-7">
 
                                         <?php
-            if($this->session->userdata('transfer')){ ?>
+            if ($this->session->userdata('transfer')) { ?>
                                         <div class="form-group">
                                             <label
-                                                class="label-control"><?=lang('domain_transfer')." ".lang('authcode')?>
-                                                (<?=lang('authcode_requirement')?>)</label>
+                                                class="label-control"><?php echo lang('domain_transfer').' '.lang('authcode'); ?>
+                                                (<?php echo lang('authcode_requirement'); ?>)</label>
                                             <input name="authcode" type="text" class="form-control">
-                                            <p><?=lang('auth_epp_required_list')?> .com, .net, .org, .us, .biz, .info,
+                                            <p><?php echo lang('auth_epp_required_list'); ?> .com, .net, .org, .us, .biz, .info,
                                                 .me, .co, .io, .ca, .tv, .in, .mobi, .cc, .pe, .com.pe, .net.pe,
                                                 .org.pe,.tech, .top, .party, .loan, .faith and other new gTLD/country
                                                 code TLD domain transfers</p>
@@ -37,7 +37,7 @@ $ext = $this->session->userdata('tld'); ?>
 
 
                                         <?php
-            if($ext == "us"){ ?>
+            if ('us' == $ext) { ?>
                                         <div class="form-group">
                                             <label class="label-control">Nexus Category</label>
                                             <select name="Nexus Category" class="form-control">
@@ -69,11 +69,10 @@ $ext = $this->session->userdata('tld'); ?>
                                             </select>
                                         </div>
 
-                                        <?php }  
-
+                                        <?php }
 
             // .CO.UK
-            if($ext == "co.uk" || $ext == "net.uk" || $ext == "org.uk" || $ext == "plc.uk" || $ext == "ltd.uk" || $ext == "me.uk" || $ext == "uk"){ ?>
+            if ('co.uk' == $ext || 'net.uk' == $ext || 'org.uk' == $ext || 'plc.uk' == $ext || 'ltd.uk' == $ext || 'me.uk' == $ext || 'uk' == $ext) { ?>
 
                                         <div class="form-group">
                                             <label class="label-control">Legal Type</label>
@@ -135,12 +134,10 @@ $ext = $this->session->userdata('tld'); ?>
                                             <input type="checkbox" name="WHOIS Opt-out">
                                         </div>
 
-                                        <?php } 
-            
-            
+                                        <?php }
 
             // .CA
-            if($ext == "ca"){ ?>
+            if ('ca' == $ext) { ?>
 
                                         <div class="form-group">
                                             <label class="label-control">Legal Type</label>
@@ -190,11 +187,10 @@ $ext = $this->session->userdata('tld'); ?>
                                             <input type="checkbox" name="WHOIS Opt-out">
                                         </div>
 
-                                        <?php } 
-            
+                                        <?php }
 
             // .ES
-            if($ext == "es"){ ?>
+            if ('es' == $ext) { ?>
 
 
                                         <div class="form-group">
@@ -256,10 +252,10 @@ $ext = $this->session->userdata('tld'); ?>
                                             </select>
                                         </div>
 
-                                        <? } 
+                                        <?php }
 
             // .SG
-            if($ext == "sg" || $ext == "com.sg" ||$ext == "edu.sg" ||$ext == "net.sg" ||$ext == "org.sg" ||$ext == "per.sg"){ ?>
+            if ('sg' == $ext || 'com.sg' == $ext || 'edu.sg' == $ext || 'net.sg' == $ext || 'org.sg' == $ext || 'per.sg' == $ext) { ?>
 
                                         <div class="form-group">
                                             <label class="label-control">Registrant Type</label>
@@ -278,7 +274,7 @@ $ext = $this->session->userdata('tld'); ?>
                                         <?php }
 
             // .TEL
-            if($ext == "tel"){ ?>
+            if ('tel' == $ext) { ?>
 
                                         <div class="form-group">
                                             <label class="label-control">Legal Type</label>
@@ -296,9 +292,8 @@ $ext = $this->session->userdata('tld'); ?>
 
                                         <?php }
 
-
             // .IT
-            if($ext == "it"){ ?>
+            if ('it' == $ext) { ?>
 
                                         <div class="form-group">
                                             <label class="label-control">Legal Type</label>
@@ -345,9 +340,8 @@ $ext = $this->session->userdata('tld'); ?>
 
                                         <?php }
 
-
             // .DE
-            if($ext == "de"){ ?>
+            if ('de' == $ext) { ?>
 
                                         <div class="form-group">
                                             <label class="label-control">Tax ID</label>
@@ -363,9 +357,8 @@ $ext = $this->session->userdata('tld'); ?>
 
                                         <?php }
 
-
             // .AU
-            if($ext == "com.au" || $ext == "net.au" || $ext == "org.au" || $ext == "asn.au" || $ext == "id.au"){ ?>
+            if ('com.au' == $ext || 'net.au' == $ext || 'org.au' == $ext || 'asn.au' == $ext || 'id.au' == $ext) { ?>
 
                                         <div class="form-group">
                                             <label class="label-control">Registrant Name</label>
@@ -456,9 +449,8 @@ $ext = $this->session->userdata('tld'); ?>
 
                                         <?php }
 
-
             // .ASIA
-            if($ext == "asia"){ ?>
+            if ('asia' == $ext) { ?>
 
                                         <div class="form-group">
                                             <label class="label-control">Eligibility Reason</label>
@@ -505,9 +497,8 @@ $ext = $this->session->userdata('tld'); ?>
 
                                         <?php }
 
-
             // .PRO
-            if($ext == "pro"){ ?>
+            if ('pro' == $ext) { ?>
 
                                         <div class="form-group">
                                             <label class="label-control">Indicated professional association recognized
@@ -529,9 +520,8 @@ $ext = $this->session->userdata('tld'); ?>
 
                                         <?php }
 
-
             // .COOP
-            if($ext == "coop"){ ?>
+            if ('coop' == $ext) { ?>
 
 
                                         <div class="form-group">
@@ -602,9 +592,8 @@ $ext = $this->session->userdata('tld'); ?>
 
                                         <?php }
 
-
             // .CN
-            if($ext == "cn"){ ?>
+            if ('cn' == $ext) { ?>
 
                                         <div class="form-group">
                                             <label class="label-control">Hosted in China?</label>
@@ -621,9 +610,8 @@ $ext = $this->session->userdata('tld'); ?>
 
                                         <?php }
 
-
             // .FR
-            if($ext == "fr" || $ext == "re" || $ext == "pm" || $ext == "tf" || $ext == "wf" || $ext == "yt"){ ?>
+            if ('fr' == $ext || 're' == $ext || 'pm' == $ext || 'tf' == $ext || 'wf' == $ext || 'yt' == $ext) { ?>
 
                                         <div class="form-group">
                                             <label class="label-control">Legal Type</label>
@@ -678,9 +666,8 @@ $ext = $this->session->userdata('tld'); ?>
 
                                         <?php }
 
-
             // .NU
-            if($ext == "nu"){ ?>
+            if ('nu' == $ext) { ?>
 
                                         <div class="form-group">
                                             <label class="label-control">Identification Number</label>
@@ -695,9 +682,8 @@ $ext = $this->session->userdata('tld'); ?>
 
                                         <?php }
 
-
             // .QUEBEC
-            if($ext == "quebec"){ ?>
+            if ('quebec' == $ext) { ?>
 
                                         <div class="form-group">
                                             <label class="label-control">Intended Use</label>
@@ -706,9 +692,8 @@ $ext = $this->session->userdata('tld'); ?>
 
                                         <?php }
 
-
             // .JOBS
-            if($ext == "jobs"){ ?>
+            if ('jobs' == $ext) { ?>
 
                                         <div class="form-group">
                                             <label class="label-control">Website</label>
@@ -717,9 +702,8 @@ $ext = $this->session->userdata('tld'); ?>
 
                                         <?php }
 
-
             // .TRAVEL
-            if($ext == "travel"){ ?>
+            if ('travel' == $ext) { ?>
 
                                         <div class="form-group">
                                             <label class="label-control">Trustee Service</label>
@@ -753,9 +737,8 @@ $ext = $this->session->userdata('tld'); ?>
 
                                         <?php }
 
-
             // .RU
-            if($ext == "ru" || $ext == "xn--p1ai"){ ?>
+            if ('ru' == $ext || 'xn--p1ai' == $ext) { ?>
 
                                         <div class="form-group">
                                             <label class="label-control">Registrant Type</label>
@@ -818,10 +801,9 @@ $ext = $this->session->userdata('tld'); ?>
 
                                         <?php }
 
-
             // .RO
-            if($ext == "ro" || $ext == "srts.ro" || $ext == "co.ro"|| $ext == "com.ro"|| $ext == "firm.ro"|| $ext == "info.ro"|| $ext == "nom.ro"|| 
-            $ext == "nt.ro"|| $ext == "org.ro"|| $ext == "rec.ro"|| $ext == "ro.ro"|| $ext == "store.ro"|| $ext == "tm.ro"|| $ext == "www.ro"){ ?>
+            if ('ro' == $ext || 'srts.ro' == $ext || 'co.ro' == $ext || 'com.ro' == $ext || 'firm.ro' == $ext || 'info.ro' == $ext || 'nom.ro' == $ext
+            || 'nt.ro' == $ext || 'org.ro' == $ext || 'rec.ro' == $ext || 'ro.ro' == $ext || 'store.ro' == $ext || 'tm.ro' == $ext || 'www.ro' == $ext) { ?>
 
 
                                         <div class="form-group">
@@ -851,9 +833,8 @@ $ext = $this->session->userdata('tld'); ?>
 
                                         <?php }
 
-
             // .HK
-            if($ext == "hk" || $ext == "com.hk" || $ext == "edu.hk"|| $ext == "gov.hk"|| $ext == "idv.hk"|| $ext == "net.hk"|| $ext == "org.hk" ){ ?>
+            if ('hk' == $ext || 'com.hk' == $ext || 'edu.hk' == $ext || 'gov.hk' == $ext || 'idv.hk' == $ext || 'net.hk' == $ext || 'org.hk' == $ext) { ?>
 
                                         <div class="form-group">
                                             <label class="label-control">Organizations Industry Type</label>
@@ -1122,9 +1103,8 @@ $ext = $this->session->userdata('tld'); ?>
 
                                         <?php }
 
-
             // .AERO
-            if($ext == "aero"){ ?>
+            if ('aero' == $ext) { ?>
 
                                         <div class="form-group">
                                             <label class="label-control">AERO ID</label>
@@ -1140,11 +1120,11 @@ $ext = $this->session->userdata('tld'); ?>
                                         <?php }
 
             // .PL
-            if($ext == "pl" || $ext == "pc.pl" || $ext == "miasta.pl"|| $ext == "atm.pl"|| $ext == "rel.pl"|| $ext == "gmina.pl"|| $ext == "szkola"|| 
-            $ext == "sos.pl"|| $ext == "media.pl"|| $ext == "edu.pl"|| $ext == "auto.pl"|| $ext == "agro.pl"|| $ext == "turystyka.pl"|| $ext == "gov.pl" ||
-            $ext == "aid.pl"|| $ext == "nieruchomosci.pl"|| $ext == "com.pl"|| $ext == "priv.pl"|| $ext == "tm.pl"|| $ext == "travel.pl"|| $ext == "info.pl" ||
-            $ext == "org.pl"|| $ext == "net.pl"|| $ext == "sex.pl"|| $ext == "sklep.pl"|| $ext == "powiat.pl"|| $ext == "mail.pl"|| $ext == "realestate.pl" ||
-            $ext == "shop.pl"|| $ext == "mil.pl"|| $ext == "nom.pl"|| $ext == "gsm.pl"|| $ext == "tourism.pl"|| $ext == "targi.pl"|| $ext == "biz.pl" ){ ?>
+            if ('pl' == $ext || 'pc.pl' == $ext || 'miasta.pl' == $ext || 'atm.pl' == $ext || 'rel.pl' == $ext || 'gmina.pl' == $ext || 'szkola' == $ext
+            || 'sos.pl' == $ext || 'media.pl' == $ext || 'edu.pl' == $ext || 'auto.pl' == $ext || 'agro.pl' == $ext || 'turystyka.pl' == $ext || 'gov.pl' == $ext
+            || 'aid.pl' == $ext || 'nieruchomosci.pl' == $ext || 'com.pl' == $ext || 'priv.pl' == $ext || 'tm.pl' == $ext || 'travel.pl' == $ext || 'info.pl' == $ext
+            || 'org.pl' == $ext || 'net.pl' == $ext || 'sex.pl' == $ext || 'sklep.pl' == $ext || 'powiat.pl' == $ext || 'mail.pl' == $ext || 'realestate.pl' == $ext
+            || 'shop.pl' == $ext || 'mil.pl' == $ext || 'nom.pl' == $ext || 'gsm.pl' == $ext || 'tourism.pl' == $ext || 'targi.pl' == $ext || 'biz.pl' == $ext) { ?>
 
                                         <div class="form-group">
                                             <label class="label-control">Publish Contact in .PL WHOIS</label>
@@ -1158,7 +1138,7 @@ $ext = $this->session->userdata('tld'); ?>
                                         <?php }
 
             // .SE
-            if($ext == "se" || $ext == "tm.se" || $ext == "org.se" || $ext == "pp.se" || $ext == "parti.se" || $ext == "presse.se"){ ?>
+            if ('se' == $ext || 'tm.se' == $ext || 'org.se' == $ext || 'pp.se' == $ext || 'parti.se' == $ext || 'presse.se' == $ext) { ?>
 
                                         <div class="form-group">
                                             <label class="label-control">Identification Number</label>
@@ -1177,7 +1157,7 @@ $ext = $this->session->userdata('tld'); ?>
                                         <?php } ?>
 
                                         <input type="submit" class="btn btn-success pull-right"
-                                            value="<?=lang('submit')?>">
+                                            value="<?php echo lang('submit'); ?>">
                                     </div>
                                 </div> 
                             </form>

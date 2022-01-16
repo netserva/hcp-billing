@@ -20,19 +20,19 @@
 
                <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
 
-                <?php foreach($articles as $key => $article) {?>
+                <?php foreach ($articles as $key => $article) {?>
                 <div class="panel panel-default">
-                    <div class="panel-heading" role="tab" id="heading<?=$key?>">
+                    <div class="panel-heading" role="tab" id="heading<?php echo $key; ?>">
                         <h4 class="panel-title">
-                            <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse<?=$key?>" aria-expanded="true" aria-controls="collapse<?=$key?>">
+                            <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse<?php echo $key; ?>" aria-expanded="true" aria-controls="collapse<?php echo $key; ?>">
                                 <i class="more-less glyphicon glyphicon-plus"></i>
-                                <?=$article->title?>
+                                <?php echo $article->title; ?>
                             </a>
                         </h4>
                     </div>
-                    <div id="collapse<?=$key?>" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading<?=$key?>">
+                    <div id="collapse<?php echo $key; ?>" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading<?php echo $key; ?>">
                         <div class="panel-body">
-                        <?=$article->body?>
+                        <?php echo $article->body; ?>
                         </div>
                     </div>
                 </div>
@@ -52,21 +52,21 @@
  
             <aside class="col-sm-3 sidebar_right">
               
-            <h3 class=""><?=lang('faq_categories')?></h3>  
+            <h3 class=""><?php echo lang('faq_categories'); ?></h3>  
                 <ul class="list_group">
-                    <?php $all = 0; foreach($categories as $category) { ?>
+                    <?php $all = 0; foreach ($categories as $category) { ?>
                     <li class="list-group-item d-flex justify-content-between align-items-center">
                         <a
-                            href="<?=base_url()?>faq/category/<?=strtolower(str_replace(' ', '_', $category->cat_name));?>">
-                            <?=$category->cat_name;?></a>
-                        <span class="badge badge-primary badge-pill"><?=$category->num;?></span>
+                            href="<?php echo base_url(); ?>faq/category/<?php echo strtolower(str_replace(' ', '_', $category->cat_name)); ?>">
+                            <?php echo $category->cat_name; ?></a>
+                        <span class="badge badge-primary badge-pill"><?php echo $category->num; ?></span>
                     </li>
-                    <?php $all += $category->num;} ?>
+                    <?php $all += $category->num; } ?>
                     <li class="list-group-item d-flex justify-content-between align-items-center">
                         <a
-                            href="<?=base_url()?>faq">
-                            <?=lang('all')?></a>
-                        <span class="badge badge-primary badge-pill"><?=$all;?></span>
+                            href="<?php echo base_url(); ?>faq">
+                            <?php echo lang('all'); ?></a>
+                        <span class="badge badge-primary badge-pill"><?php echo $all; ?></span>
                     </li>
                 </ul> 
             </aside> 

@@ -1,4 +1,5 @@
-<?php $page = $this->template->content; ?> 
+<?php declare(strict_types=1);
+$page = $this->template->content; ?> 
 <div class="row">
         <div class="col-md-12">
              <?php blocks('full_width_top', get_slug()); ?>
@@ -11,7 +12,7 @@
         <div class="row">
 
             <!-- Sidebar -->
-            <?php if($page->sidebar_left == 1) { ?>
+            <?php if (1 == $page->sidebar_left) { ?>
             <aside class="col-sm-3 sidebar_left">
             <?php blocks('sidebar_left', get_slug()); ?>
             </aside>
@@ -19,26 +20,30 @@
             <!-- /Sidebar -->
 
             <!-- main content -->
-            <section class="<?php 
-                if($page->sidebar_right == 1 && $page->sidebar_left == 1) { echo 'col-md-6'; }
-                else if($page->sidebar_right == 1 || $page->sidebar_left == 1) { echo 'col-md-9'; }
-                else { echo 'col-md-12 0'; } 
+            <section class="<?php if (1 == $page->sidebar_right && 1 == $page->sidebar_left) {
+    echo 'col-md-6';
+} elseif (1 == $page->sidebar_right || 1 == $page->sidebar_left) {
+                    echo 'col-md-9';
+                } else {
+                    echo 'col-md-12 0';
+                }
                 ?>">
 
               <?php blocks('content_top', get_slug()); ?>
 
-              <?=$page->body; ?> 
+              <?php echo $page->body; ?> 
 
 
               <?php
 
-                if(isset($page->video) && !empty($page->video)) { 
-                  $video = explode('=', $page->video); 
-                  if(isset($video[1])) { ?>
+                if (isset($page->video) && !empty($page->video)) {
+                    $video = explode('=', $page->video);
+                    if (isset($video[1])) { ?>
                   <div class="responsive-youtube"> 
-                  <iframe width="916" height="515" src="https://www.youtube.com/embed/<?=$video[1]?>" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>  
+                  <iframe width="916" height="515" src="https://www.youtube.com/embed/<?php echo $video[1]; ?>" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>  
                   </div>   
-                 <?php }} ?>
+                 <?php }
+                } ?>
               
               <div class="inner">
                <?php blocks('content_bottom', get_slug()); ?>
@@ -48,7 +53,7 @@
             <!-- /main -->
 
             <!-- Sidebar -->
-            <?php if($page->sidebar_right == 1) { ?>
+            <?php if (1 == $page->sidebar_right) { ?>
             <aside class="col-sm-3 sidebar_right">
             <?php blocks('sidebar_right', get_slug()); ?>
             </aside>
